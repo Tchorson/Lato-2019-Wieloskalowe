@@ -8,7 +8,8 @@ class Cell:
         self.__isAlive = input_alive
 
     def __repr__(self):
-        return repr(self.__id) + " " + repr(self.is_alive) + " "
+        #return repr(self.__id) + " " + repr(self.is_alive) + " "
+        return repr(self.is_alive) + " "
 
     def return_state(self):
         return self.is_alive

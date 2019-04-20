@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="57349c8a-6d1d-448d-af98-3993fed38578" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/Lato-2019-Wieloskalowe.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Lato-2019-Wieloskalowe.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/view/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logic/FistDimension.py" beforeDir="false" afterPath="$PROJECT_DIR$/logic/FistDimension.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/Cell.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/Cell.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -22,7 +22,7 @@
       <file leaf-file-name="test.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
+            <state relative-caret-position="199">
               <caret line="41" selection-start-line="41" selection-end-line="41" />
               <folding>
                 <element signature="e#817#847#0" expanded="true" />
@@ -31,11 +31,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FistDimension.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="FistDimension.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/logic/FistDimension.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="249">
-              <caret line="24" selection-start-line="24" selection-end-line="24" />
+            <state relative-caret-position="24">
+              <caret line="46" column="48" selection-start-line="46" selection-start-column="48" selection-end-line="46" selection-end-column="48" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
               </folding>
@@ -55,11 +55,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Cell.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Cell.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/models/Cell.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="51">
-              <caret line="3" column="9" lean-forward="true" selection-start-line="3" selection-start-column="9" selection-end-line="3" selection-end-column="9" />
+            <state relative-caret-position="12">
+              <caret line="10" column="9" selection-start-line="10" selection-start-column="9" selection-end-line="10" selection-end-column="9" />
             </state>
           </provider>
         </entry>
@@ -97,9 +97,9 @@
         <option value="$PROJECT_DIR$/view/gui.py" />
         <option value="$PROJECT_DIR$/logic/OneDimension.py" />
         <option value="$PROJECT_DIR$/logic/SecondDimension.py" />
-        <option value="$PROJECT_DIR$/models/Cell.py" />
         <option value="$PROJECT_DIR$/test.py" />
         <option value="$PROJECT_DIR$/logic/FistDimension.py" />
+        <option value="$PROJECT_DIR$/models/Cell.py" />
       </list>
     </option>
   </component>
@@ -270,8 +270,8 @@
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Python Console" order="7" weight="0.32905984" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.27492878" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.26210827" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.8789174" />
+      <window_info anchor="bottom" id="Terminal" order="7" weight="0.26210827" />
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25302014" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" />
@@ -341,16 +341,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/Cell.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="9" lean-forward="true" selection-start-line="3" selection-start-column="9" selection-end-line="3" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
+        <state relative-caret-position="199">
           <caret line="41" selection-start-line="41" selection-end-line="41" />
           <folding>
             <element signature="e#817#847#0" expanded="true" />
@@ -360,11 +353,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/logic/FistDimension.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="249">
-          <caret line="24" selection-start-line="24" selection-end-line="24" />
+        <state relative-caret-position="24">
+          <caret line="46" column="48" selection-start-line="46" selection-start-column="48" selection-end-line="46" selection-end-column="48" />
           <folding>
             <element signature="e#0#28#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/Cell.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="12">
+          <caret line="10" column="9" selection-start-line="10" selection-start-column="9" selection-end-line="10" selection-end-column="9" />
         </state>
       </provider>
     </entry>
