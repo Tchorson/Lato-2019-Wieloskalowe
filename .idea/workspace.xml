@@ -4,7 +4,6 @@
     <list default="true" id="57349c8a-6d1d-448d-af98-3993fed38578" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logic/FistDimension.py" beforeDir="false" afterPath="$PROJECT_DIR$/logic/FistDimension.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/Cell.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/Cell.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -31,11 +30,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FistDimension.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="FistDimension.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/logic/FistDimension.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="24">
-              <caret line="46" column="48" selection-start-line="46" selection-start-column="48" selection-end-line="46" selection-end-column="48" />
+            <state relative-caret-position="35">
+              <caret line="7" column="21" lean-forward="true" selection-start-line="7" selection-start-column="21" selection-end-line="7" selection-end-column="21" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
               </folding>
@@ -55,11 +54,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Cell.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Cell.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/models/Cell.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="12">
-              <caret line="10" column="9" selection-start-line="10" selection-start-column="9" selection-end-line="10" selection-end-column="9" />
+            <state relative-caret-position="289">
+              <caret line="17" column="4" lean-forward="true" selection-start-line="17" selection-start-column="4" selection-end-line="17" selection-end-column="4" />
             </state>
           </provider>
         </entry>
@@ -98,8 +97,8 @@
         <option value="$PROJECT_DIR$/logic/OneDimension.py" />
         <option value="$PROJECT_DIR$/logic/SecondDimension.py" />
         <option value="$PROJECT_DIR$/test.py" />
-        <option value="$PROJECT_DIR$/logic/FistDimension.py" />
         <option value="$PROJECT_DIR$/models/Cell.py" />
+        <option value="$PROJECT_DIR$/logic/FistDimension.py" />
       </list>
     </option>
   </component>
@@ -113,8 +112,8 @@
     <packageJsonPaths />
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="610" />
-    <option name="y" value="-30" />
+    <option name="x" value="432" />
+    <option name="y" value="-9" />
     <option name="width" value="980" />
     <option name="height" value="730" />
   </component>
@@ -263,6 +262,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
@@ -270,7 +270,7 @@
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Python Console" order="7" weight="0.32905984" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.8789174" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.6737892" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.26210827" />
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25302014" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
@@ -351,20 +351,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/logic/FistDimension.py">
+    <entry file="file://$PROJECT_DIR$/models/Cell.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="24">
-          <caret line="46" column="48" selection-start-line="46" selection-start-column="48" selection-end-line="46" selection-end-column="48" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="289">
+          <caret line="17" column="4" lean-forward="true" selection-start-line="17" selection-start-column="4" selection-end-line="17" selection-end-column="4" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/Cell.py">
+    <entry file="file://$PROJECT_DIR$/logic/FistDimension.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="12">
-          <caret line="10" column="9" selection-start-line="10" selection-start-column="9" selection-end-line="10" selection-end-column="9" />
+        <state relative-caret-position="35">
+          <caret line="7" column="21" lean-forward="true" selection-start-line="7" selection-start-column="21" selection-end-line="7" selection-end-column="21" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
