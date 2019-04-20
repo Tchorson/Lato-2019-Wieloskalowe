@@ -2,14 +2,14 @@ from models.Cell import Cell
 
 
 class FirstDimension:
-    def __init__(self, width=100, iterations=100, rule=90):
+    def __init__(self, width=100, iterations=100, rule=225):
         self.width = width
         self.iterations = iterations
         self.rule = rule
         self.rule_array = self.create_variables_for_speficic_rule(rule)
         self.game_array_current_state = self.initialize_array(width)
         self.game_array_previous_state = self.initialize_array(width)
-        self.set_first_cell_alive()
+        self.set_first_cell_alive([51])
 
     def create_variables_for_speficic_rule(self, rule):
         tmp_array = []
@@ -49,9 +49,6 @@ class FirstDimension:
 
         return tmp_array
 
-    def set_first_cell_alive(self):
-        self.game_array_current_state[len(self.game_array_current_state) // 2].is_alive = True
-
     def calculate_value(self, index):
         sum = 2 ** 2 * (self.game_array_previous_state[index - 1].is_alive * 1) + 2 ** 1 * (
                 self.game_array_previous_state[index].is_alive * 1) + 2 ** 0 * (self.game_array_previous_state[
@@ -73,9 +70,28 @@ class FirstDimension:
         self.game_array_current_state = self.initialize_array(len(self.game_array_current_state))
         for index in range(len(self.game_array_current_state)):
             self.game_array_current_state[index].is_alive = self.calculate_value(index)
-        self.print_array()
+        # self.print_array()
         print("\n")
 
     def print_array(self, width=100, iterations=100):
         for column in range(width):
             print(self.game_array_previous_state[column], end='')
+
+    def return_current_array(self):
+        return self.game_array_current_state
+
+    def return_previous_array(self):
+        return self.game_array_previous_state
+
+    def set_iteration(self, iteration):
+        self.iterations = iteration
+
+    def set_width(self, width):
+        self.width = width
+
+    def set_rule(self, rule):
+        self.rule = rule
+
+    def set_first_cell_alive(self, array):
+        for index in array:
+            self.game_array_current_state[index].is_alive = True
