@@ -39,7 +39,7 @@ class FirstDimension:
                 tmp_array.append(0)
                 rule -= 1
 
-        print(tmp_array)
+        #print(tmp_array)
         return tmp_array
 
     def initialize_array(self, width=100):
@@ -65,12 +65,19 @@ class FirstDimension:
             # print("iteration number ", iteration+1)
             self.next_iteration()
 
+    def single_iteration(self):
+        self.game_array_previous_state = self.game_array_current_state
+        self.game_array_current_state = self.initialize_array(len(self.game_array_current_state))
+        for index in range(len(self.game_array_current_state)):
+            self.game_array_current_state[index].is_alive = self.calculate_value(index)
+        return self.game_array_current_state
+
     def next_iteration(self):
         self.game_array_previous_state = self.game_array_current_state
         self.game_array_current_state = self.initialize_array(len(self.game_array_current_state))
         for index in range(len(self.game_array_current_state)):
             self.game_array_current_state[index].is_alive = self.calculate_value(index)
-        # self.print_array()
+        self.print_array()
         print("\n")
 
     def print_array(self, width=100, iterations=100):
@@ -95,3 +102,14 @@ class FirstDimension:
     def set_first_cell_alive(self, array):
         for index in array:
             self.game_array_current_state[index].is_alive = True
+
+    def set_parameters(self, width, iterations, rule, array):
+        self.width = width
+        self.iterations = iterations
+        self.rule = rule
+        self.rule_array = self.create_variables_for_speficic_rule(rule)
+        self.game_array_current_state = self.initialize_array(width)
+        self.set_first_cell_alive(array)
+
+    def return_parameters(self):
+        return repr(self.rule) + " " + repr(self.width) + " " + repr(self.iterations) + " " + repr(self.game_array_current_state)
