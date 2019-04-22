@@ -2,7 +2,7 @@ from models.Cell import Cell
 
 
 class FirstDimension:
-    def __init__(self, width=100, iterations=100, rule=225):
+    def __init__(self, width=100, iterations=100, rule=90):
         self.width = width
         self.iterations = iterations
         self.rule = rule
@@ -70,19 +70,19 @@ class FirstDimension:
         self.game_array_current_state = self.initialize_array(len(self.game_array_current_state))
         for index in range(len(self.game_array_current_state)):
             self.game_array_current_state[index].is_alive = self.calculate_value(index)
-        return self.game_array_current_state
+        return self.game_array_previous_state
 
     def next_iteration(self):
         self.game_array_previous_state = self.game_array_current_state
         self.game_array_current_state = self.initialize_array(len(self.game_array_current_state))
         for index in range(len(self.game_array_current_state)):
             self.game_array_current_state[index].is_alive = self.calculate_value(index)
-        self.print_array()
-        print("\n")
+        #self.print_array()
+        #print("\n")
 
-    def print_array(self, width=100, iterations=100):
-        for column in range(width):
-            print(self.game_array_previous_state[column], end='')
+    # def print_array(self, width=100, iterations=100):
+    #     for column in range(width):
+    #         print(self.game_array_previous_state[column], end='')
 
     def return_current_array(self):
         return self.game_array_current_state

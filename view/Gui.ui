@@ -92,7 +92,7 @@
           <x>0</x>
           <y>0</y>
           <width>980</width>
-          <height>321</height>
+          <height>456</height>
          </rect>
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout_4">
@@ -100,6 +100,22 @@
           <layout class="QFormLayout" name="formLayout">
            <item row="2" column="1">
             <layout class="QHBoxLayout" name="horizontalLayout_3"/>
+           </item>
+           <item row="2" column="0">
+            <widget class="QGraphicsView" name="graphic_ca_1d">
+             <property name="minimumSize">
+              <size>
+               <width>720</width>
+               <height>350</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>720</width>
+               <height>350</height>
+              </size>
+             </property>
+            </widget>
            </item>
            <item row="1" column="0">
             <layout class="QHBoxLayout" name="width_layout_horizontal">
@@ -326,37 +342,11 @@
          </item>
         </layout>
        </widget>
-       <widget class="QLabel" name="qpixmapLabel1D">
-        <property name="geometry">
-         <rect>
-          <x>300</x>
-          <y>160</y>
-          <width>55</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>QPixMap</string>
-        </property>
-       </widget>
       </widget>
       <widget class="QWidget" name="TwoDimensionalTab">
        <attribute name="title">
         <string>TwoDimensional</string>
        </attribute>
-       <widget class="QLabel" name="qpixmapLabel2D">
-        <property name="geometry">
-         <rect>
-          <x>260</x>
-          <y>170</y>
-          <width>55</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>QPixMap</string>
-        </property>
-       </widget>
        <widget class="QWidget" name="formLayoutWidget_2">
         <property name="geometry">
          <rect>
@@ -367,7 +357,7 @@
          </rect>
         </property>
         <layout class="QFormLayout" name="formLayout_2">
-         <item row="0" column="0">
+         <item row="0" column="0" colspan="2">
           <layout class="QHBoxLayout" name="horizontalLayout_7">
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_8">
@@ -583,6 +573,16 @@
             </widget>
            </item>
           </layout>
+         </item>
+         <item row="1" column="0" colspan="2">
+          <widget class="QGraphicsView" name="graphic_ca_2d">
+           <property name="minimumSize">
+            <size>
+             <width>720</width>
+             <height>350</height>
+            </size>
+           </property>
+          </widget>
          </item>
         </layout>
        </widget>
