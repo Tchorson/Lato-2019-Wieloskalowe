@@ -72,6 +72,13 @@ class FirstDimension:
             self.game_array_current_state[index].is_alive = self.calculate_value(index)
         return self.game_array_previous_state
 
+    def single_iteration_first_time(self):
+        self.game_array_previous_state = self.game_array_current_state
+        self.game_array_current_state = self.initialize_array(len(self.game_array_current_state))
+        for index in range(len(self.game_array_current_state)):
+            self.game_array_current_state[index].is_alive = self.calculate_value(index)
+        return self.game_array_current_state
+
     def next_iteration(self):
         self.game_array_previous_state = self.game_array_current_state
         self.game_array_current_state = self.initialize_array(len(self.game_array_current_state))
@@ -100,6 +107,9 @@ class FirstDimension:
         self.rule = rule
 
     def set_first_cell_alive(self, array):
+        if -1 in array:
+            self.initialize_array(self.width)
+            return
         for index in array:
             self.game_array_current_state[index].is_alive = True
 
@@ -108,8 +118,10 @@ class FirstDimension:
         self.iterations = iterations
         self.rule = rule
         self.rule_array = self.create_variables_for_speficic_rule(rule)
-        self.game_array_current_state = self.initialize_array(width)
         self.set_first_cell_alive(array)
+
+    def restart_grid(self):
+        self.game_array_current_state = self.initialize_array(self.width)
 
     def return_parameters(self):
         return repr(self.rule) + " " + repr(self.width) + " " + repr(self.iterations) + " " + repr(self.game_array_current_state)
