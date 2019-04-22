@@ -3,11 +3,17 @@
 from logic.SecondDimension import SecondDimension
 from logic.FistDimension import FirstDimension
 from models import Cell
+from view.Gui_converted import Ui_Dialog
 
-if __name__ == '__main__':
-    obj = FirstDimension()
+from PyQt5 import QtCore, QtGui, QtWidgets
 
-    print("initializing object")
-    obj.begin_the_game()
 
-    # print(obj.return_array())
+if __name__ == "__main__":
+    import sys
+
+    app = QtWidgets.QApplication(sys.argv)
+    Dialog = QtWidgets.QDialog()
+    ui = Ui_Dialog()
+    ui.setupUi(Dialog)
+    Dialog.show()
+    sys.exit(app.exec_())

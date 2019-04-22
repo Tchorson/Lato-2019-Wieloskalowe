@@ -336,6 +336,13 @@
                </property>
               </widget>
              </item>
+             <item>
+              <widget class="QPushButton" name="restart_button_1d">
+               <property name="text">
+                <string>restart</string>
+               </property>
+              </widget>
+             </item>
             </layout>
            </item>
           </layout>
@@ -353,11 +360,21 @@
           <x>-1</x>
           <y>9</y>
           <width>851</width>
-          <height>411</height>
+          <height>440</height>
          </rect>
         </property>
         <layout class="QFormLayout" name="formLayout_2">
-         <item row="0" column="0" colspan="2">
+         <item row="2" column="0" colspan="2">
+          <widget class="QGraphicsView" name="graphic_ca_2d">
+           <property name="minimumSize">
+            <size>
+             <width>720</width>
+             <height>350</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
           <layout class="QHBoxLayout" name="horizontalLayout_7">
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_8">
@@ -484,47 +501,47 @@
                      </property>
                     </widget>
                    </item>
+                  </layout>
+                 </item>
+                 <item>
+                  <layout class="QHBoxLayout" name="ruleLayout_3">
                    <item>
-                    <layout class="QHBoxLayout" name="ruleLayout_3">
-                     <item>
-                      <widget class="QLabel" name="ruleLabel_2D">
-                       <property name="minimumSize">
-                        <size>
-                         <width>60</width>
-                         <height>0</height>
-                        </size>
-                       </property>
-                       <property name="maximumSize">
-                        <size>
-                         <width>60</width>
-                         <height>16777215</height>
-                        </size>
-                       </property>
-                       <property name="text">
-                        <string>Rule 1-255</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <widget class="QTextEdit" name="ruleText_2D">
-                       <property name="minimumSize">
-                        <size>
-                         <width>60</width>
-                         <height>30</height>
-                        </size>
-                       </property>
-                       <property name="maximumSize">
-                        <size>
-                         <width>60</width>
-                         <height>30</height>
-                        </size>
-                       </property>
-                       <property name="placeholderText">
-                        <string>90</string>
-                       </property>
-                      </widget>
-                     </item>
-                    </layout>
+                    <widget class="QLabel" name="ruleLabel_2D">
+                     <property name="minimumSize">
+                      <size>
+                       <width>60</width>
+                       <height>0</height>
+                      </size>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>60</width>
+                       <height>16777215</height>
+                      </size>
+                     </property>
+                     <property name="text">
+                      <string>Rule 1-255</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QTextEdit" name="ruleText_2D">
+                     <property name="minimumSize">
+                      <size>
+                       <width>60</width>
+                       <height>30</height>
+                      </size>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>60</width>
+                       <height>30</height>
+                      </size>
+                     </property>
+                     <property name="placeholderText">
+                      <string>90</string>
+                     </property>
+                    </widget>
                    </item>
                   </layout>
                  </item>
@@ -572,17 +589,14 @@
              </property>
             </widget>
            </item>
+           <item>
+            <widget class="QPushButton" name="restart_button_2d">
+             <property name="text">
+              <string>restart</string>
+             </property>
+            </widget>
+           </item>
           </layout>
-         </item>
-         <item row="1" column="0" colspan="2">
-          <widget class="QGraphicsView" name="graphic_ca_2d">
-           <property name="minimumSize">
-            <size>
-             <width>720</width>
-             <height>350</height>
-            </size>
-           </property>
-          </widget>
          </item>
         </layout>
        </widget>

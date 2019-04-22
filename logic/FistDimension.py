@@ -9,7 +9,8 @@ class FirstDimension:
         self.rule_array = self.create_variables_for_speficic_rule(rule)
         self.game_array_current_state = self.initialize_array(width)
         self.game_array_previous_state = self.initialize_array(width)
-        self.set_first_cell_alive([51])
+        self.alive_cells = [51]
+        self.set_first_cell_alive(self.alive_cells)
 
     def create_variables_for_speficic_rule(self, rule):
         tmp_array = []
@@ -117,11 +118,13 @@ class FirstDimension:
         self.width = width
         self.iterations = iterations
         self.rule = rule
+        self.alive_cells = array
         self.rule_array = self.create_variables_for_speficic_rule(rule)
-        self.set_first_cell_alive(array)
+        self.set_first_cell_alive(self.alive_cells)
 
     def restart_grid(self):
         self.game_array_current_state = self.initialize_array(self.width)
+        self.set_first_cell_alive(self.alive_cells)
 
     def return_parameters(self):
         return repr(self.rule) + " " + repr(self.width) + " " + repr(self.iterations) + " " + repr(self.game_array_current_state)
