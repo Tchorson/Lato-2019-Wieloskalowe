@@ -281,7 +281,6 @@ class Ui_Dialog(QWidget):
         self.graphic_ca_2d.setMaximumSize(QtCore.QSize(700, 16777215))
         self.graphic_ca_2d.setObjectName("graphic_ca_2d")
         self.verticalLayout_6.addWidget(self.graphic_ca_2d)
-        self.graphic_ca_2d.setScene(self.scene_2d)
         self.formLayout_2.setLayout(2, QtWidgets.QFormLayout.LabelRole, self.verticalLayout_6)
         self.manualInputTextArea_2D = QtWidgets.QPlainTextEdit(self.formLayoutWidget_2)
         self.manualInputTextArea_2D.setObjectName("manualInputTextArea_2D")
@@ -312,8 +311,6 @@ class Ui_Dialog(QWidget):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.OneDimensionalTab),
                                   _translate("Dialog", "OneDimensional"))
         self.widthLabel_2D.setText(_translate("Dialog", "Width"))
-        self.manualInputTextArea_2D.appendPlainText(
-            _translate("Dialog", str(self.draw_manual_array_on_textarea())[1:-1]))
         self.widthText_2D.setPlaceholderText(_translate("Dialog", str(self.width_2d)))
         self.heightLabel2D.setText(_translate("Dialog", "Height"))
         self.heightText2D.setPlaceholderText(_translate("Dialog", str(self.height_2d)))
@@ -457,7 +454,6 @@ class Ui_Dialog(QWidget):
     @pyqtSlot()
     def initialize_click_2d(self):
         _translate = QtCore.QCoreApplication.translate
-        width_or_height_changed = False
         if str(self.widthText_2D.toPlainText()) != "" and str(self.widthText_2D.toPlainText()).isdigit():
             if self.SecondDimensionObj.return_pattern_width() > int(self.widthText_2D.toPlainText()):
                 self.widthText_2D.clear()
@@ -465,15 +461,10 @@ class Ui_Dialog(QWidget):
                 self.width_2d = int(self.widthText_2D.toPlainText())
                 self.widthText_2D.setPlaceholderText(_translate("Dialog", str(self.width_2d)))
                 self.widthText_2D.clear()
-                width_or_height_changed = True
         if str(self.heightText2D.toPlainText()) != "" and str(self.heightText2D.toPlainText()).isdigit():
-            if self.SecondDimensionObj.return_pattern_height() > int(self.heightText2D.toPlainText()):
-                self.heightText2D.clear()
-            else:
-                self.height_2d = int(self.heightText2D.toPlainText())
-                self.heightText2D.setPlaceholderText(_translate("Dialog", str(self.height_2d)))
-                self.heightText2D.clear()
-                width_or_height_changed = True
+            self.height_2d = int(self.heightText2D.toPlainText())
+            self.heightText2D.setPlaceholderText(_translate("Dialog", str(self.height_2d)))
+            self.heightText2D.clear()
 
         if str(self.iterationsText_2D.toPlainText()) != "" and str(self.iterationsText_2D.toPlainText()).isdigit():
             self.iterations_2d = int(self.iterationsText_2D.toPlainText())
@@ -486,16 +477,11 @@ class Ui_Dialog(QWidget):
             self.pattern_Text_2D.clear()
 
         self.SecondDimensionObj.set_parameters(self.width_2d, self.iterations_2d, self.height_2d, self.pattern_2d)
-        if self.pattern_2d == "manual":
-            self.manualInputTextArea_2D.clear()
-            self.initial_manual_array_2d = self.SecondDimensionObj.return_initial_array()
-            self.manualInputTextArea_2D.appendPlainText(
-                _translate("Dialog", str(self.draw_manual_array_on_textarea())[1:-1]))
 
     def draw_empty_board_2d(self):
         for row in range(self.height_2d):
             for column in range(self.width_2d):
-                rectangle = QtCore.QRectF(QtCore.QPointF(column * self.side, row * self.side),
+                rectangle = QtCore.QRectF(QtCore.QPointF(row * self.side, column * self.side),
                                           QtCore.QSizeF(self.side, self.side))
                 self.scene_2d.addRect(rectangle, self.green_pen)
 
@@ -510,27 +496,25 @@ class Ui_Dialog(QWidget):
 
     @pyqtSlot()
     def begin_game_2d(self):
-        # if self.pattern_2d == "manual":
-        #     _translate = QtCore.QCoreApplication.translate
+        if self.pattern_2d == "manual":
+            self.draw_manual_array_on_textarea()
 
-            #self.manualInputTextArea_2D.
-
-        self.counter_2d = 0
-        self.previous_iteration_array_2d = self.SecondDimensionObj.return_previous_array()
-        self.current_iteration_array_2d = self.SecondDimensionObj.return_current_array()
-        self.scene_2d.clear()
-
-        self.draw_empty_board_2d()
-        #self.draw_board_2d(self.current_iteration_array_2d)
-        self.draw_board_2d(self.SecondDimensionObj.next_iteration())
-
-        while self.counter_2d < self.iterations_2d:
-            QtTest.QTest.qWait(250)
-            self.draw_empty_board_2d()
-            self.previous_iteration_array_2d = self.current_iteration_array_2d
-            self.current_iteration_array_2d = self.SecondDimensionObj.next_iteration()
-            self.draw_board_2d(self.current_iteration_array_2d)
-            self.counter_2d+=1
+        # self.counter_2d = 0
+        # self.previous_iteration_array_2d = self.SecondDimensionObj.return_previous_array()
+        # self.current_iteration_array_2d = self.SecondDimensionObj.return_current_array()
+        # self.scene_2d.clear()
+        #
+        # self.draw_empty_board_2d()
+        # #self.draw_board_2d(self.current_iteration_array_2d)
+        # self.draw_board_2d(self.SecondDimensionObj.next_iteration())
+        #
+        # while self.counter_2d < self.iterations_2d:
+        #     QtTest.QTest.qWait(250)
+        #     self.draw_empty_board_2d()
+        #     self.previous_iteration_array_2d = self.current_iteration_array_2d
+        #     self.current_iteration_array_2d = self.SecondDimensionObj.next_iteration()
+        #     self.draw_board_2d(self.current_iteration_array_2d)
+        #     self.counter_2d+=1
 
     def draw_manual_array_on_textarea(self):
         draw_array = []
@@ -538,20 +522,18 @@ class Ui_Dialog(QWidget):
             row_array = ''
 
             for column in range(self.width_2d):
-
                 if self.initial_manual_array_2d[row][column].is_alive:
                     row_array+='1'
                 else:
                     row_array+='0'
 
                 if column == self.width_2d-1:
-                    row_array+=''
+                    row_array+='\n'
                 else:
                     row_array+=','
 
             draw_array.append(row_array)
-        return draw_array
-
+        print(draw_array[row])
         pass
 
     def read_manual_array_from_textarea(self):

@@ -102,13 +102,13 @@
             <widget class="QGraphicsView" name="graphic_ca_1d">
              <property name="minimumSize">
               <size>
-               <width>750</width>
+               <width>1050</width>
                <height>350</height>
               </size>
              </property>
              <property name="maximumSize">
               <size>
-               <width>750</width>
+               <width>1050</width>
                <height>350</height>
               </size>
              </property>
@@ -526,7 +526,7 @@
                       </size>
                      </property>
                      <property name="placeholderText">
-                      <string>51,1</string>
+                      <string>default</string>
                      </property>
                     </widget>
                    </item>
@@ -621,7 +621,7 @@
           </layout>
          </item>
          <item row="2" column="1">
-          <widget class="QPlainTextEdit" name="plainTextEdit"/>
+          <widget class="QPlainTextEdit" name="manualInputTextArea_2D"/>
          </item>
         </layout>
        </widget>

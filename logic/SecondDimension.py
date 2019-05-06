@@ -3,7 +3,7 @@ import os
 import random
 
 class SecondDimension:
-    def __init__(self, width=20, height=20, iterations=15, pattern='glider', periodical=True):
+    def __init__(self, width=20, height=25, iterations=15, pattern='manual', periodical=True):
         self.width = width
         self.height = height
         self.iterations = iterations
@@ -22,9 +22,9 @@ class SecondDimension:
 
     def initialize_2d_array(self):
         tmp_array = []
-        for column in range(self.width):
+        for row in range(self.height):
             row_array = []
-            for row in range(self.height):
+            for column in range(self.width):
                 row_array.append(Cell(False))
             tmp_array.append(row_array)
 
@@ -157,14 +157,15 @@ class SecondDimension:
         #self.print_current_array()
 
     def set_parameters(self, width, iterations, height, pattern):
-        self.width = width
         self.iterations = iterations
-        self.height = height
-        if pattern != self.pattern:
-            self.pattern = pattern
 
-        self.game_array_current_state_2d = self.initialize_2d_array()
-        self.set_pattern_in_array(pattern)
+        if pattern != self.pattern or self.width != width or self.height != height:
+            self.pattern = pattern
+            self.height = height
+            self.width = width
+
+            self.game_array_current_state_2d = self.initialize_2d_array()
+            self.set_pattern_in_array(pattern)
 
     def restart_grid(self):
         self.game_array_current_state_2d = self.initialize_2d_array()
@@ -183,3 +184,6 @@ class SecondDimension:
 
     def set_current_array(self,array):
         self.game_array_current_state_2d = array
+
+    def return_initial_array(self):
+        return self.initialize_2d_array()
