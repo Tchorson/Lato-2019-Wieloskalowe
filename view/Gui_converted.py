@@ -6,11 +6,14 @@
 #
 # WARNING! All changes made in this file will be lost!
 
+import time
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import pyqtSlot
-from PyQt5.QtWidgets import QWidget
+from PyQt5.QtWidgets import QWidget, QMainWindow, QDialog
+from PyQt5 import QtTest
 
 from logic.FistDimension import FirstDimension
+from logic.SecondDimension import SecondDimension
 
 
 class Ui_Dialog(QWidget):
@@ -18,6 +21,7 @@ class Ui_Dialog(QWidget):
     def __init__(self):
         super().__init__()
         self.FirstDimensionObj = FirstDimension()
+        self.SecondDimensionObj = SecondDimension()
         self.width = 100
         self.iterations = 100
         self.rule = 90
@@ -25,15 +29,33 @@ class Ui_Dialog(QWidget):
         self.side = 7
         self.row = 0
         self.first_time = True
-        self.previous_iteration_array = []
+        self.previous_iteration_array_2d = [] #self.current_iteration_array self.current_iteration_array_2d should be her!
+
+        self.column_2d_counter = 0
+        self.row_2d_counter = 0
+        self.pattern_width_counter = 0
+        self.pattern_height_counter = 0
+        self.first_time_2d = True
+        self.counter_2d = 0
+
+        self.height_2d = self.SecondDimensionObj.return_height()
+        self.width_2d = self.SecondDimensionObj.return_width()
+        self.iterations_2d = self.SecondDimensionObj.return_iteration()
+        self.pattern_height = self.SecondDimensionObj.return_pattern_height()
+        self.pattern_width = self.SecondDimensionObj.return_pattern_width()
+        self.pattern_2d = self.SecondDimensionObj.return_pattern()
+
+        self.previous_iteration_array_2d=self.SecondDimensionObj.return_previous_array()
+        self.current_iteration_array_2d = self.SecondDimensionObj.return_current_array()
+
         self.previous_counter = self.iterations
         self.previous_row = self.row
 
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(850, 450)
-        Dialog.setMinimumSize(QtCore.QSize(850, 450))
-        Dialog.setMaximumSize(QtCore.QSize(850, 450))
+        Dialog.resize(770, 450)
+        Dialog.setMinimumSize(QtCore.QSize(770, 450))
+        Dialog.setMaximumSize(QtCore.QSize(770, 450))
         Dialog.setSizeIncrement(QtCore.QSize(10, 10))
         Dialog.setBaseSize(QtCore.QSize(100, 100))
         Dialog.setAutoFillBackground(True)
@@ -53,7 +75,7 @@ class Ui_Dialog(QWidget):
         self.OneDimensionalTab = QtWidgets.QWidget()
         self.OneDimensionalTab.setObjectName("OneDimensionalTab")
         self.horizontalLayoutWidget_7 = QtWidgets.QWidget(self.OneDimensionalTab)
-        self.horizontalLayoutWidget_7.setGeometry(QtCore.QRect(0, 0, 980, 456))
+        self.horizontalLayoutWidget_7.setGeometry(QtCore.QRect(0, 0, 1151, 466))
         self.horizontalLayoutWidget_7.setObjectName("horizontalLayoutWidget_7")
         self.horizontalLayout_4 = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget_7)
         self.horizontalLayout_4.setContentsMargins(0, 0, 0, 0)
@@ -70,8 +92,8 @@ class Ui_Dialog(QWidget):
         self.blue_pen = QtGui.QPen(QtCore.Qt.blue)
 
         self.graphic_ca_1d = QtWidgets.QGraphicsView(self.horizontalLayoutWidget_7)
-        self.graphic_ca_1d.setMinimumSize(QtCore.QSize(849, 350))
-        self.graphic_ca_1d.setMaximumSize(QtCore.QSize(849, 350))
+        self.graphic_ca_1d.setMinimumSize(QtCore.QSize(750, 350))
+        self.graphic_ca_1d.setMaximumSize(QtCore.QSize(750, 350))
         self.graphic_ca_1d.setObjectName("graphic_ca_1d")
         self.graphic_ca_1d.setScene(self.scene_1d)
 
@@ -105,8 +127,8 @@ class Ui_Dialog(QWidget):
         self.aliveLayout = QtWidgets.QHBoxLayout()
         self.aliveLayout.setObjectName("aliveLayout")
         self.aliveCellsArrayLabel1D = QtWidgets.QLabel(self.horizontalLayoutWidget_7)
-        self.aliveCellsArrayLabel1D.setMinimumSize(QtCore.QSize(100, 0))
-        self.aliveCellsArrayLabel1D.setMaximumSize(QtCore.QSize(100, 16777215))
+        self.aliveCellsArrayLabel1D.setMinimumSize(QtCore.QSize(50, 0))
+        self.aliveCellsArrayLabel1D.setMaximumSize(QtCore.QSize(50, 16777215))
         self.aliveCellsArrayLabel1D.setObjectName("aliveCellsArrayLabel1D")
         self.aliveLayout.addWidget(self.aliveCellsArrayLabel1D)
         self.aliveCellsText1D = QtWidgets.QTextEdit(self.horizontalLayoutWidget_7)
@@ -117,8 +139,8 @@ class Ui_Dialog(QWidget):
         self.ruleLayout = QtWidgets.QHBoxLayout()
         self.ruleLayout.setObjectName("ruleLayout")
         self.ruleLabel1D = QtWidgets.QLabel(self.horizontalLayoutWidget_7)
-        self.ruleLabel1D.setMinimumSize(QtCore.QSize(70, 0))
-        self.ruleLabel1D.setMaximumSize(QtCore.QSize(70, 16777215))
+        self.ruleLabel1D.setMinimumSize(QtCore.QSize(30, 0))
+        self.ruleLabel1D.setMaximumSize(QtCore.QSize(30, 16777215))
         self.ruleLabel1D.setSizeIncrement(QtCore.QSize(100, 0))
         self.ruleLabel1D.setBaseSize(QtCore.QSize(100, 0))
         self.ruleLabel1D.setObjectName("ruleLabel1D")
@@ -156,17 +178,17 @@ class Ui_Dialog(QWidget):
         self.TwoDimensionalTab = QtWidgets.QWidget()
         self.TwoDimensionalTab.setObjectName("TwoDimensionalTab")
         self.formLayoutWidget_2 = QtWidgets.QWidget(self.TwoDimensionalTab)
-        self.formLayoutWidget_2.setGeometry(QtCore.QRect(-1, 9, 851, 440))
+        self.formLayoutWidget_2.setGeometry(QtCore.QRect(-1, 9, 883, 523))
         self.formLayoutWidget_2.setObjectName("formLayoutWidget_2")
         self.formLayout_2 = QtWidgets.QFormLayout(self.formLayoutWidget_2)
         self.formLayout_2.setContentsMargins(0, 0, 0, 0)
         self.formLayout_2.setObjectName("formLayout_2")
         self.scene_2d = QtWidgets.QGraphicsScene()
-        self.graphic_ca_2d = QtWidgets.QGraphicsView(self.formLayoutWidget_2)
-        self.graphic_ca_2d.setMinimumSize(QtCore.QSize(849, 350))
-        self.graphic_ca_2d.setObjectName("graphic_ca_2d")
-        self.graphic_ca_2d.setScene(self.scene_2d)
-        self.formLayout_2.setWidget(2, QtWidgets.QFormLayout.SpanningRole, self.graphic_ca_2d)
+        # self.graphic_ca_2d = QtWidgets.QGraphicsView(self.formLayoutWidget_2)
+        # self.graphic_ca_2d.setMinimumSize(QtCore.QSize(849, 350))
+        # self.graphic_ca_2d.setObjectName("graphic_ca_2d")
+        # self.graphic_ca_2d.setScene(self.scene_2d)
+        # self.formLayout_2.setWidget(2, QtWidgets.QFormLayout.SpanningRole, self.graphic_ca_2d)
         self.horizontalLayout_7 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_7.setObjectName("horizontalLayout_7")
         self.horizontalLayout_8 = QtWidgets.QHBoxLayout()
@@ -174,53 +196,54 @@ class Ui_Dialog(QWidget):
         self.width_layout_horizontal_3 = QtWidgets.QHBoxLayout()
         self.width_layout_horizontal_3.setObjectName("width_layout_horizontal_3")
         self.widthLabel_2D = QtWidgets.QLabel(self.formLayoutWidget_2)
-        self.widthLabel_2D.setMinimumSize(QtCore.QSize(50, 0))
-        self.widthLabel_2D.setMaximumSize(QtCore.QSize(50, 16777215))
+        self.widthLabel_2D.setMinimumSize(QtCore.QSize(40, 0))
+        self.widthLabel_2D.setMaximumSize(QtCore.QSize(40, 16777215))
         self.widthLabel_2D.setObjectName("widthLabel_2D")
         self.width_layout_horizontal_3.addWidget(self.widthLabel_2D)
         self.widthText_2D = QtWidgets.QTextEdit(self.formLayoutWidget_2)
-        self.widthText_2D.setMinimumSize(QtCore.QSize(60, 30))
-        self.widthText_2D.setMaximumSize(QtCore.QSize(60, 30))
+        self.widthText_2D.setMinimumSize(QtCore.QSize(40, 30))
+        self.widthText_2D.setMaximumSize(QtCore.QSize(40, 30))
         self.widthText_2D.setDocumentTitle("")
         self.widthText_2D.setObjectName("widthText_2D")
         self.width_layout_horizontal_3.addWidget(self.widthText_2D)
         self.iterationsLayout_3 = QtWidgets.QHBoxLayout()
         self.iterationsLayout_3.setObjectName("iterationsLayout_3")
+        self.horizontalLayout_6 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_6.setObjectName("horizontalLayout_6")
+        self.heightLabel2D = QtWidgets.QLabel(self.formLayoutWidget_2)
+        self.heightLabel2D.setObjectName("heightLabel2D")
+        self.horizontalLayout_6.addWidget(self.heightLabel2D)
+        self.heightText2D = QtWidgets.QTextEdit(self.formLayoutWidget_2)
+        self.heightText2D.setMinimumSize(QtCore.QSize(40, 30))
+        self.heightText2D.setMaximumSize(QtCore.QSize(40, 30))
+        self.heightText2D.setObjectName("heightText2D")
+        self.horizontalLayout_6.addWidget(self.heightText2D)
+        self.iterationsLayout_3.addLayout(self.horizontalLayout_6)
         self.iterationsLabel_2D = QtWidgets.QLabel(self.formLayoutWidget_2)
         self.iterationsLabel_2D.setMinimumSize(QtCore.QSize(60, 0))
         self.iterationsLabel_2D.setMaximumSize(QtCore.QSize(60, 16777215))
         self.iterationsLabel_2D.setObjectName("iterationsLabel_2D")
         self.iterationsLayout_3.addWidget(self.iterationsLabel_2D)
         self.iterationsText_2D = QtWidgets.QTextEdit(self.formLayoutWidget_2)
-        self.iterationsText_2D.setMinimumSize(QtCore.QSize(60, 30))
-        self.iterationsText_2D.setMaximumSize(QtCore.QSize(60, 30))
+        self.iterationsText_2D.setMinimumSize(QtCore.QSize(40, 30))
+        self.iterationsText_2D.setMaximumSize(QtCore.QSize(40, 30))
         self.iterationsText_2D.setObjectName("iterationsText_2D")
         self.iterationsLayout_3.addWidget(self.iterationsText_2D)
         self.aliveLayout_3 = QtWidgets.QHBoxLayout()
         self.aliveLayout_3.setObjectName("aliveLayout_3")
-        self.aliveCellsArrayLabel_2D = QtWidgets.QLabel(self.formLayoutWidget_2)
-        self.aliveCellsArrayLabel_2D.setMinimumSize(QtCore.QSize(80, 0))
-        self.aliveCellsArrayLabel_2D.setMaximumSize(QtCore.QSize(80, 16777215))
-        self.aliveCellsArrayLabel_2D.setObjectName("aliveCellsArrayLabel_2D")
-        self.aliveLayout_3.addWidget(self.aliveCellsArrayLabel_2D)
-        self.aliveCellsText_2D = QtWidgets.QTextEdit(self.formLayoutWidget_2)
-        self.aliveCellsText_2D.setMinimumSize(QtCore.QSize(60, 30))
-        self.aliveCellsText_2D.setMaximumSize(QtCore.QSize(60, 30))
-        self.aliveCellsText_2D.setObjectName("aliveCellsText_2D")
-        self.aliveLayout_3.addWidget(self.aliveCellsText_2D)
+        self.pattern_Label_2D = QtWidgets.QLabel(self.formLayoutWidget_2)
+        self.pattern_Label_2D.setMinimumSize(QtCore.QSize(60, 0))
+        self.pattern_Label_2D.setMaximumSize(QtCore.QSize(60, 16777215))
+        self.pattern_Label_2D.setObjectName("pattern_Label_2D")
+        self.aliveLayout_3.addWidget(self.pattern_Label_2D)
+        self.pattern_Text_2D = QtWidgets.QTextEdit(self.formLayoutWidget_2)
+        self.pattern_Text_2D.setMinimumSize(QtCore.QSize(60, 30))
+        self.pattern_Text_2D.setMaximumSize(QtCore.QSize(60, 30))
+        self.pattern_Text_2D.setObjectName("pattern_Text_2D")
+        self.aliveLayout_3.addWidget(self.pattern_Text_2D)
         self.iterationsLayout_3.addLayout(self.aliveLayout_3)
         self.ruleLayout_3 = QtWidgets.QHBoxLayout()
         self.ruleLayout_3.setObjectName("ruleLayout_3")
-        self.ruleLabel_2D = QtWidgets.QLabel(self.formLayoutWidget_2)
-        self.ruleLabel_2D.setMinimumSize(QtCore.QSize(60, 0))
-        self.ruleLabel_2D.setMaximumSize(QtCore.QSize(60, 16777215))
-        self.ruleLabel_2D.setObjectName("ruleLabel_2D")
-        self.ruleLayout_3.addWidget(self.ruleLabel_2D)
-        self.ruleText_2D = QtWidgets.QTextEdit(self.formLayoutWidget_2)
-        self.ruleText_2D.setMinimumSize(QtCore.QSize(60, 30))
-        self.ruleText_2D.setMaximumSize(QtCore.QSize(60, 30))
-        self.ruleText_2D.setObjectName("ruleText_2D")
-        self.ruleLayout_3.addWidget(self.ruleText_2D)
         self.iterationsLayout_3.addLayout(self.ruleLayout_3)
         self.width_layout_horizontal_3.addLayout(self.iterationsLayout_3)
         self.horizontalLayout_8.addLayout(self.width_layout_horizontal_3)
@@ -229,21 +252,34 @@ class Ui_Dialog(QWidget):
         self.initializeGameButton_2D.setMinimumSize(QtCore.QSize(60, 0))
         self.initializeGameButton_2D.setMaximumSize(QtCore.QSize(60, 16777215))
         self.initializeGameButton_2D.setObjectName("initializeGameButton_2D")
+        self.initializeGameButton_2D.clicked.connect(self.initialize_click_2d)
+
         self.horizontalLayout_7.addWidget(self.initializeGameButton_2D)
         self.beginGameButton_2D = QtWidgets.QPushButton(self.formLayoutWidget_2)
         self.beginGameButton_2D.setMinimumSize(QtCore.QSize(60, 0))
         self.beginGameButton_2D.setMaximumSize(QtCore.QSize(60, 16777215))
         self.beginGameButton_2D.setObjectName("beginGameButton_2D")
+        self.beginGameButton_2D.clicked.connect(self.begin_game_2d)
+
         self.horizontalLayout_7.addWidget(self.beginGameButton_2D)
         self.restart_button_2d = QtWidgets.QPushButton(self.formLayoutWidget_2)
+        self.restart_button_2d.setMinimumSize(QtCore.QSize(80, 0))
+        self.restart_button_2d.setMaximumSize(QtCore.QSize(80, 16777215))
         self.restart_button_2d.setObjectName("restart_button_2d")
+        self.restart_button_2d.clicked.connect(self.restart_plot_2d)
+
         self.horizontalLayout_7.addWidget(self.restart_button_2d)
         self.formLayout_2.setLayout(1, QtWidgets.QFormLayout.LabelRole, self.horizontalLayout_7)
+        self.graphic_ca_2d = QtWidgets.QGraphicsView(self.formLayoutWidget_2)
+        self.graphic_ca_2d.setMinimumSize(QtCore.QSize(720, 350))
+        self.graphic_ca_2d.setObjectName("graphic_ca_2d")
+        self.graphic_ca_2d.setScene(self.scene_2d)
+        self.formLayout_2.setWidget(2, QtWidgets.QFormLayout.SpanningRole, self.graphic_ca_2d)
         self.tabWidget.addTab(self.TwoDimensionalTab, "")
         self.mode_menu.addWidget(self.tabWidget)
 
         self.retranslateUi(Dialog)
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
     def retranslateUi(self, Dialog):
@@ -265,13 +301,13 @@ class Ui_Dialog(QWidget):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.OneDimensionalTab),
                                   _translate("Dialog", "OneDimensional"))
         self.widthLabel_2D.setText(_translate("Dialog", "Width"))
-        self.widthText_2D.setPlaceholderText(_translate("Dialog", "100"))
+        self.widthText_2D.setPlaceholderText(_translate("Dialog", str(self.width_2d)))
+        self.heightLabel2D.setText(_translate("Dialog", "Height"))
+        self.heightText2D.setPlaceholderText(_translate("Dialog", str(self.height_2d)))
         self.iterationsLabel_2D.setText(_translate("Dialog", "Iterations"))
-        self.iterationsText_2D.setPlaceholderText(_translate("Dialog", "100"))
-        self.aliveCellsArrayLabel_2D.setText(_translate("Dialog", "Set cell/s alive"))
-        self.aliveCellsText_2D.setPlaceholderText(_translate("Dialog", "51,1"))
-        self.ruleLabel_2D.setText(_translate("Dialog", "Rule 1-255"))
-        self.ruleText_2D.setPlaceholderText(_translate("Dialog", "90"))
+        self.iterationsText_2D.setPlaceholderText(_translate("Dialog", str(self.iterations_2d)))
+        self.pattern_Label_2D.setText(_translate("Dialog", "Pattern"))
+        self.pattern_Text_2D.setPlaceholderText(_translate("Dialog", str(self.pattern_2d)))
         self.initializeGameButton_2D.setText(_translate("Dialog", "Initialize"))
         self.beginGameButton_2D.setText(_translate("Dialog", "Start"))
         self.restart_button_2d.setText(_translate("Dialog", "restart"))
@@ -331,18 +367,18 @@ class Ui_Dialog(QWidget):
         # self.FirstDimensionObj.begin_the_game()
         # print(' ')
         if self.first_time == False:
-            self.mark_previous_iteration(self.previous_iteration_array, self.previous_counter, self.previous_row)
+            self.mark_previous_iteration(self.previous_iteration_array_2d, self.previous_counter, self.previous_row)
 
         counter = self.iterations
 
-        self.previous_iteration_array = []
+        self.previous_iteration_array_2d = []
         self.previous_counter = self.iterations
         self.previous_row = self.row
 
         self.side = 7
         while counter > 0:
             self.current_iteration_array = self.FirstDimensionObj.single_iteration()
-            self.previous_iteration_array.append(self.current_iteration_array)
+            self.previous_iteration_array_2d.append(self.current_iteration_array)
 
             for index in range(len(self.current_iteration_array)):
                 rectangle = QtCore.QRectF(QtCore.QPointF(index * self.side, self.row * self.side),
@@ -398,10 +434,79 @@ class Ui_Dialog(QWidget):
             previous_counter -= 1
             previous_row += 1
 
+    @pyqtSlot()
+    def restart_plot_2d(self):
+        self.first_time_2d = True
+        self.scene_2d.clear()
+        self.row_2d_counter = 0
+        self.SecondDimensionObj.restart_grid()
+
+    @pyqtSlot()
+    def initialize_click_2d(self):
+        _translate = QtCore.QCoreApplication.translate
+        if str(self.widthText_2D.toPlainText()) != "" and str(self.widthText_2D.toPlainText()).isdigit():
+            if self.SecondDimensionObj.return_pattern_width() > int(self.widthText_2D.toPlainText()):
+                self.widthText_2D.clear()
+            else:
+                self.width_2d = int(self.widthText_2D.toPlainText())
+                self.widthText_2D.setPlaceholderText(_translate("Dialog", str(self.width_2d)))
+                self.widthText_2D.clear()
+        if str(self.heightText2D.toPlainText()) != "" and str(self.heightText2D.toPlainText()).isdigit():
+            self.height_2d = int(self.heightText2D.toPlainText())
+            self.heightText2D.setPlaceholderText(_translate("Dialog", str(self.height_2d)))
+            self.heightText2D.clear()
+
+        if str(self.iterationsText_2D.toPlainText()) != "" and str(self.iterationsText_2D.toPlainText()).isdigit():
+            self.iterations_2d = int(self.iterationsText_2D.toPlainText())
+            self.iterationsText_2D.setPlaceholderText(_translate("Dialog", str(self.iterations_2d)))
+            self.iterationsText_2D.clear()
+
+        if str(self.pattern_Text_2D.toPlainText()) != "":
+            self.pattern_2d = str(self.pattern_Text_2D.toPlainText())
+            self.pattern_Text_2D.setPlaceholderText(_translate("Dialog", str(self.pattern_2d)))
+            self.pattern_Text_2D.clear()
+
+        self.SecondDimensionObj.set_parameters(self.width_2d, self.iterations_2d, self.height_2d, self.pattern_2d)
+
+    def draw_empty_board_2d(self):
+        for row in range(self.height_2d):
+            for column in range(self.width_2d):
+                rectangle = QtCore.QRectF(QtCore.QPointF(row * self.side, column * self.side),
+                                          QtCore.QSizeF(self.side, self.side))
+                self.scene_2d.addRect(rectangle, self.green_pen)
+
+    def draw_board_2d(self,input_array):
+        for row in range(len(input_array)):
+            for column in range(len(input_array[row])):
+                rectangle = QtCore.QRectF(QtCore.QPointF(column * self.side, row * self.side),
+                                          QtCore.QSizeF(self.side, self.side))
+
+                if input_array[row][column].is_alive==True:
+                    self.scene_2d.addRect(rectangle, self.red_pen)
+
+    @pyqtSlot()
+    def begin_game_2d(self):
+        #if self.pattern_2d == "manual":
+
+        self.counter_2d = 0
+        self.previous_iteration_array_2d = self.SecondDimensionObj.return_previous_array()
+        self.current_iteration_array_2d = self.SecondDimensionObj.return_current_array()
+        self.scene_2d.clear()
+
+        self.draw_empty_board_2d()
+        #self.draw_board_2d(self.current_iteration_array_2d)
+        self.draw_board_2d(self.SecondDimensionObj.next_iteration())
+
+        while self.counter_2d < self.iterations_2d:
+            QtTest.QTest.qWait(250)
+            self.draw_empty_board_2d()
+            self.previous_iteration_array_2d = self.current_iteration_array_2d
+            self.current_iteration_array_2d = self.SecondDimensionObj.next_iteration()
+            self.draw_board_2d(self.current_iteration_array_2d)
+            self.counter_2d+=1
 
 # if __name__ == "__main__":
 #     import sys
-#
 #     app = QtWidgets.QApplication(sys.argv)
 #     Dialog = QtWidgets.QDialog()
 #     ui = Ui_Dialog()

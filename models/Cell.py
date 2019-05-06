@@ -2,9 +2,7 @@ import numpy as np
 
 class Cell:
     is_alive = False
-
-    def __init__(self, input_id, input_alive = False):
-        self.__id = input_id
+    def __init__(self, input_alive = False):
         self.__isAlive = input_alive
 
     def __repr__(self):
