@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="57349c8a-6d1d-448d-af98-3993fed38578" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logic/SecondDimension.py" beforeDir="false" afterPath="$PROJECT_DIR$/logic/SecondDimension.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/view/Gui_converted.py" beforeDir="false" afterPath="$PROJECT_DIR$/view/Gui_converted.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -25,8 +23,8 @@
       <file leaf-file-name="Gui_converted.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/view/Gui_converted.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="220">
-              <caret line="597" column="52" selection-start-line="597" selection-start-column="52" selection-end-line="597" selection-end-column="52" />
+            <state relative-caret-position="186">
+              <caret line="595" column="29" selection-start-line="595" selection-start-column="29" selection-end-line="595" selection-end-column="29" />
               <folding>
                 <element signature="e#192#203#0" expanded="true" />
               </folding>
@@ -46,8 +44,8 @@
       <file leaf-file-name="Gui_converted_6_May.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/view/Gui_converted_6_May.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="69">
-              <caret line="497" column="28" lean-forward="true" selection-start-line="497" selection-start-column="28" selection-end-line="497" selection-end-column="28" />
+            <state relative-caret-position="-706">
+              <caret line="493" column="59" lean-forward="true" selection-start-line="493" selection-start-column="59" selection-end-line="493" selection-end-column="59" />
             </state>
           </provider>
         </entry>
@@ -57,36 +55,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="85">
               <caret line="5" column="32" selection-start-line="5" selection-start-column="32" selection-end-line="5" selection-end-column="32" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="QWidget.py" pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/.PyCharm2018.1/system/python_stubs/-1353995630/PyQt5/QtWidgets/QWidget.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="163">
-              <caret line="12" column="6" selection-start-line="12" selection-start-column="6" selection-end-line="12" selection-end-column="6" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SecondDimension.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/logic/SecondDimension.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="133">
-              <caret line="27" column="38" selection-start-line="27" selection-start-column="33" selection-end-line="27" selection-end-column="38" />
-              <folding>
-                <element signature="e#0#28#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FistDimension.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/logic/FistDimension.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-8">
-              <caret line="48" column="20" lean-forward="true" selection-start-line="48" selection-start-column="20" selection-end-line="48" selection-end-column="20" />
             </state>
           </provider>
         </entry>
@@ -130,8 +98,8 @@
       <find>print_cu</find>
       <find>split(</find>
       <find>&quot;1&quot;</find>
-      <find>cell(</find>
       <find>print</find>
+      <find>cell(</find>
     </findStrings>
     <replaceStrings>
       <replace>pattern_Text_2D</replace>
@@ -402,7 +370,7 @@
       <window_info anchor="bottom" id="Python Console" order="11" sideWeight="0.49932885" weight="0.32905984" />
       <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.66442955" visible="true" weight="0.47150996" />
       <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.49932885" weight="0.26210827" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.07852349" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1409396" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49932885" weight="0.53988606" />
@@ -639,27 +607,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/logic/FistDimension.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-8">
-          <caret line="48" column="20" lean-forward="true" selection-start-line="48" selection-start-column="20" selection-end-line="48" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/.PyCharm2018.1/system/python_stubs/-1353995630/PyQt5/QtWidgets/QWidget.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="163">
-          <caret line="12" column="6" selection-start-line="12" selection-start-column="6" selection-end-line="12" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/view/Gui_converted_6_May.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="69">
-          <caret line="497" column="28" lean-forward="true" selection-start-line="497" selection-start-column="28" selection-end-line="497" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/view/Gui_converted_backup_6_May.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="209">
@@ -674,9 +621,23 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$USER_HOME$/.PyCharm2018.1/system/python_stubs/-1353995630/PyQt5/QtWidgets/QWidget.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="27">
+          <caret line="2" column="85" lean-forward="true" selection-start-line="2" selection-start-column="85" selection-end-line="2" selection-end-column="85" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/logic/FistDimension.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="98">
+          <caret line="48" column="34" selection-start-line="48" selection-start-column="29" selection-end-line="48" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/logic/SecondDimension.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
+        <state relative-caret-position="98">
           <caret line="27" column="38" selection-start-line="27" selection-start-column="33" selection-end-line="27" selection-end-column="38" />
           <folding>
             <element signature="e#0#28#0" expanded="true" />
@@ -691,10 +652,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/view/Gui_converted_6_May.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-706">
+          <caret line="493" column="59" lean-forward="true" selection-start-line="493" selection-start-column="59" selection-end-line="493" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/view/Gui_converted.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="597" column="52" selection-start-line="597" selection-start-column="52" selection-end-line="597" selection-end-column="52" />
+        <state relative-caret-position="186">
+          <caret line="595" column="29" selection-start-line="595" selection-start-column="29" selection-end-line="595" selection-end-column="29" />
           <folding>
             <element signature="e#192#203#0" expanded="true" />
           </folding>

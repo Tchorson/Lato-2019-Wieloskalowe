@@ -593,13 +593,13 @@ class Ui_Dialog(QWidget):
                     for column in range(len(current_text_modified[row].split(","))):
                         #print(splitted_array[column],end="")
                         if splitted_array[column] == "1":
-                            print("im adding alive cell")
+                            #print("im adding alive cell")
                             new_cell = Cell()
                             new_cell.is_alive = True
                             row_array.append(new_cell)
                         if splitted_array[column] == "0":
                             row_array.append(Cell(False))
-                    print(row_array)
+                    #print(row_array)
                     user_edited_array.append(row_array)
                 self.SecondDimensionObj.set_current_array(user_edited_array)
 # if __name__ == "__main__":
