@@ -3,7 +3,7 @@ import os
 import random
 
 class SecondDimension:
-    def __init__(self, width=20, height=25, iterations=15, pattern='manual', periodical=True):
+    def __init__(self, width=15, height=10, iterations=0, pattern='oscillator', periodical=True):
         self.width = width
         self.height = height
         self.iterations = iterations

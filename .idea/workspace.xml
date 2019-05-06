@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="57349c8a-6d1d-448d-af98-3993fed38578" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logic/SecondDimension.py" beforeDir="false" afterPath="$PROJECT_DIR$/logic/SecondDimension.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/view/Gui.ui" beforeDir="false" afterPath="$PROJECT_DIR$/view/Gui.ui" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/view/Gui_converted.py" beforeDir="false" afterPath="$PROJECT_DIR$/view/Gui_converted.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -16,7 +16,7 @@
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/Lato_2019_Wieloskalowe$Gui.coverage" NAME="Gui Coverage Results" MODIFIED="1555789677949" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/view" />
     <SUITE FILE_PATH="coverage/Lato_2019_Wieloskalowe$test.coverage" NAME="test Coverage Results" MODIFIED="1555604899285" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Lato_2019_Wieloskalowe$MainApp.coverage" NAME="MainApp Coverage Results" MODIFIED="1557004004042" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Lato_2019_Wieloskalowe$MainApp.coverage" NAME="MainApp Coverage Results" MODIFIED="1557167122096" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Lato_2019_Wieloskalowe$test__1_.coverage" NAME="test (1) Coverage Results" MODIFIED="1555604912431" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/view" />
     <SUITE FILE_PATH="coverage/Lato_2019_Wieloskalowe$Gui_converted.coverage" NAME="Gui_converted Coverage Results" MODIFIED="1555968462817" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/view" />
   </component>
@@ -25,8 +25,8 @@
       <file leaf-file-name="Gui_converted.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/view/Gui_converted.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="245">
-              <caret line="488" column="37" selection-start-line="488" selection-start-column="37" selection-end-line="488" selection-end-column="37" />
+            <state relative-caret-position="220">
+              <caret line="597" column="52" selection-start-line="597" selection-start-column="52" selection-end-line="597" selection-end-column="52" />
               <folding>
                 <element signature="e#192#203#0" expanded="true" />
               </folding>
@@ -34,11 +34,20 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="Gui_converted_backup_6_May.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/view/Gui_converted_backup_6_May.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="209">
+              <caret line="571" column="34" lean-forward="true" selection-start-line="571" selection-start-column="34" selection-end-line="571" selection-end-column="34" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="Gui_converted_6_May.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/view/Gui_converted_6_May.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="86">
-              <caret line="498" column="8" lean-forward="true" selection-start-line="498" selection-start-column="8" selection-end-line="499" selection-end-column="48" />
+            <state relative-caret-position="69">
+              <caret line="497" column="28" lean-forward="true" selection-start-line="497" selection-start-column="28" selection-end-line="497" selection-end-column="28" />
             </state>
           </provider>
         </entry>
@@ -46,8 +55,8 @@
       <file leaf-file-name="Cell.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/models/Cell.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="15" column="35" lean-forward="true" selection-start-line="15" selection-start-column="35" selection-end-line="15" selection-end-column="35" />
+            <state relative-caret-position="85">
+              <caret line="5" column="32" selection-start-line="5" selection-start-column="32" selection-end-line="5" selection-end-column="32" />
             </state>
           </provider>
         </entry>
@@ -64,8 +73,8 @@
       <file leaf-file-name="SecondDimension.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/logic/SecondDimension.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="140">
-              <caret line="24" column="38" selection-start-line="24" selection-start-column="38" selection-end-line="24" selection-end-column="38" />
+            <state relative-caret-position="133">
+              <caret line="27" column="38" selection-start-line="27" selection-start-column="33" selection-end-line="27" selection-end-column="38" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
               </folding>
@@ -93,12 +102,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>Cell</find>
-      <find>(</find>
-      <find>Cell(</find>
-      <find>initialize_array</find>
-      <find>split</find>
-      <find>current_iteration_array</find>
       <find>initialize_2d_array(</find>
       <find>scene_2d</find>
       <find>restart</find>
@@ -121,7 +124,13 @@
       <find>Dialog</find>
       <find>initial_manual</find>
       <find>manualInputText</find>
+      <find>manual_array</find>
+      <find>manualInputTextArea_2D.clear</find>
+      <find>set_current</find>
       <find>print_cu</find>
+      <find>split(</find>
+      <find>&quot;1&quot;</find>
+      <find>cell(</find>
       <find>print</find>
     </findStrings>
     <replaceStrings>
@@ -159,6 +168,7 @@
         <option value="$PROJECT_DIR$/logic/FistDimension.py" />
         <option value="$PROJECT_DIR$/models/Cell.py" />
         <option value="$PROJECT_DIR$/view/Gui_converted_6_May.py" />
+        <option value="$PROJECT_DIR$/view/Gui_converted_backup_6_May.py" />
         <option value="$PROJECT_DIR$/logic/SecondDimension.py" />
         <option value="$PROJECT_DIR$/view/Gui_converted.py" />
       </list>
@@ -174,9 +184,10 @@
     <packageJsonPaths />
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="y" value="-20" />
-    <option name="width" value="1225" />
-    <option name="height" value="915" />
+    <option name="x" value="-9" />
+    <option name="y" value="-9" />
+    <option name="width" value="1023" />
+    <option name="height" value="718" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -389,14 +400,15 @@
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.49932885" weight="0.32905984" />
       <window_info anchor="bottom" id="Python Console" order="11" sideWeight="0.49932885" weight="0.32905984" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.66442955" visible="true" weight="0.2820513" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.66442955" visible="true" weight="0.47150996" />
       <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.49932885" weight="0.26210827" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.16912752" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.07852349" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49932885" weight="0.53988606" />
       <window_info anchor="right" id="SciView" order="4" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Concurrent Activities Diagram" weight="0.32905984" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3988604" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -419,20 +431,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$USER_HOME$/.PyCharm2018.1/system/python_stubs/-1353995630/PyQt5/QtWidgets/QGraphicsScene.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="595">
-          <caret line="37" column="8" selection-start-line="37" selection-start-column="8" selection-end-line="37" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/view/Gui_converted.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" selection-start-line="8" selection-end-line="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/MainApp.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
@@ -648,13 +646,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/Cell.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="35" lean-forward="true" selection-start-line="15" selection-start-column="35" selection-end-line="15" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/.PyCharm2018.1/system/python_stubs/-1353995630/PyQt5/QtWidgets/QWidget.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="163">
@@ -664,25 +655,46 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/view/Gui_converted_6_May.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="86">
-          <caret line="498" column="8" lean-forward="true" selection-start-line="498" selection-start-column="8" selection-end-line="499" selection-end-column="48" />
+        <state relative-caret-position="69">
+          <caret line="497" column="28" lean-forward="true" selection-start-line="497" selection-start-column="28" selection-end-line="497" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/view/Gui_converted_backup_6_May.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="571" column="34" lean-forward="true" selection-start-line="571" selection-start-column="34" selection-end-line="571" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_bundle/pydev_import_hook.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="578">
+          <caret line="35" column="68" lean-forward="true" selection-start-line="35" selection-start-column="68" selection-end-line="35" selection-end-column="68" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/logic/SecondDimension.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="24" column="38" selection-start-line="24" selection-start-column="38" selection-end-line="24" selection-end-column="38" />
+        <state relative-caret-position="133">
+          <caret line="27" column="38" selection-start-line="27" selection-start-column="33" selection-end-line="27" selection-end-column="38" />
           <folding>
             <element signature="e#0#28#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/models/Cell.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="32" selection-start-line="5" selection-start-column="32" selection-end-line="5" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/view/Gui_converted.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="245">
-          <caret line="488" column="37" selection-start-line="488" selection-start-column="37" selection-end-line="488" selection-end-column="37" />
+        <state relative-caret-position="220">
+          <caret line="597" column="52" selection-start-line="597" selection-start-column="52" selection-end-line="597" selection-end-column="52" />
           <folding>
             <element signature="e#192#203#0" expanded="true" />
           </folding>

@@ -14,7 +14,6 @@ from PyQt5 import QtTest
 
 from logic.FistDimension import FirstDimension
 from logic.SecondDimension import SecondDimension
-from models.Cell import  Cell
 
 
 class Ui_Dialog(QWidget):
@@ -49,7 +48,6 @@ class Ui_Dialog(QWidget):
         self.initial_manual_array_2d = self.SecondDimensionObj.return_initial_array()
         self.initial_manual_array_2d_previous = self.initial_manual_array_2d
         self.manual_array_text_backup = ''
-        self.settings_has_changed = True
 
         self.previous_iteration_array_2d=self.SecondDimensionObj.return_previous_array()
         self.current_iteration_array_2d = self.SecondDimensionObj.return_current_array()
@@ -462,8 +460,6 @@ class Ui_Dialog(QWidget):
     def initialize_click_2d(self):
         _translate = QtCore.QCoreApplication.translate
         width_or_height_changed = False
-        pattern_changed = False
-
         if str(self.widthText_2D.toPlainText()) != "" and str(self.widthText_2D.toPlainText()).isdigit():
             if self.SecondDimensionObj.return_pattern_width() > int(self.widthText_2D.toPlainText()):
                 self.widthText_2D.clear()
@@ -487,7 +483,6 @@ class Ui_Dialog(QWidget):
             self.iterationsText_2D.clear()
 
         if str(self.pattern_Text_2D.toPlainText()) != "":
-            pattern_changed = True
             self.pattern_2d = str(self.pattern_Text_2D.toPlainText())
             self.pattern_Text_2D.setPlaceholderText(_translate("Dialog", str(self.pattern_2d)))
             self.pattern_Text_2D.clear()
@@ -498,12 +493,6 @@ class Ui_Dialog(QWidget):
             self.initial_manual_array_2d = self.SecondDimensionObj.return_initial_array()
             self.manualInputTextArea_2D.appendPlainText(
                 _translate("Dialog", str(self.draw_manual_array_on_textarea())[1:-1]))
-
-        if width_or_height_changed:
-            self.manualInputTextArea_2D.clear()
-            self.initial_manual_array_2d = self.SecondDimensionObj.return_current_array()
-        if width_or_height_changed or pattern_changed:
-            self.settings_has_changed = True
 
     def draw_empty_board_2d(self):
         for row in range(self.height_2d):
@@ -528,13 +517,13 @@ class Ui_Dialog(QWidget):
         #     _translate = QtCore.QCoreApplication.translate
 
             #self.manualInputTextArea_2D.
+        #self.manual_array_text_backup = str(self.draw_manual_array_on_textarea())[1:-1]
 
         self.counter_2d = 0
         self.previous_iteration_array_2d = self.SecondDimensionObj.return_previous_array()
         self.current_iteration_array_2d = self.SecondDimensionObj.return_current_array()
         self.scene_2d.clear()
-        if self.pattern_2d == "manual":
-            self.manual_array_text_backup = str(self.draw_manual_array_on_textarea())[1:-1]
+
         self.draw_empty_board_2d()
         #self.draw_board_2d(self.current_iteration_array_2d)
         self.draw_board_2d(self.SecondDimensionObj.next_iteration())
@@ -547,13 +536,12 @@ class Ui_Dialog(QWidget):
             self.draw_board_2d(self.current_iteration_array_2d)
             self.counter_2d+=1
 
-        if self.pattern_2d == "manual":
-            self.initial_manual_array_2d = self.current_iteration_array_2d
-            self.read_manual_array_from_textarea()
-            self.manualInputTextArea_2D.clear()
-            self.manualInputTextArea_2D.appendPlainText(
-                _translate("Dialog", str(self.draw_manual_array_on_textarea())[1:-1]))
+        #self.initial_manual_array_2d = self.current_iteration_array_2d
+        #self.read_manual_array_from_textarea()
 
+        self.manualInputTextArea_2D.clear()
+
+        self.manualInputTextArea_2D.appendPlainText(_translate("Dialog", str(self.draw_manual_array_on_textarea())[1:-1]))
 
     def draw_manual_array_on_textarea(self):
         draw_array = []
@@ -573,35 +561,23 @@ class Ui_Dialog(QWidget):
                     row_array+=','
 
             draw_array.append(row_array)
-        #self.manual_array_text_backup = str(draw_array)[1:-1]
         return draw_array
 
     def read_manual_array_from_textarea(self):
-        if self.settings_has_changed:
-            self.settings_has_changed = False
-            return
-        else:
-            current_text =  str(self.manualInputTextArea_2D.toPlainText())
-            current_text_modified = current_text.replace(" ","").replace("',","S").replace("'","").split("S")
-            #print(current_text)
-            #print(str(self.manual_array_text_backup))
-            if current_text != self.manual_array_text_backup:
-                user_edited_array = []
-                for row in range(len(current_text_modified)):
-                    row_array = []
-                    splitted_array = current_text_modified[row].split(",")
-                    for column in range(len(current_text_modified[row].split(","))):
-                        #print(splitted_array[column],end="")
-                        if splitted_array[column] == "1":
-                            print("im adding alive cell")
-                            new_cell = Cell()
-                            new_cell.is_alive = True
-                            row_array.append(new_cell)
-                        if splitted_array[column] == "0":
-                            row_array.append(Cell(False))
-                    print(row_array)
-                    user_edited_array.append(row_array)
-                self.SecondDimensionObj.set_current_array(user_edited_array)
+        current_text =  str(self.manualInputTextArea_2D.toPlainText())
+        read_array_modified = current_text.replace(" ","").replace("',","S").replace("'","").split("S")
+        if current_text != self.manual_array_text_backup:
+            print(str(len(read_array_modified))+" "+str(len(read_array_modified[0].split(","))))
+
+            user_edited_array = []
+            for row in range(len(read_array_modified)):
+                row_array = []
+                for column in range(len(read_array_modified[row].split(","))):
+                    row_array.append(Cell(False))
+                user_edited_array.append(row_array)
+
+
+
 # if __name__ == "__main__":
 #     import sys
 #     app = QtWidgets.QApplication(sys.argv)
