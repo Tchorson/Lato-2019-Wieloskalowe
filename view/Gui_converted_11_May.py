@@ -11,9 +11,11 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtWidgets import QWidget, QMainWindow, QDialog
 from PyQt5 import QtTest
+from PyQt5.QtGui import QColor
 
 from logic.FistDimension import FirstDimension
 from logic.SecondDimension import SecondDimension
+from models.Cell import  Cell
 
 
 class Ui_Dialog(QWidget):
@@ -27,6 +29,9 @@ class Ui_Dialog(QWidget):
         self.rule = 90
         self.alive_cels_numbers = [51]
         self.side = 7
+        self.side_2d = 7
+        self.width_draw_2d = 7
+        self.height_draw_2d = 7
         self.row = 0
         self.first_time = True
         self.previous_iteration_array_2d = [] #self.current_iteration_array self.current_iteration_array_2d should be her!
@@ -46,6 +51,9 @@ class Ui_Dialog(QWidget):
         self.pattern_2d = self.SecondDimensionObj.return_pattern()
 
         self.initial_manual_array_2d = self.SecondDimensionObj.return_initial_array()
+        self.initial_manual_array_2d_previous = self.initial_manual_array_2d
+        self.manual_array_text_backup = ''
+        self.settings_has_changed = True
 
         self.previous_iteration_array_2d=self.SecondDimensionObj.return_previous_array()
         self.current_iteration_array_2d = self.SecondDimensionObj.return_current_array()
@@ -89,7 +97,7 @@ class Ui_Dialog(QWidget):
         self.formLayout.setLayout(2, QtWidgets.QFormLayout.FieldRole, self.horizontalLayout_3)
 
         self.scene_1d = QtWidgets.QGraphicsScene()
-        self.green_pen = QtGui.QPen(QtCore.Qt.green)
+        self.green_pen = QtGui.QPen(QtCore.Qt.green) #QColor(200,200,0)
         self.red_pen = QtGui.QPen(QtCore.Qt.red)
         self.blue_pen = QtGui.QPen(QtCore.Qt.blue)
 
@@ -182,7 +190,7 @@ class Ui_Dialog(QWidget):
         self.TwoDimensionalTab.setMaximumSize(QtCore.QSize(1070, 16777215))
         self.TwoDimensionalTab.setObjectName("TwoDimensionalTab")
         self.formLayoutWidget_2 = QtWidgets.QWidget(self.TwoDimensionalTab)
-        self.formLayoutWidget_2.setGeometry(QtCore.QRect(-1, 9, 1041, 523))
+        self.formLayoutWidget_2.setGeometry(QtCore.QRect(-1, 9, 1418, 523))
         self.formLayoutWidget_2.setObjectName("formLayoutWidget_2")
         self.formLayout_2 = QtWidgets.QFormLayout(self.formLayoutWidget_2)
         self.formLayout_2.setContentsMargins(0, 0, 0, 0)
@@ -278,18 +286,114 @@ class Ui_Dialog(QWidget):
         self.verticalLayout_6.setObjectName("verticalLayout_6")
         self.graphic_ca_2d = QtWidgets.QGraphicsView(self.formLayoutWidget_2)
         self.graphic_ca_2d.setMinimumSize(QtCore.QSize(700, 350))
-        self.graphic_ca_2d.setMaximumSize(QtCore.QSize(700, 16777215))
+        self.graphic_ca_2d.setMaximumSize(QtCore.QSize(700, 350))
         self.graphic_ca_2d.setObjectName("graphic_ca_2d")
         self.verticalLayout_6.addWidget(self.graphic_ca_2d)
+        self.graphic_ca_2d.setScene(self.scene_2d)
         self.formLayout_2.setLayout(2, QtWidgets.QFormLayout.LabelRole, self.verticalLayout_6)
         self.manualInputTextArea_2D = QtWidgets.QPlainTextEdit(self.formLayoutWidget_2)
         self.manualInputTextArea_2D.setObjectName("manualInputTextArea_2D")
         self.formLayout_2.setWidget(2, QtWidgets.QFormLayout.FieldRole, self.manualInputTextArea_2D)
         self.tabWidget.addTab(self.TwoDimensionalTab, "")
+        self.nucleation_tab = QtWidgets.QWidget()
+        self.nucleation_tab.setObjectName("nucleation_tab")
+        self.formLayoutWidget_3 = QtWidgets.QWidget(self.nucleation_tab)
+        self.formLayoutWidget_3.setGeometry(QtCore.QRect(0, 0, 1051, 523))
+        self.formLayoutWidget_3.setObjectName("formLayoutWidget_3")
+        self.formLayout_3 = QtWidgets.QFormLayout(self.formLayoutWidget_3)
+        self.formLayout_3.setContentsMargins(0, 0, 0, 0)
+        self.formLayout_3.setObjectName("formLayout_3")
+        self.horizontalLayout_16 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_16.setObjectName("horizontalLayout_16")
+        self.nucleation_graphic_ca_2d = QtWidgets.QGraphicsView(self.formLayoutWidget_3)
+        self.nucleation_graphic_ca_2d.setMinimumSize(QtCore.QSize(700, 350))
+        self.nucleation_graphic_ca_2d.setMaximumSize(QtCore.QSize(700, 16777215))
+        self.nucleation_graphic_ca_2d.setObjectName("nucleation_graphic_ca_2d")
+        self.horizontalLayout_16.addWidget(self.nucleation_graphic_ca_2d)
+        self.nucleation_manualInputTextArea_2D = QtWidgets.QPlainTextEdit(self.formLayoutWidget_3)
+        self.nucleation_manualInputTextArea_2D.setObjectName("nucleation_manualInputTextArea_2D")
+        self.horizontalLayout_16.addWidget(self.nucleation_manualInputTextArea_2D)
+        self.formLayout_3.setLayout(2, QtWidgets.QFormLayout.SpanningRole, self.horizontalLayout_16)
+        self.horizontalLayout_9 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_9.setObjectName("horizontalLayout_9")
+        self.horizontalLayout_10 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_10.setObjectName("horizontalLayout_10")
+        self.width_layout_horizontal_4 = QtWidgets.QHBoxLayout()
+        self.width_layout_horizontal_4.setObjectName("width_layout_horizontal_4")
+        self.nucleation_width_Label_2D = QtWidgets.QLabel(self.formLayoutWidget_3)
+        self.nucleation_width_Label_2D.setMinimumSize(QtCore.QSize(40, 0))
+        self.nucleation_width_Label_2D.setMaximumSize(QtCore.QSize(40, 16777215))
+        self.nucleation_width_Label_2D.setObjectName("nucleation_width_Label_2D")
+        self.width_layout_horizontal_4.addWidget(self.nucleation_width_Label_2D)
+        self.nucleation_widthText_2D = QtWidgets.QTextEdit(self.formLayoutWidget_3)
+        self.nucleation_widthText_2D.setMinimumSize(QtCore.QSize(40, 30))
+        self.nucleation_widthText_2D.setMaximumSize(QtCore.QSize(40, 30))
+        self.nucleation_widthText_2D.setDocumentTitle("")
+        self.nucleation_widthText_2D.setObjectName("nucleation_widthText_2D")
+        self.width_layout_horizontal_4.addWidget(self.nucleation_widthText_2D)
+        self.nucleation_height_Label_2D = QtWidgets.QLabel(self.formLayoutWidget_3)
+        self.nucleation_height_Label_2D.setMinimumSize(QtCore.QSize(50, 0))
+        self.nucleation_height_Label_2D.setMaximumSize(QtCore.QSize(50, 16777215))
+        self.nucleation_height_Label_2D.setObjectName("nucleation_height_Label_2D")
+        self.width_layout_horizontal_4.addWidget(self.nucleation_height_Label_2D)
+        self.nucleation_heightText2D = QtWidgets.QTextEdit(self.formLayoutWidget_3)
+        self.nucleation_heightText2D.setMinimumSize(QtCore.QSize(40, 30))
+        self.nucleation_heightText2D.setMaximumSize(QtCore.QSize(40, 30))
+        self.nucleation_heightText2D.setObjectName("nucleation_heightText2D")
+        self.width_layout_horizontal_4.addWidget(self.nucleation_heightText2D)
+        self.nucleation_iterationsLabel_2D = QtWidgets.QLabel(self.formLayoutWidget_3)
+        self.nucleation_iterationsLabel_2D.setMinimumSize(QtCore.QSize(60, 0))
+        self.nucleation_iterationsLabel_2D.setMaximumSize(QtCore.QSize(60, 16777215))
+        self.nucleation_iterationsLabel_2D.setObjectName("nucleation_iterationsLabel_2D")
+        self.width_layout_horizontal_4.addWidget(self.nucleation_iterationsLabel_2D)
+        self.nucleation_iterationsText_2D = QtWidgets.QTextEdit(self.formLayoutWidget_3)
+        self.nucleation_iterationsText_2D.setMinimumSize(QtCore.QSize(40, 30))
+        self.nucleation_iterationsText_2D.setMaximumSize(QtCore.QSize(40, 30))
+        self.nucleation_iterationsText_2D.setObjectName("nucleation_iterationsText_2D")
+        self.width_layout_horizontal_4.addWidget(self.nucleation_iterationsText_2D)
+        self.nucleation_boundary_Label_2D_7 = QtWidgets.QLabel(self.formLayoutWidget_3)
+        self.nucleation_boundary_Label_2D_7.setMinimumSize(QtCore.QSize(60, 0))
+        self.nucleation_boundary_Label_2D_7.setMaximumSize(QtCore.QSize(60, 16777215))
+        self.nucleation_boundary_Label_2D_7.setObjectName("nucleation_boundary_Label_2D_7")
+        self.width_layout_horizontal_4.addWidget(self.nucleation_boundary_Label_2D_7)
+        self.nucleation_boundary_Text_2D_7 = QtWidgets.QTextEdit(self.formLayoutWidget_3)
+        self.nucleation_boundary_Text_2D_7.setMinimumSize(QtCore.QSize(100, 30))
+        self.nucleation_boundary_Text_2D_7.setMaximumSize(QtCore.QSize(100, 30))
+        self.nucleation_boundary_Text_2D_7.setObjectName("nucleation_boundary_Text_2D_7")
+        self.width_layout_horizontal_4.addWidget(self.nucleation_boundary_Text_2D_7)
+        self.nucleation_pattern_Label_2D = QtWidgets.QLabel(self.formLayoutWidget_3)
+        self.nucleation_pattern_Label_2D.setMinimumSize(QtCore.QSize(60, 0))
+        self.nucleation_pattern_Label_2D.setMaximumSize(QtCore.QSize(60, 16777215))
+        self.nucleation_pattern_Label_2D.setObjectName("nucleation_pattern_Label_2D")
+        self.width_layout_horizontal_4.addWidget(self.nucleation_pattern_Label_2D)
+        self.nucleation_pattern_Text_2D = QtWidgets.QTextEdit(self.formLayoutWidget_3)
+        self.nucleation_pattern_Text_2D.setMinimumSize(QtCore.QSize(100, 30))
+        self.nucleation_pattern_Text_2D.setMaximumSize(QtCore.QSize(100, 30))
+        self.nucleation_pattern_Text_2D.setObjectName("nucleation_pattern_Text_2D")
+        self.width_layout_horizontal_4.addWidget(self.nucleation_pattern_Text_2D)
+        self.horizontalLayout_10.addLayout(self.width_layout_horizontal_4)
+        self.horizontalLayout_9.addLayout(self.horizontalLayout_10)
+        self.nucleation_initializeGameButton_2D = QtWidgets.QPushButton(self.formLayoutWidget_3)
+        self.nucleation_initializeGameButton_2D.setMinimumSize(QtCore.QSize(60, 0))
+        self.nucleation_initializeGameButton_2D.setMaximumSize(QtCore.QSize(60, 16777215))
+        self.nucleation_initializeGameButton_2D.setObjectName("nucleation_initializeGameButton_2D")
+        self.horizontalLayout_9.addWidget(self.nucleation_initializeGameButton_2D)
+        self.nucleation_beginGameButton_2D_2 = QtWidgets.QPushButton(self.formLayoutWidget_3)
+        self.nucleation_beginGameButton_2D_2.setMinimumSize(QtCore.QSize(60, 0))
+        self.nucleation_beginGameButton_2D_2.setMaximumSize(QtCore.QSize(60, 16777215))
+        self.nucleation_beginGameButton_2D_2.setObjectName("nucleation_beginGameButton_2D_2")
+        self.horizontalLayout_9.addWidget(self.nucleation_beginGameButton_2D_2)
+        self.nucleation_restart_button_2d = QtWidgets.QPushButton(self.formLayoutWidget_3)
+        self.nucleation_restart_button_2d.setMinimumSize(QtCore.QSize(80, 0))
+        self.nucleation_restart_button_2d.setMaximumSize(QtCore.QSize(80, 16777215))
+        self.nucleation_restart_button_2d.setObjectName("nucleation_restart_button_2d")
+        self.horizontalLayout_9.addWidget(self.nucleation_restart_button_2d)
+        self.formLayout_3.setLayout(1, QtWidgets.QFormLayout.SpanningRole, self.horizontalLayout_9)
+        self.tabWidget.addTab(self.nucleation_tab, "")
         self.mode_menu.addWidget(self.tabWidget)
 
         self.retranslateUi(Dialog)
-        self.tabWidget.setCurrentIndex(1)
+        self.tabWidget.setCurrentIndex(2)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
     def retranslateUi(self, Dialog):
@@ -311,6 +415,8 @@ class Ui_Dialog(QWidget):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.OneDimensionalTab),
                                   _translate("Dialog", "OneDimensional"))
         self.widthLabel_2D.setText(_translate("Dialog", "Width"))
+        self.manualInputTextArea_2D.appendPlainText(
+            _translate("Dialog", str(self.draw_manual_array_on_textarea())[1:-1]))
         self.widthText_2D.setPlaceholderText(_translate("Dialog", str(self.width_2d)))
         self.heightLabel2D.setText(_translate("Dialog", "Height"))
         self.heightText2D.setPlaceholderText(_translate("Dialog", str(self.height_2d)))
@@ -454,6 +560,9 @@ class Ui_Dialog(QWidget):
     @pyqtSlot()
     def initialize_click_2d(self):
         _translate = QtCore.QCoreApplication.translate
+        width_or_height_changed = False
+        pattern_changed = False
+
         if str(self.widthText_2D.toPlainText()) != "" and str(self.widthText_2D.toPlainText()).isdigit():
             if self.SecondDimensionObj.return_pattern_width() > int(self.widthText_2D.toPlainText()):
                 self.widthText_2D.clear()
@@ -461,10 +570,15 @@ class Ui_Dialog(QWidget):
                 self.width_2d = int(self.widthText_2D.toPlainText())
                 self.widthText_2D.setPlaceholderText(_translate("Dialog", str(self.width_2d)))
                 self.widthText_2D.clear()
+                width_or_height_changed = True
         if str(self.heightText2D.toPlainText()) != "" and str(self.heightText2D.toPlainText()).isdigit():
-            self.height_2d = int(self.heightText2D.toPlainText())
-            self.heightText2D.setPlaceholderText(_translate("Dialog", str(self.height_2d)))
-            self.heightText2D.clear()
+            if self.SecondDimensionObj.return_pattern_height() > int(self.heightText2D.toPlainText()):
+                self.heightText2D.clear()
+            else:
+                self.height_2d = int(self.heightText2D.toPlainText())
+                self.heightText2D.setPlaceholderText(_translate("Dialog", str(self.height_2d)))
+                self.heightText2D.clear()
+                width_or_height_changed = True
 
         if str(self.iterationsText_2D.toPlainText()) != "" and str(self.iterationsText_2D.toPlainText()).isdigit():
             self.iterations_2d = int(self.iterationsText_2D.toPlainText())
@@ -472,49 +586,96 @@ class Ui_Dialog(QWidget):
             self.iterationsText_2D.clear()
 
         if str(self.pattern_Text_2D.toPlainText()) != "":
+            pattern_changed = True
             self.pattern_2d = str(self.pattern_Text_2D.toPlainText())
             self.pattern_Text_2D.setPlaceholderText(_translate("Dialog", str(self.pattern_2d)))
             self.pattern_Text_2D.clear()
 
         self.SecondDimensionObj.set_parameters(self.width_2d, self.iterations_2d, self.height_2d, self.pattern_2d)
+        if self.pattern_2d == "manual":
+            self.manualInputTextArea_2D.clear()
+            self.initial_manual_array_2d = self.SecondDimensionObj.return_initial_array()
+            self.manualInputTextArea_2D.appendPlainText(
+                _translate("Dialog", str(self.draw_manual_array_on_textarea())[1:-1]))
+
+        if width_or_height_changed:
+            self.manualInputTextArea_2D.clear()
+            self.initial_manual_array_2d = self.SecondDimensionObj.return_current_array()
+        if width_or_height_changed or pattern_changed:
+            self.settings_has_changed = True
 
     def draw_empty_board_2d(self):
+        # self.width_draw_2d = self.width_2d / 700
+        # self.height_draw_2d = self.height_2d / 350
+        if self.width_2d * self.width_draw_2d > 700:
+            self.width_draw_2d = 4
+        else:
+            self.width_draw_2d = 7
+
+        if self.height_2d * self.height_draw_2d > 350:
+            self.height_draw_2d = 4
+        else:
+            self.height_draw_2d = 7
+
+
         for row in range(self.height_2d):
             for column in range(self.width_2d):
-                rectangle = QtCore.QRectF(QtCore.QPointF(row * self.side, column * self.side),
-                                          QtCore.QSizeF(self.side, self.side))
+                rectangle = QtCore.QRectF(QtCore.QPointF(column * self.width_draw_2d, row * self.height_draw_2d),
+                                          QtCore.QSizeF(self.width_draw_2d, self.height_draw_2d))
                 self.scene_2d.addRect(rectangle, self.green_pen)
 
     def draw_board_2d(self,input_array):
+
+        if self.width_2d * self.width_draw_2d > 700:
+            self.width_draw_2d = 4
+        else:
+            self.width_draw_2d = 7
+
+        if self.height_2d * self.height_draw_2d > 350:
+            self.height_draw_2d = 4
+        else:
+            self.height_draw_2d = 7
         for row in range(len(input_array)):
             for column in range(len(input_array[row])):
-                rectangle = QtCore.QRectF(QtCore.QPointF(column * self.side, row * self.side),
-                                          QtCore.QSizeF(self.side, self.side))
+                rectangle = QtCore.QRectF(QtCore.QPointF(column * self.width_draw_2d, row * self.height_draw_2d),
+                                          QtCore.QSizeF(self.width_draw_2d, self.height_draw_2d))
 
                 if input_array[row][column].is_alive==True:
                     self.scene_2d.addRect(rectangle, self.red_pen)
 
     @pyqtSlot()
     def begin_game_2d(self):
-        if self.pattern_2d == "manual":
-            self.draw_manual_array_on_textarea()
+        _translate = QtCore.QCoreApplication.translate
+        # if self.pattern_2d == "manual":
+        #     _translate = QtCore.QCoreApplication.translate
 
-        # self.counter_2d = 0
-        # self.previous_iteration_array_2d = self.SecondDimensionObj.return_previous_array()
-        # self.current_iteration_array_2d = self.SecondDimensionObj.return_current_array()
-        # self.scene_2d.clear()
-        #
-        # self.draw_empty_board_2d()
-        # #self.draw_board_2d(self.current_iteration_array_2d)
-        # self.draw_board_2d(self.SecondDimensionObj.next_iteration())
-        #
-        # while self.counter_2d < self.iterations_2d:
-        #     QtTest.QTest.qWait(250)
-        #     self.draw_empty_board_2d()
-        #     self.previous_iteration_array_2d = self.current_iteration_array_2d
-        #     self.current_iteration_array_2d = self.SecondDimensionObj.next_iteration()
-        #     self.draw_board_2d(self.current_iteration_array_2d)
-        #     self.counter_2d+=1
+            #self.manualInputTextArea_2D.
+
+        self.counter_2d = 0
+        self.previous_iteration_array_2d = self.SecondDimensionObj.return_previous_array()
+        self.current_iteration_array_2d = self.SecondDimensionObj.return_current_array()
+        self.scene_2d.clear()
+        if self.pattern_2d == "manual":
+            self.manual_array_text_backup = str(self.draw_manual_array_on_textarea())[1:-1]
+        self.draw_empty_board_2d()
+        #self.draw_board_2d(self.current_iteration_array_2d)
+        self.draw_board_2d(self.SecondDimensionObj.next_iteration())
+
+        while self.counter_2d < self.iterations_2d:
+            QtTest.QTest.qWait(250)
+            self.draw_empty_board_2d()
+            self.previous_iteration_array_2d = self.current_iteration_array_2d
+            self.current_iteration_array_2d = self.SecondDimensionObj.next_iteration()
+            self.draw_board_2d(self.current_iteration_array_2d)
+            self.counter_2d+=1
+
+        if self.pattern_2d == "manual":
+            self.initial_manual_array_2d = self.current_iteration_array_2d
+            self.read_manual_array_from_textarea()
+            self.manualInputTextArea_2D.clear()
+            self.manualInputTextArea_2D.appendPlainText(
+                _translate("Dialog", str(self.draw_manual_array_on_textarea())[1:-1]))
+
 
     def draw_manual_array_on_textarea(self):
         draw_array = []
@@ -522,23 +683,47 @@ class Ui_Dialog(QWidget):
             row_array = ''
 
             for column in range(self.width_2d):
+
                 if self.initial_manual_array_2d[row][column].is_alive:
                     row_array+='1'
                 else:
                     row_array+='0'
 
                 if column == self.width_2d-1:
-                    row_array+='\n'
+                    row_array+=''
                 else:
                     row_array+=','
 
             draw_array.append(row_array)
-        print(draw_array[row])
-        pass
+        #self.manual_array_text_backup = str(draw_array)[1:-1]
+        return draw_array
 
     def read_manual_array_from_textarea(self):
-        pass
-
+        if self.settings_has_changed:
+            self.settings_has_changed = False
+            return
+        else:
+            current_text =  str(self.manualInputTextArea_2D.toPlainText())
+            current_text_modified = current_text.replace(" ","").replace("',","S").replace("'","").split("S")
+            #print(current_text)
+            #print(str(self.manual_array_text_backup))
+            if current_text != self.manual_array_text_backup:
+                user_edited_array = []
+                for row in range(len(current_text_modified)):
+                    row_array = []
+                    splitted_array = current_text_modified[row].split(",")
+                    for column in range(len(current_text_modified[row].split(","))):
+                        #print(splitted_array[column],end="")
+                        if splitted_array[column] == "1":
+                            #print("im adding alive cell")
+                            new_cell = Cell()
+                            new_cell.is_alive = True
+                            row_array.append(new_cell)
+                        if splitted_array[column] == "0":
+                            row_array.append(Cell(False))
+                    #print(row_array)
+                    user_edited_array.append(row_array)
+                self.SecondDimensionObj.set_current_array(user_edited_array)
 # if __name__ == "__main__":
 #     import sys
 #     app = QtWidgets.QApplication(sys.argv)

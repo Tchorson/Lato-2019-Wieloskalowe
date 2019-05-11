@@ -2,23 +2,29 @@ from models.Cell import Cell
 import os
 import random
 
-class SecondDimension:
-    def __init__(self, width=15, height=10, iterations=10, pattern='oscillator', periodical=True):
+class Nucleation:
+
+    def __init__(self, width=15, height=10, iterations=10, pattern='homogeneous', periodical=True):
         self.width = width
         self.height = height
         self.iterations = iterations
         self.pattern = pattern
-        self.neighbours_amount_to_survive = [2, 3]
-        self.neighbours_amount_to_born = [3]
         self.game_array_current_state_2d = self.initialize_2d_array()
         self.game_array_previous_state_2d = self.initialize_2d_array()
-        self.initial_states_2d = 'unchanged,glider,oscillator'
+        self.initial_states_2d = 'homogeneous,radius,random,manual'
         self.patterns_array = self.initial_states_2d.split(",")
+        self.set_pattern_in_array(self.pattern)
         self.periodical = periodical
         self.first_time = True
-        self.set_pattern_in_array(pattern)  # default = empty
-        self.pattern_width = 0
-        self.pattern_height = 0
+        self.last_iteration = False
+
+    def search_for_zeros(self):
+        self.last_iteration = True
+        for row in range(self.height):
+            for column in range(self.width):
+                if self.game_array_current_state_2d[row][column].id == 0:
+                    self.last_iteration = False
+
 
     def initialize_2d_array(self):
         tmp_array = []
@@ -88,12 +94,6 @@ class SecondDimension:
     def return_previous_array(self):
         return self.game_array_previous_state_2d
 
-    def return_pattern_width(self):
-        return self.pattern_width
-
-    def return_pattern_height(self):
-        return self.pattern_height
-
     def set_iteration(self, iteration):
         self.iterations = iteration
 
@@ -156,10 +156,11 @@ class SecondDimension:
             self.game_array_current_state_2d = self.initialize_2d_array()
         #self.print_current_array()
 
-    def set_parameters(self, width, iterations, height, pattern):
+    def set_parameters(self, width, height, iterations, pattern, periodical):
         self.iterations = iterations
+        self.periodical = periodical
 
-        if pattern != self.pattern or self.width != width or self.height != height:
+        if pattern != self.pattern or self.width != width or self.height != height or self.periodical != periodical:
             self.pattern = pattern
             self.height = height
             self.width = width
@@ -172,7 +173,7 @@ class SecondDimension:
         self.set_pattern_in_array(self.pattern)
 
     def return_parameters(self):
-        return repr(self.height) + " " + repr(self.width) + " " + repr(self.iterations) + " " + repr(
+        return repr(self.height) + " " + repr(self.width) + " " + repr(self.iterations) +" "+ repr(self.periodical) + " " + repr(
             self.pattern) + " " + repr(self.game_array_previous_state_2d)
 
     def print_current_array(self):
@@ -187,3 +188,6 @@ class SecondDimension:
 
     def return_initial_array(self):
         return self.initialize_2d_array()
+
+    def return_pattern_array(self):
+        return self.patterns_array

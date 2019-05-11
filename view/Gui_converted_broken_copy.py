@@ -53,6 +53,7 @@ class Ui_Dialog(QWidget):
         self.pattern_2d = self.SecondDimensionObj.return_pattern()
 
         self.initial_manual_array_2d = self.SecondDimensionObj.return_initial_array()
+        self.initial_manual_array_2d_previous = self.initial_manual_array_2d
         self.manual_array_text_backup = ''
         self.settings_has_changed = True
 
@@ -62,16 +63,7 @@ class Ui_Dialog(QWidget):
         self.previous_counter = self.iterations
         self.previous_row = self.row
 
-        self.nucleation_height_2d = self.NucleationObj.return_height()
-        self.nucleation_width_2d = self.NucleationObj.return_width()
-        self.nucleation_iterations_2d = self.NucleationObj.return_iteration()
-        self.nucleation_pattern_2d = self.NucleationObj.return_pattern()
-        self.nucleation_boundary_conditions = "periodical"
-        self.nucleation_initial_manual_array_2d = self.NucleationObj.return_initial_array()
-        self.nucleation_manual_array_text_backup = ''
-        self.nucleation_settings_has_changed = True
-        self.nucleation_previous_iteration_array_2d = self.NucleationObj.return_previous_array()
-        self.nucleation_current_iteration_array_2d = self.NucleationObj.return_current_array()
+
 
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
@@ -107,12 +99,19 @@ class Ui_Dialog(QWidget):
         self.horizontalLayout_3 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
         self.formLayout.setLayout(1, QtWidgets.QFormLayout.FieldRole, self.horizontalLayout_3)
+
         self.scene_1d = QtWidgets.QGraphicsScene()
         self.green_pen = QtGui.QPen(QtCore.Qt.green) #QColor(200,200,0)
         self.red_pen = QtGui.QPen(QtCore.Qt.red)
         self.blue_pen = QtGui.QPen(QtCore.Qt.blue)
 
+        self.graphic_ca_1d = QtWidgets.QGraphicsView(self.horizontalLayoutWidget_7)
+        self.graphic_ca_1d.setMinimumSize(QtCore.QSize(1050, 350))
+        self.graphic_ca_1d.setMaximumSize(QtCore.QSize(1050, 350))
+        self.graphic_ca_1d.setObjectName("graphic_ca_1d")
+        self.graphic_ca_1d.setScene(self.scene_1d)
 
+        self.formLayout.setWidget(2, QtWidgets.QFormLayout.LabelRole, self.graphic_ca_1d)
         self.width_layout_horizontal = QtWidgets.QHBoxLayout()
         self.width_layout_horizontal.setObjectName("width_layout_horizontal")
         self.widthLabel1D = QtWidgets.QLabel(self.horizontalLayoutWidget_7)
@@ -192,7 +191,6 @@ class Ui_Dialog(QWidget):
         self.graphic_ca_1d.setMinimumSize(QtCore.QSize(1050, 350))
         self.graphic_ca_1d.setMaximumSize(QtCore.QSize(1050, 350))
         self.graphic_ca_1d.setObjectName("graphic_ca_1d")
-        self.graphic_ca_1d.setScene(self.scene_1d)
         self.formLayout.setWidget(2, QtWidgets.QFormLayout.LabelRole, self.graphic_ca_1d)
         self.horizontalLayout_4.addLayout(self.formLayout)
         self.tabWidget.addTab(self.OneDimensionalTab, "")
@@ -441,15 +439,15 @@ class Ui_Dialog(QWidget):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.TwoDimensionalTab),
                                   _translate("Dialog", "TwoDimensional"))
         self.nucleation_width_Label_2D.setText(_translate("Dialog", "Width"))
-        self.nucleation_widthText_2D.setPlaceholderText(_translate("Dialog", str(self.nucleation_width_2d)))
+        self.nucleation_widthText_2D.setPlaceholderText(_translate("Dialog", "100"))
         self.nucleation_height_Label_2D.setText(_translate("Dialog", "Height"))
-        self.nucleation_heightText2D.setPlaceholderText(_translate("Dialog", str(self.nucleation_height_2d)))
+        self.nucleation_heightText2D.setPlaceholderText(_translate("Dialog", "100"))
         self.nucleation_iterationsLabel_2D.setText(_translate("Dialog", "Iterations"))
-        self.nucleation_iterationsText_2D.setPlaceholderText(_translate("Dialog", str(self.nucleation_iterations_2d)))
+        self.nucleation_iterationsText_2D.setPlaceholderText(_translate("Dialog", "10"))
         self.nucleation_boundary_Label_2D_7.setText(_translate("Dialog", "Boundary"))
-        self.nucleation_boundary_Text_2D_7.setPlaceholderText(_translate("Dialog", str(self.nucleation_boundary_conditions)))
+        self.nucleation_boundary_Text_2D_7.setPlaceholderText(_translate("Dialog", "default"))
         self.nucleation_pattern_Label_2D.setText(_translate("Dialog", "Nucleation"))
-        self.nucleation_pattern_Text_2D.setPlaceholderText(_translate("Dialog", "homogeneous"))
+        self.nucleation_pattern_Text_2D.setPlaceholderText(_translate("Dialog", "default"))
         self.nucleation_initializeGameButton_2D.setText(_translate("Dialog", "Initialize"))
         self.nucleation_initializeGameButton_2D.clicked.connect(self.initialize_nucleation_parameters)
         self.nucleation_beginGameButton_2D_2.setText(_translate("Dialog", "Start"))
@@ -745,63 +743,9 @@ class Ui_Dialog(QWidget):
         pass
 
     def initialize_nucleation_parameters(self):
-        _translate = QtCore.QCoreApplication.translate
-        width_or_height_changed = False
-        pattern_changed = False
-
-        if str(self.nucleation_widthText_2D.toPlainText()) != "" and str(self.nucleation_widthText_2D.toPlainText()).isdigit():
-            if self.NucleationObj.return_pattern_width() > int(self.nucleation_widthText_2D.toPlainText()):
-                self.nucleation_widthText_2D.clear()
-            else:
-                self.nucleation_width_2d = int(self.nucleation_widthText_2D.toPlainText())
-                self.nucleation_widthText_2D.setPlaceholderText(_translate("Dialog", str(self.nucleation_width_2d)))
-                self.nucleation_widthText_2D.clear()
-                width_or_height_changed = True
-
-        if str(self.nucleation_heightText2D.toPlainText()) != "" and str(self.nucleation_heightText2D.toPlainText()).isdigit():
-            if self.NucleationObj.return_pattern_height() > int(self.nucleation_heightText2D.toPlainText()):
-                self.nucleation_heightText2D.clear()
-            else:
-                self.nucleation_height_2d = int(self.nucleation_heightText2D.toPlainText())
-                self.nucleation_heightText2D.setPlaceholderText(_translate("Dialog", str(self.nucleation_height_2d)))
-                self.nucleation_heightText2D.clear()
-                width_or_height_changed = True
-
-        if str(self.nucleation_iterationsText_2D.toPlainText()) != "" and str(self.nucleation_iterationsText_2D.toPlainText()).isdigit():
-            self.nucleation_iterations_2d = int(self.nucleation_iterationsText_2D.toPlainText())
-            self.nucleation_iterationsText_2D.setPlaceholderText(_translate("Dialog", str(self.nucleation_iterations_2d)))
-            self.nucleation_iterationsText_2D.clear()
-
-        if str(self.nucleation_pattern_Text_2D.toPlainText()) != "" and str(self.nucleation_pattern_Text_2D.toPlainText()) in self.NucleationObj.return_pattern_array():
-            pattern_changed = True
-            self.nucleation_pattern_2d = str(self.nucleation_pattern_Text_2D.toPlainText())
-            self.nucleation_pattern_Text_2D.setPlaceholderText(_translate("Dialog", str(self.nucleation_pattern_2d)))
-            self.nucleation_pattern_Text_2D.clear()
-
-        if str(self.nucleation_boundary_Text_2D_7.toPlainText()) != "": # boundary conditions = periodical
-            self.nucleation_boundary_conditions = str(self.nucleation_boundary_Text_2D_7.toPlainText())
-            if self.nucleation_boundary_conditions.lower() == "periodical":
-                self.nucleation_boundary_conditions = "periodical"
-            else:
-                self.nucleation_boundary_conditions = "absorbing"
-            self.nucleation_boundary_Text_2D_7.setPlaceholderText(_translate("Dialog", str(self.nucleation_boundary_conditions)))
-            self.nucleation_boundary_Text_2D_7.clear()
-
-        self.NucleationObj.set_parameters(self.nucleation_width_2d, self.nucleation_height_2d, self.nucleation_iterations_2d, self.nucleation_pattern_2d, self.nucleation_boundary_conditions)
-        if self.nucleation_pattern_2d == "manual":
-            self.nucleation_manualInputTextArea_2D.clear()
-            self.nucleation_initial_manual_array_2d = self.NucleationObj.return_initial_array()
-            self.nucleation_manualInputTextArea_2D.appendPlainText(
-                _translate("Dialog", str(self.draw_manual_array_on_textarea())[1:-1]))
-
-        if width_or_height_changed:
-            self.nucleation_manualInputTextArea_2D.clear()
-            self.nucleation_initial_manual_array_2d = self.NucleationObj.return_current_array()
-        if width_or_height_changed or pattern_changed:
-            self.nucleation_settings_has_changed = True
+        pass
 
     def begin_nucleation(self):
-
         pass
 # if __name__ == "__main__":
 #     import sys
