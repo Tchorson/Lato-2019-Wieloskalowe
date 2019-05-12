@@ -7,19 +7,19 @@
     <x>0</x>
     <y>0</y>
     <width>1070</width>
-    <height>450</height>
+    <height>500</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>1070</width>
-    <height>450</height>
+    <height>500</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
     <width>1070</width>
-    <height>450</height>
+    <height>500</height>
    </size>
   </property>
   <property name="sizeIncrement">
@@ -44,21 +44,21 @@
    <property name="geometry">
     <rect>
      <x>0</x>
-     <y>-1</y>
+     <y>10</y>
      <width>1061</width>
-     <height>441</height>
+     <height>500</height>
     </rect>
    </property>
    <property name="minimumSize">
     <size>
      <width>850</width>
-     <height>350</height>
+     <height>500</height>
     </size>
    </property>
    <property name="maximumSize">
     <size>
      <width>1070</width>
-     <height>450</height>
+     <height>500</height>
     </size>
    </property>
    <layout class="QHBoxLayout" name="mode_menu">
@@ -70,13 +70,13 @@
       <property name="minimumSize">
        <size>
         <width>1070</width>
-        <height>450</height>
+        <height>500</height>
        </size>
       </property>
       <property name="maximumSize">
        <size>
         <width>1070</width>
-        <height>450</height>
+        <height>500</height>
        </size>
       </property>
       <property name="currentIndex">
@@ -636,11 +636,11 @@
           <x>0</x>
           <y>0</y>
           <width>1051</width>
-          <height>523</height>
+          <height>500</height>
          </rect>
         </property>
         <layout class="QFormLayout" name="formLayout_3">
-         <item row="2" column="0" colspan="2">
+         <item row="3" column="0" colspan="2">
           <layout class="QHBoxLayout" name="horizontalLayout_16">
            <item>
             <widget class="QGraphicsView" name="nucleation_graphic_ca_2d">
@@ -673,18 +673,18 @@
                 <widget class="QLabel" name="nucleation_width_Label_2D">
                  <property name="minimumSize">
                   <size>
-                   <width>40</width>
+                   <width>30</width>
                    <height>0</height>
                   </size>
                  </property>
                  <property name="maximumSize">
                   <size>
-                   <width>40</width>
+                   <width>30</width>
                    <height>16777215</height>
                   </size>
                  </property>
                  <property name="text">
-                  <string>Width</string>
+                  <string>Wid</string>
                  </property>
                 </widget>
                </item>
@@ -692,13 +692,13 @@
                 <widget class="QTextEdit" name="nucleation_widthText_2D">
                  <property name="minimumSize">
                   <size>
-                   <width>40</width>
+                   <width>35</width>
                    <height>30</height>
                   </size>
                  </property>
                  <property name="maximumSize">
                   <size>
-                   <width>40</width>
+                   <width>35</width>
                    <height>30</height>
                   </size>
                  </property>
@@ -714,18 +714,18 @@
                 <widget class="QLabel" name="nucleation_height_Label_2D">
                  <property name="minimumSize">
                   <size>
-                   <width>50</width>
+                   <width>35</width>
                    <height>0</height>
                   </size>
                  </property>
                  <property name="maximumSize">
                   <size>
-                   <width>50</width>
+                   <width>35</width>
                    <height>16777215</height>
                   </size>
                  </property>
                  <property name="text">
-                  <string>Height</string>
+                  <string>Heigh</string>
                  </property>
                 </widget>
                </item>
@@ -733,18 +733,176 @@
                 <widget class="QTextEdit" name="nucleation_heightText2D">
                  <property name="minimumSize">
                   <size>
-                   <width>40</width>
+                   <width>35</width>
                    <height>30</height>
                   </size>
                  </property>
                  <property name="maximumSize">
                   <size>
-                   <width>40</width>
+                   <width>35</width>
                    <height>30</height>
                   </size>
                  </property>
                  <property name="placeholderText">
                   <string>100</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="nucleation_width_amount_label">
+                 <property name="minimumSize">
+                  <size>
+                   <width>30</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>31</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
+                 <property name="text">
+                  <string>A_W</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QTextEdit" name="nucleation_amount_width_text">
+                 <property name="minimumSize">
+                  <size>
+                   <width>30</width>
+                   <height>30</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>30</width>
+                   <height>30</height>
+                  </size>
+                 </property>
+                 <property name="placeholderText">
+                  <string>10</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="nucleation_height_amount_label">
+                 <property name="minimumSize">
+                  <size>
+                   <width>30</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>30</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
+                 <property name="text">
+                  <string>A_H</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QTextEdit" name="nucleation_amount_height_text">
+                 <property name="minimumSize">
+                  <size>
+                   <width>30</width>
+                   <height>30</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>30</width>
+                   <height>30</height>
+                  </size>
+                 </property>
+                 <property name="placeholderText">
+                  <string>10</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="nucleation_seeds_amount_label">
+                 <property name="minimumSize">
+                  <size>
+                   <width>39</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>40</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
+                 <property name="sizeIncrement">
+                  <size>
+                   <width>0</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                 <property name="text">
+                  <string>Seeds</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QTextEdit" name="nucleation_amount_seeds_text_1">
+                 <property name="minimumSize">
+                  <size>
+                   <width>30</width>
+                   <height>30</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>30</width>
+                   <height>30</height>
+                  </size>
+                 </property>
+                 <property name="placeholderText">
+                  <string>10</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="nucleation_radius_label">
+                 <property name="minimumSize">
+                  <size>
+                   <width>40</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>40</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
+                 <property name="text">
+                  <string>Radius</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QTextEdit" name="nucleation_radius_text">
+                 <property name="minimumSize">
+                  <size>
+                   <width>30</width>
+                   <height>30</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>30</width>
+                   <height>30</height>
+                  </size>
+                 </property>
+                 <property name="placeholderText">
+                  <string>10</string>
                  </property>
                 </widget>
                </item>
@@ -771,13 +929,13 @@
                 <widget class="QTextEdit" name="nucleation_iterationsText_2D">
                  <property name="minimumSize">
                   <size>
-                   <width>40</width>
+                   <width>35</width>
                    <height>30</height>
                   </size>
                  </property>
                  <property name="maximumSize">
                   <size>
-                   <width>40</width>
+                   <width>35</width>
                    <height>30</height>
                   </size>
                  </property>
@@ -790,18 +948,18 @@
                 <widget class="QLabel" name="nucleation_boundary_Label_2D_7">
                  <property name="minimumSize">
                   <size>
-                   <width>60</width>
+                   <width>40</width>
                    <height>0</height>
                   </size>
                  </property>
                  <property name="maximumSize">
                   <size>
-                   <width>60</width>
+                   <width>40</width>
                    <height>16777215</height>
                   </size>
                  </property>
                  <property name="text">
-                  <string>Boundary</string>
+                  <string>Bound</string>
                  </property>
                 </widget>
                </item>
@@ -809,18 +967,18 @@
                 <widget class="QTextEdit" name="nucleation_boundary_Text_2D_7">
                  <property name="minimumSize">
                   <size>
-                   <width>100</width>
+                   <width>65</width>
                    <height>30</height>
                   </size>
                  </property>
                  <property name="maximumSize">
                   <size>
-                   <width>100</width>
+                   <width>65</width>
                    <height>30</height>
                   </size>
                  </property>
                  <property name="placeholderText">
-                  <string>default</string>
+                  <string>periodical</string>
                  </property>
                 </widget>
                </item>
@@ -847,18 +1005,18 @@
                 <widget class="QTextEdit" name="nucleation_pattern_Text_2D">
                  <property name="minimumSize">
                   <size>
-                   <width>100</width>
+                   <width>90</width>
                    <height>30</height>
                   </size>
                  </property>
                  <property name="maximumSize">
                   <size>
-                   <width>100</width>
+                   <width>90</width>
                    <height>30</height>
                   </size>
                  </property>
                  <property name="placeholderText">
-                  <string>default</string>
+                  <string>homogeneous</string>
                  </property>
                 </widget>
                </item>
@@ -870,13 +1028,13 @@
             <widget class="QPushButton" name="nucleation_initializeGameButton_2D">
              <property name="minimumSize">
               <size>
-               <width>60</width>
+               <width>55</width>
                <height>0</height>
               </size>
              </property>
              <property name="maximumSize">
               <size>
-               <width>60</width>
+               <width>55</width>
                <height>16777215</height>
               </size>
              </property>
@@ -889,13 +1047,13 @@
             <widget class="QPushButton" name="nucleation_beginGameButton_2D_2">
              <property name="minimumSize">
               <size>
-               <width>60</width>
+               <width>45</width>
                <height>0</height>
               </size>
              </property>
              <property name="maximumSize">
               <size>
-               <width>60</width>
+               <width>45</width>
                <height>16777215</height>
               </size>
              </property>
@@ -908,18 +1066,48 @@
             <widget class="QPushButton" name="nucleation_restart_button_2d">
              <property name="minimumSize">
               <size>
-               <width>80</width>
+               <width>55</width>
                <height>0</height>
               </size>
              </property>
              <property name="maximumSize">
               <size>
-               <width>80</width>
+               <width>55</width>
                <height>16777215</height>
               </size>
              </property>
              <property name="text">
               <string>restart</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item row="2" column="0">
+          <layout class="QHBoxLayout" name="horizontalLayout">
+           <item>
+            <widget class="QLabel" name="nucleation_neighbours_label">
+             <property name="text">
+              <string>Neighbours</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QTextEdit" name="nucleation_neighbours_text">
+             <property name="minimumSize">
+              <size>
+               <width>80</width>
+               <height>22</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>80</width>
+               <height>30</height>
+              </size>
+             </property>
+             <property name="placeholderText">
+              <string>Neumann</string>
              </property>
             </widget>
            </item>

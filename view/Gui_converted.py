@@ -67,6 +67,11 @@ class Ui_Dialog(QWidget):
         self.nucleation_iterations_2d = self.NucleationObj.return_iteration()
         self.nucleation_pattern_2d = self.NucleationObj.return_pattern()
         self.nucleation_boundary_conditions = "periodical"
+        self.nucleation_neighbours_type = "Neumann"
+        self.nucleation_seeds_amount = self.NucleationObj.return_seeds_amount()
+        self.nucleation_user_width = self.NucleationObj.return_width_amount()
+        self.nucleation_user_height = self.NucleationObj.return_heigh_amount()
+        self.nucleation_radius = self.NucleationObj.return_radius_amount()
         self.nucleation_initial_manual_array_2d = self.NucleationObj.return_initial_array()
         self.nucleation_manual_array_text_backup = ''
         self.nucleation_settings_has_changed = True
@@ -75,24 +80,24 @@ class Ui_Dialog(QWidget):
 
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(1070, 450)
-        Dialog.setMinimumSize(QtCore.QSize(1070, 450))
-        Dialog.setMaximumSize(QtCore.QSize(1070, 450))
+        Dialog.resize(1070, 500)
+        Dialog.setMinimumSize(QtCore.QSize(1070, 500))
+        Dialog.setMaximumSize(QtCore.QSize(1070, 500))
         Dialog.setSizeIncrement(QtCore.QSize(10, 10))
         Dialog.setBaseSize(QtCore.QSize(100, 100))
         Dialog.setAutoFillBackground(True)
         self.horizontalWidget = QtWidgets.QWidget(Dialog)
-        self.horizontalWidget.setGeometry(QtCore.QRect(0, -1, 1061, 441))
-        self.horizontalWidget.setMinimumSize(QtCore.QSize(850, 350))
-        self.horizontalWidget.setMaximumSize(QtCore.QSize(1070, 450))
+        self.horizontalWidget.setGeometry(QtCore.QRect(0, 10, 1061, 500))
+        self.horizontalWidget.setMinimumSize(QtCore.QSize(850, 500))
+        self.horizontalWidget.setMaximumSize(QtCore.QSize(1070, 500))
         self.horizontalWidget.setObjectName("horizontalWidget")
         self.mode_menu = QtWidgets.QHBoxLayout(self.horizontalWidget)
         self.mode_menu.setSizeConstraint(QtWidgets.QLayout.SetMaximumSize)
         self.mode_menu.setContentsMargins(0, 0, 0, 0)
         self.mode_menu.setObjectName("mode_menu")
         self.tabWidget = QtWidgets.QTabWidget(self.horizontalWidget)
-        self.tabWidget.setMinimumSize(QtCore.QSize(1070, 450))
-        self.tabWidget.setMaximumSize(QtCore.QSize(1070, 450))
+        self.tabWidget.setMinimumSize(QtCore.QSize(1070, 500))
+        self.tabWidget.setMaximumSize(QtCore.QSize(1070, 500))
         self.tabWidget.setObjectName("tabWidget")
         self.OneDimensionalTab = QtWidgets.QWidget()
         self.OneDimensionalTab.setObjectName("OneDimensionalTab")
@@ -309,7 +314,7 @@ class Ui_Dialog(QWidget):
         self.nucleation_tab = QtWidgets.QWidget()
         self.nucleation_tab.setObjectName("nucleation_tab")
         self.formLayoutWidget_3 = QtWidgets.QWidget(self.nucleation_tab)
-        self.formLayoutWidget_3.setGeometry(QtCore.QRect(0, 0, 1051, 523))
+        self.formLayoutWidget_3.setGeometry(QtCore.QRect(0, 0, 1051, 500))
         self.formLayoutWidget_3.setObjectName("formLayoutWidget_3")
         self.formLayout_3 = QtWidgets.QFormLayout(self.formLayoutWidget_3)
         self.formLayout_3.setContentsMargins(0, 0, 0, 0)
@@ -324,7 +329,7 @@ class Ui_Dialog(QWidget):
         self.nucleation_manualInputTextArea_2D = QtWidgets.QPlainTextEdit(self.formLayoutWidget_3)
         self.nucleation_manualInputTextArea_2D.setObjectName("nucleation_manualInputTextArea_2D")
         self.horizontalLayout_16.addWidget(self.nucleation_manualInputTextArea_2D)
-        self.formLayout_3.setLayout(2, QtWidgets.QFormLayout.SpanningRole, self.horizontalLayout_16)
+        self.formLayout_3.setLayout(3, QtWidgets.QFormLayout.SpanningRole, self.horizontalLayout_16)
         self.horizontalLayout_9 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_9.setObjectName("horizontalLayout_9")
         self.horizontalLayout_10 = QtWidgets.QHBoxLayout()
@@ -332,44 +337,85 @@ class Ui_Dialog(QWidget):
         self.width_layout_horizontal_4 = QtWidgets.QHBoxLayout()
         self.width_layout_horizontal_4.setObjectName("width_layout_horizontal_4")
         self.nucleation_width_Label_2D = QtWidgets.QLabel(self.formLayoutWidget_3)
-        self.nucleation_width_Label_2D.setMinimumSize(QtCore.QSize(40, 0))
-        self.nucleation_width_Label_2D.setMaximumSize(QtCore.QSize(40, 16777215))
+        self.nucleation_width_Label_2D.setMinimumSize(QtCore.QSize(30, 0))
+        self.nucleation_width_Label_2D.setMaximumSize(QtCore.QSize(30, 16777215))
         self.nucleation_width_Label_2D.setObjectName("nucleation_width_Label_2D")
         self.width_layout_horizontal_4.addWidget(self.nucleation_width_Label_2D)
         self.nucleation_widthText_2D = QtWidgets.QTextEdit(self.formLayoutWidget_3)
-        self.nucleation_widthText_2D.setMinimumSize(QtCore.QSize(40, 30))
-        self.nucleation_widthText_2D.setMaximumSize(QtCore.QSize(40, 30))
+        self.nucleation_widthText_2D.setMinimumSize(QtCore.QSize(35, 30))
+        self.nucleation_widthText_2D.setMaximumSize(QtCore.QSize(35, 30))
         self.nucleation_widthText_2D.setDocumentTitle("")
         self.nucleation_widthText_2D.setObjectName("nucleation_widthText_2D")
         self.width_layout_horizontal_4.addWidget(self.nucleation_widthText_2D)
         self.nucleation_height_Label_2D = QtWidgets.QLabel(self.formLayoutWidget_3)
-        self.nucleation_height_Label_2D.setMinimumSize(QtCore.QSize(50, 0))
-        self.nucleation_height_Label_2D.setMaximumSize(QtCore.QSize(50, 16777215))
+        self.nucleation_height_Label_2D.setMinimumSize(QtCore.QSize(35, 0))
+        self.nucleation_height_Label_2D.setMaximumSize(QtCore.QSize(35, 16777215))
         self.nucleation_height_Label_2D.setObjectName("nucleation_height_Label_2D")
         self.width_layout_horizontal_4.addWidget(self.nucleation_height_Label_2D)
         self.nucleation_heightText2D = QtWidgets.QTextEdit(self.formLayoutWidget_3)
-        self.nucleation_heightText2D.setMinimumSize(QtCore.QSize(40, 30))
-        self.nucleation_heightText2D.setMaximumSize(QtCore.QSize(40, 30))
+        self.nucleation_heightText2D.setMinimumSize(QtCore.QSize(35, 30))
+        self.nucleation_heightText2D.setMaximumSize(QtCore.QSize(35, 30))
         self.nucleation_heightText2D.setObjectName("nucleation_heightText2D")
         self.width_layout_horizontal_4.addWidget(self.nucleation_heightText2D)
+        self.nucleation_width_amount_label = QtWidgets.QLabel(self.formLayoutWidget_3)
+        self.nucleation_width_amount_label.setMinimumSize(QtCore.QSize(30, 0))
+        self.nucleation_width_amount_label.setMaximumSize(QtCore.QSize(31, 16777215))
+        self.nucleation_width_amount_label.setObjectName("nucleation_width_amount_label")
+        self.width_layout_horizontal_4.addWidget(self.nucleation_width_amount_label)
+        self.nucleation_amount_width_text = QtWidgets.QTextEdit(self.formLayoutWidget_3)
+        self.nucleation_amount_width_text.setMinimumSize(QtCore.QSize(30, 30))
+        self.nucleation_amount_width_text.setMaximumSize(QtCore.QSize(30, 30))
+        self.nucleation_amount_width_text.setObjectName("nucleation_amount_width_text")
+        self.width_layout_horizontal_4.addWidget(self.nucleation_amount_width_text)
+        self.nucleation_height_amount_label = QtWidgets.QLabel(self.formLayoutWidget_3)
+        self.nucleation_height_amount_label.setMinimumSize(QtCore.QSize(30, 0))
+        self.nucleation_height_amount_label.setMaximumSize(QtCore.QSize(30, 16777215))
+        self.nucleation_height_amount_label.setObjectName("nucleation_height_amount_label")
+        self.width_layout_horizontal_4.addWidget(self.nucleation_height_amount_label)
+        self.nucleation_amount_height_text = QtWidgets.QTextEdit(self.formLayoutWidget_3)
+        self.nucleation_amount_height_text.setMinimumSize(QtCore.QSize(30, 30))
+        self.nucleation_amount_height_text.setMaximumSize(QtCore.QSize(30, 30))
+        self.nucleation_amount_height_text.setObjectName("nucleation_amount_height_text")
+        self.width_layout_horizontal_4.addWidget(self.nucleation_amount_height_text)
+        self.nucleation_seeds_amount_label = QtWidgets.QLabel(self.formLayoutWidget_3)
+        self.nucleation_seeds_amount_label.setMinimumSize(QtCore.QSize(39, 0))
+        self.nucleation_seeds_amount_label.setMaximumSize(QtCore.QSize(40, 16777215))
+        self.nucleation_seeds_amount_label.setSizeIncrement(QtCore.QSize(0, 0))
+        self.nucleation_seeds_amount_label.setObjectName("nucleation_seeds_amount_label")
+        self.width_layout_horizontal_4.addWidget(self.nucleation_seeds_amount_label)
+        self.nucleation_amount_seeds_text_1 = QtWidgets.QTextEdit(self.formLayoutWidget_3)
+        self.nucleation_amount_seeds_text_1.setMinimumSize(QtCore.QSize(30, 30))
+        self.nucleation_amount_seeds_text_1.setMaximumSize(QtCore.QSize(30, 30))
+        self.nucleation_amount_seeds_text_1.setObjectName("nucleation_amount_seeds_text_1")
+        self.width_layout_horizontal_4.addWidget(self.nucleation_amount_seeds_text_1)
+        self.nucleation_radius_label = QtWidgets.QLabel(self.formLayoutWidget_3)
+        self.nucleation_radius_label.setMinimumSize(QtCore.QSize(40, 0))
+        self.nucleation_radius_label.setMaximumSize(QtCore.QSize(40, 16777215))
+        self.nucleation_radius_label.setObjectName("nucleation_radius_label")
+        self.width_layout_horizontal_4.addWidget(self.nucleation_radius_label)
+        self.nucleation_radius_text = QtWidgets.QTextEdit(self.formLayoutWidget_3)
+        self.nucleation_radius_text.setMinimumSize(QtCore.QSize(30, 30))
+        self.nucleation_radius_text.setMaximumSize(QtCore.QSize(30, 30))
+        self.nucleation_radius_text.setObjectName("nucleation_radius_text")
+        self.width_layout_horizontal_4.addWidget(self.nucleation_radius_text)
         self.nucleation_iterationsLabel_2D = QtWidgets.QLabel(self.formLayoutWidget_3)
         self.nucleation_iterationsLabel_2D.setMinimumSize(QtCore.QSize(60, 0))
         self.nucleation_iterationsLabel_2D.setMaximumSize(QtCore.QSize(60, 16777215))
         self.nucleation_iterationsLabel_2D.setObjectName("nucleation_iterationsLabel_2D")
         self.width_layout_horizontal_4.addWidget(self.nucleation_iterationsLabel_2D)
         self.nucleation_iterationsText_2D = QtWidgets.QTextEdit(self.formLayoutWidget_3)
-        self.nucleation_iterationsText_2D.setMinimumSize(QtCore.QSize(40, 30))
-        self.nucleation_iterationsText_2D.setMaximumSize(QtCore.QSize(40, 30))
+        self.nucleation_iterationsText_2D.setMinimumSize(QtCore.QSize(35, 30))
+        self.nucleation_iterationsText_2D.setMaximumSize(QtCore.QSize(35, 30))
         self.nucleation_iterationsText_2D.setObjectName("nucleation_iterationsText_2D")
         self.width_layout_horizontal_4.addWidget(self.nucleation_iterationsText_2D)
         self.nucleation_boundary_Label_2D_7 = QtWidgets.QLabel(self.formLayoutWidget_3)
-        self.nucleation_boundary_Label_2D_7.setMinimumSize(QtCore.QSize(60, 0))
-        self.nucleation_boundary_Label_2D_7.setMaximumSize(QtCore.QSize(60, 16777215))
+        self.nucleation_boundary_Label_2D_7.setMinimumSize(QtCore.QSize(40, 0))
+        self.nucleation_boundary_Label_2D_7.setMaximumSize(QtCore.QSize(40, 16777215))
         self.nucleation_boundary_Label_2D_7.setObjectName("nucleation_boundary_Label_2D_7")
         self.width_layout_horizontal_4.addWidget(self.nucleation_boundary_Label_2D_7)
         self.nucleation_boundary_Text_2D_7 = QtWidgets.QTextEdit(self.formLayoutWidget_3)
-        self.nucleation_boundary_Text_2D_7.setMinimumSize(QtCore.QSize(100, 30))
-        self.nucleation_boundary_Text_2D_7.setMaximumSize(QtCore.QSize(100, 30))
+        self.nucleation_boundary_Text_2D_7.setMinimumSize(QtCore.QSize(65, 30))
+        self.nucleation_boundary_Text_2D_7.setMaximumSize(QtCore.QSize(65, 30))
         self.nucleation_boundary_Text_2D_7.setObjectName("nucleation_boundary_Text_2D_7")
         self.width_layout_horizontal_4.addWidget(self.nucleation_boundary_Text_2D_7)
         self.nucleation_pattern_Label_2D = QtWidgets.QLabel(self.formLayoutWidget_3)
@@ -378,28 +424,39 @@ class Ui_Dialog(QWidget):
         self.nucleation_pattern_Label_2D.setObjectName("nucleation_pattern_Label_2D")
         self.width_layout_horizontal_4.addWidget(self.nucleation_pattern_Label_2D)
         self.nucleation_pattern_Text_2D = QtWidgets.QTextEdit(self.formLayoutWidget_3)
-        self.nucleation_pattern_Text_2D.setMinimumSize(QtCore.QSize(100, 30))
-        self.nucleation_pattern_Text_2D.setMaximumSize(QtCore.QSize(100, 30))
+        self.nucleation_pattern_Text_2D.setMinimumSize(QtCore.QSize(90, 30))
+        self.nucleation_pattern_Text_2D.setMaximumSize(QtCore.QSize(90, 30))
         self.nucleation_pattern_Text_2D.setObjectName("nucleation_pattern_Text_2D")
         self.width_layout_horizontal_4.addWidget(self.nucleation_pattern_Text_2D)
         self.horizontalLayout_10.addLayout(self.width_layout_horizontal_4)
         self.horizontalLayout_9.addLayout(self.horizontalLayout_10)
         self.nucleation_initializeGameButton_2D = QtWidgets.QPushButton(self.formLayoutWidget_3)
-        self.nucleation_initializeGameButton_2D.setMinimumSize(QtCore.QSize(60, 0))
-        self.nucleation_initializeGameButton_2D.setMaximumSize(QtCore.QSize(60, 16777215))
+        self.nucleation_initializeGameButton_2D.setMinimumSize(QtCore.QSize(55, 0))
+        self.nucleation_initializeGameButton_2D.setMaximumSize(QtCore.QSize(55, 16777215))
         self.nucleation_initializeGameButton_2D.setObjectName("nucleation_initializeGameButton_2D")
         self.horizontalLayout_9.addWidget(self.nucleation_initializeGameButton_2D)
         self.nucleation_beginGameButton_2D_2 = QtWidgets.QPushButton(self.formLayoutWidget_3)
-        self.nucleation_beginGameButton_2D_2.setMinimumSize(QtCore.QSize(60, 0))
-        self.nucleation_beginGameButton_2D_2.setMaximumSize(QtCore.QSize(60, 16777215))
+        self.nucleation_beginGameButton_2D_2.setMinimumSize(QtCore.QSize(45, 0))
+        self.nucleation_beginGameButton_2D_2.setMaximumSize(QtCore.QSize(45, 16777215))
         self.nucleation_beginGameButton_2D_2.setObjectName("nucleation_beginGameButton_2D_2")
         self.horizontalLayout_9.addWidget(self.nucleation_beginGameButton_2D_2)
         self.nucleation_restart_button_2d = QtWidgets.QPushButton(self.formLayoutWidget_3)
-        self.nucleation_restart_button_2d.setMinimumSize(QtCore.QSize(80, 0))
-        self.nucleation_restart_button_2d.setMaximumSize(QtCore.QSize(80, 16777215))
+        self.nucleation_restart_button_2d.setMinimumSize(QtCore.QSize(55, 0))
+        self.nucleation_restart_button_2d.setMaximumSize(QtCore.QSize(55, 16777215))
         self.nucleation_restart_button_2d.setObjectName("nucleation_restart_button_2d")
         self.horizontalLayout_9.addWidget(self.nucleation_restart_button_2d)
         self.formLayout_3.setLayout(1, QtWidgets.QFormLayout.SpanningRole, self.horizontalLayout_9)
+        self.horizontalLayout = QtWidgets.QHBoxLayout()
+        self.horizontalLayout.setObjectName("horizontalLayout")
+        self.nucleation_neighbours_label = QtWidgets.QLabel(self.formLayoutWidget_3)
+        self.nucleation_neighbours_label.setObjectName("nucleation_neighbours_label")
+        self.horizontalLayout.addWidget(self.nucleation_neighbours_label)
+        self.nucleation_neighbours_text = QtWidgets.QTextEdit(self.formLayoutWidget_3)
+        self.nucleation_neighbours_text.setMinimumSize(QtCore.QSize(80, 22))
+        self.nucleation_neighbours_text.setMaximumSize(QtCore.QSize(80, 30))
+        self.nucleation_neighbours_text.setObjectName("nucleation_neighbours_text")
+        self.horizontalLayout.addWidget(self.nucleation_neighbours_text)
+        self.formLayout_3.setLayout(2, QtWidgets.QFormLayout.LabelRole, self.horizontalLayout)
         self.tabWidget.addTab(self.nucleation_tab, "")
         self.mode_menu.addWidget(self.tabWidget)
 
@@ -444,6 +501,14 @@ class Ui_Dialog(QWidget):
         self.nucleation_widthText_2D.setPlaceholderText(_translate("Dialog", str(self.nucleation_width_2d)))
         self.nucleation_height_Label_2D.setText(_translate("Dialog", "Height"))
         self.nucleation_heightText2D.setPlaceholderText(_translate("Dialog", str(self.nucleation_height_2d)))
+        self.nucleation_width_amount_label.setText(_translate("Dialog", "A_W"))
+        self.nucleation_amount_width_text.setPlaceholderText(_translate("Dialog", "10"))
+        self.nucleation_height_amount_label.setText(_translate("Dialog", "A_H"))
+        self.nucleation_amount_height_text.setPlaceholderText(_translate("Dialog", "10"))
+        self.nucleation_seeds_amount_label.setText(_translate("Dialog", "Seeds"))
+        self.nucleation_amount_seeds_text_1.setPlaceholderText(_translate("Dialog", "10"))
+        self.nucleation_radius_label.setText(_translate("Dialog", "Radius"))
+        self.nucleation_radius_text.setPlaceholderText(_translate("Dialog", "10"))
         self.nucleation_iterationsLabel_2D.setText(_translate("Dialog", "Iterations"))
         self.nucleation_iterationsText_2D.setPlaceholderText(_translate("Dialog", str(self.nucleation_iterations_2d)))
         self.nucleation_boundary_Label_2D_7.setText(_translate("Dialog", "Boundary"))
@@ -456,7 +521,8 @@ class Ui_Dialog(QWidget):
         self.nucleation_beginGameButton_2D_2.clicked.connect(self.begin_nucleation)
         self.nucleation_restart_button_2d.setText(_translate("Dialog", "restart"))
         self.nucleation_restart_button_2d.clicked.connect(self.restart_nucleation)
-
+        self.nucleation_neighbours_label.setText(_translate("Dialog", "Neighbours"))
+        self.nucleation_neighbours_text.setPlaceholderText(_translate("Dialog", "Neumann"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.nucleation_tab), _translate("Dialog", "Nucleation"))
 
 
@@ -741,42 +807,75 @@ class Ui_Dialog(QWidget):
                     user_edited_array.append(row_array)
                 self.SecondDimensionObj.set_current_array(user_edited_array)
 
-    def restart_nucleation(self):
-        pass
-
     def initialize_nucleation_parameters(self):
         _translate = QtCore.QCoreApplication.translate
         width_or_height_changed = False
         pattern_changed = False
 
         if str(self.nucleation_widthText_2D.toPlainText()) != "" and str(self.nucleation_widthText_2D.toPlainText()).isdigit():
-            if self.NucleationObj.return_pattern_width() > int(self.nucleation_widthText_2D.toPlainText()):
-                self.nucleation_widthText_2D.clear()
+            self.nucleation_width_2d = int(self.nucleation_widthText_2D.toPlainText())
+            self.nucleation_widthText_2D.setPlaceholderText(_translate("Dialog", str(self.nucleation_width_2d)))
+            self.nucleation_widthText_2D.clear()
+            width_or_height_changed = True
+
+        if str(self.nucleation_radius_text.toPlainText()) != "" and str(self.nucleation_radius_text.toPlainText()).isdigit():
+            self.nucleation_radius = int(self.nucleation_radius_text.toPlainText())
+            self.nucleation_radius_text.setPlaceholderText(_translate("Dialog", str(self.nucleation_radius)))
+            self.nucleation_radius_text.clear()
+            width_or_height_changed = True
+
+        if str(self.nucleation_amount_width_text.toPlainText()) != "" and str(self.nucleation_amount_width_text.toPlainText()).isdigit():
+            if self.NucleationObj.return_width() < int(self.nucleation_amount_width_text.toPlainText()):
+                self.nucleation_amount_width_text.clear()
             else:
-                self.nucleation_width_2d = int(self.nucleation_widthText_2D.toPlainText())
-                self.nucleation_widthText_2D.setPlaceholderText(_translate("Dialog", str(self.nucleation_width_2d)))
-                self.nucleation_widthText_2D.clear()
+                self.nucleation_user_width = int(self.nucleation_amount_width_text.toPlainText())
+                self.nucleation_amount_width_text.setPlaceholderText(_translate("Dialog", str(self.nucleation_user_width)))
+                self.nucleation_amount_width_text.clear()
                 width_or_height_changed = True
 
+        if str(self.nucleation_amount_height_text.toPlainText()) != "" and str(self.nucleation_amount_height_text.toPlainText()).isdigit():
+            if self.NucleationObj.return_height() < int(self.nucleation_amount_height_text.toPlainText()):
+                self.nucleation_amount_height_text.clear()
+            else:
+                self.nucleation_user_height = int(self.nucleation_amount_height_text.toPlainText())
+                self.nucleation_amount_height_text.setPlaceholderText(_translate("Dialog", str(self.nucleation_user_height)))
+                self.nucleation_amount_height_text.clear()
+                width_or_height_changed = True
+
+        if str(self.nucleation_amount_seeds_text_1.toPlainText()) != "" and str(self.nucleation_amount_seeds_text_1.toPlainText()).isdigit():
+            if self.NucleationObj.return_height()*self.NucleationObj.return_width() < int(self.nucleation_amount_seeds_text_1.toPlainText()):
+                self.nucleation_amount_seeds_text_1.clear()
+            else:
+                self.nucleation_seeds_amount = int(self.nucleation_amount_seeds_text_1.toPlainText())
+                self.nucleation_amount_seeds_text_1.setPlaceholderText(_translate("Dialog", str(self.nucleation_seeds_amount)))
+                self.nucleation_amount_seeds_text_1.clear()
+                width_or_height_changed = True
+                # self.nucleation_neighbours_type,
+
+        if str(self.nucleation_neighbours_text.toPlainText()) != "":
+            if str(self.nucleation_neighbours_text.toPlainText()) in self.NucleationObj.return_neighbour_array():
+                pattern_changed = True
+                self.nucleation_neighbours_type = str(self.nucleation_neighbours_text.toPlainText())
+                self.nucleation_neighbours_text.setPlaceholderText(_translate("Dialog", str(self.nucleation_neighbours_type)))
+            else:
+                self.nucleation_neighbours_text.clear()
         if str(self.nucleation_heightText2D.toPlainText()) != "" and str(self.nucleation_heightText2D.toPlainText()).isdigit():
-            if self.NucleationObj.return_pattern_height() > int(self.nucleation_heightText2D.toPlainText()):
-                self.nucleation_heightText2D.clear()
-            else:
-                self.nucleation_height_2d = int(self.nucleation_heightText2D.toPlainText())
-                self.nucleation_heightText2D.setPlaceholderText(_translate("Dialog", str(self.nucleation_height_2d)))
-                self.nucleation_heightText2D.clear()
-                width_or_height_changed = True
-
+            self.nucleation_height_2d = int(self.nucleation_heightText2D.toPlainText())
+            self.nucleation_heightText2D.setPlaceholderText(_translate("Dialog", str(self.nucleation_height_2d)))
+            self.nucleation_heightText2D.clear()
+            width_or_height_changed = True
         if str(self.nucleation_iterationsText_2D.toPlainText()) != "" and str(self.nucleation_iterationsText_2D.toPlainText()).isdigit():
             self.nucleation_iterations_2d = int(self.nucleation_iterationsText_2D.toPlainText())
             self.nucleation_iterationsText_2D.setPlaceholderText(_translate("Dialog", str(self.nucleation_iterations_2d)))
             self.nucleation_iterationsText_2D.clear()
 
-        if str(self.nucleation_pattern_Text_2D.toPlainText()) != "" and str(self.nucleation_pattern_Text_2D.toPlainText()) in self.NucleationObj.return_pattern_array():
-            pattern_changed = True
-            self.nucleation_pattern_2d = str(self.nucleation_pattern_Text_2D.toPlainText())
-            self.nucleation_pattern_Text_2D.setPlaceholderText(_translate("Dialog", str(self.nucleation_pattern_2d)))
-            self.nucleation_pattern_Text_2D.clear()
+        if str(self.nucleation_pattern_Text_2D.toPlainText()) != "":
+            if str(self.nucleation_pattern_Text_2D.toPlainText()) in self.NucleationObj.return_pattern_array():
+                pattern_changed = True
+                self.nucleation_pattern_2d = str(self.nucleation_pattern_Text_2D.toPlainText())
+                self.nucleation_pattern_Text_2D.setPlaceholderText(_translate("Dialog", str(self.nucleation_pattern_2d)))
+            else:
+                self.nucleation_pattern_Text_2D.clear()
 
         if str(self.nucleation_boundary_Text_2D_7.toPlainText()) != "": # boundary conditions = periodical
             self.nucleation_boundary_conditions = str(self.nucleation_boundary_Text_2D_7.toPlainText())
@@ -787,7 +886,11 @@ class Ui_Dialog(QWidget):
             self.nucleation_boundary_Text_2D_7.setPlaceholderText(_translate("Dialog", str(self.nucleation_boundary_conditions)))
             self.nucleation_boundary_Text_2D_7.clear()
 
-        self.NucleationObj.set_parameters(self.nucleation_width_2d, self.nucleation_height_2d, self.nucleation_iterations_2d, self.nucleation_pattern_2d, self.nucleation_boundary_conditions)
+        self.NucleationObj.set_parameters(self.nucleation_width_2d, self.nucleation_height_2d,
+                                          self.nucleation_iterations_2d, self.nucleation_pattern_2d,
+                                          self.nucleation_boundary_conditions, self.nucleation_neighbours_type,
+                                          self.nucleation_seeds_amount, self.nucleation_user_width,
+                                          self.nucleation_user_height, self.nucleation_radius)
         if self.nucleation_pattern_2d == "manual":
             self.nucleation_manualInputTextArea_2D.clear()
             self.nucleation_initial_manual_array_2d = self.NucleationObj.return_initial_array()
@@ -801,7 +904,9 @@ class Ui_Dialog(QWidget):
             self.nucleation_settings_has_changed = True
 
     def begin_nucleation(self):
+        pass
 
+    def restart_nucleation(self):
         pass
 # if __name__ == "__main__":
 #     import sys

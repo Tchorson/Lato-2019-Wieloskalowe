@@ -3,7 +3,7 @@ import numpy as np
 class Cell:
     is_alive = False
     id = 0
-    colours = [0,0,0]
+    colours = [0, 0, 0]
     def __init__(self, input_alive = False):
         self.is_alive = input_alive
 
