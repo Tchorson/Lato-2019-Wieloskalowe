@@ -3,9 +3,10 @@ import numpy as np
 class Cell:
     is_alive = False
     id = 0
-    colours = [0, 0, 0]
-    def __init__(self, input_alive = False):
+    colours = [255, 255, 255]
+    def __init__(self, input_alive = False, colours = [255,255,255]):
         self.is_alive = input_alive
+        self.colours = colours
 
     def __repr__(self):
         #return repr(self.__id) + " " + repr(self.is_alive) + " "

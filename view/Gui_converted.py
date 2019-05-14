@@ -6,12 +6,12 @@
 #
 # WARNING! All changes made in this file will be lost!
 
-import time
+import random
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtWidgets import QWidget, QMainWindow, QDialog
 from PyQt5 import QtTest
-from PyQt5.QtGui import QColor
+from PyQt5.QtGui import QColor, QPainter
 
 from logic.FistDimension import FirstDimension
 from logic.SecondDimension import SecondDimension
@@ -32,9 +32,12 @@ class Ui_Dialog(QWidget):
         self.alive_cels_numbers = [51]
         self.side = 7
         self.side_2d = 7
+        self.nucleation_side = 12
         self.width_draw_2d = 7
         self.height_draw_2d = 7
         self.row = 0
+        self.nucleation_row = 0
+        self.nucleation_column = 0
         self.first_time = True
         self.previous_iteration_array_2d = [] #self.current_iteration_array self.current_iteration_array_2d should be her!
 
@@ -62,6 +65,7 @@ class Ui_Dialog(QWidget):
         self.previous_counter = self.iterations
         self.previous_row = self.row
 
+        self.nucleation_settings_has_changed = True
         self.nucleation_height_2d = self.NucleationObj.return_height()
         self.nucleation_width_2d = self.NucleationObj.return_width()
         self.nucleation_iterations_2d = self.NucleationObj.return_iteration()
@@ -74,7 +78,6 @@ class Ui_Dialog(QWidget):
         self.nucleation_radius = self.NucleationObj.return_radius_amount()
         self.nucleation_initial_manual_array_2d = self.NucleationObj.return_initial_array()
         self.nucleation_manual_array_text_backup = ''
-        self.nucleation_settings_has_changed = True
         self.nucleation_previous_iteration_array_2d = self.NucleationObj.return_previous_array()
         self.nucleation_current_iteration_array_2d = self.NucleationObj.return_current_array()
 
@@ -321,11 +324,13 @@ class Ui_Dialog(QWidget):
         self.formLayout_3.setObjectName("formLayout_3")
         self.horizontalLayout_16 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_16.setObjectName("horizontalLayout_16")
+        self.nucleation_scene = QtWidgets.QGraphicsScene()
         self.nucleation_graphic_ca_2d = QtWidgets.QGraphicsView(self.formLayoutWidget_3)
         self.nucleation_graphic_ca_2d.setMinimumSize(QtCore.QSize(700, 350))
         self.nucleation_graphic_ca_2d.setMaximumSize(QtCore.QSize(700, 16777215))
         self.nucleation_graphic_ca_2d.setObjectName("nucleation_graphic_ca_2d")
         self.horizontalLayout_16.addWidget(self.nucleation_graphic_ca_2d)
+        self.nucleation_graphic_ca_2d.setScene(self.nucleation_scene)
         self.nucleation_manualInputTextArea_2D = QtWidgets.QPlainTextEdit(self.formLayoutWidget_3)
         self.nucleation_manualInputTextArea_2D.setObjectName("nucleation_manualInputTextArea_2D")
         self.horizontalLayout_16.addWidget(self.nucleation_manualInputTextArea_2D)
@@ -502,19 +507,19 @@ class Ui_Dialog(QWidget):
         self.nucleation_height_Label_2D.setText(_translate("Dialog", "Height"))
         self.nucleation_heightText2D.setPlaceholderText(_translate("Dialog", str(self.nucleation_height_2d)))
         self.nucleation_width_amount_label.setText(_translate("Dialog", "A_W"))
-        self.nucleation_amount_width_text.setPlaceholderText(_translate("Dialog", "10"))
+        self.nucleation_amount_width_text.setPlaceholderText(_translate("Dialog", str(self.nucleation_user_width)))
         self.nucleation_height_amount_label.setText(_translate("Dialog", "A_H"))
-        self.nucleation_amount_height_text.setPlaceholderText(_translate("Dialog", "10"))
+        self.nucleation_amount_height_text.setPlaceholderText(_translate("Dialog", str(self.nucleation_user_height)))
         self.nucleation_seeds_amount_label.setText(_translate("Dialog", "Seeds"))
-        self.nucleation_amount_seeds_text_1.setPlaceholderText(_translate("Dialog", "10"))
+        self.nucleation_amount_seeds_text_1.setPlaceholderText(_translate("Dialog", str(self.nucleation_seeds_amount)))
         self.nucleation_radius_label.setText(_translate("Dialog", "Radius"))
-        self.nucleation_radius_text.setPlaceholderText(_translate("Dialog", "10"))
+        self.nucleation_radius_text.setPlaceholderText(_translate("Dialog", str(self.nucleation_radius)))
         self.nucleation_iterationsLabel_2D.setText(_translate("Dialog", "Iterations"))
         self.nucleation_iterationsText_2D.setPlaceholderText(_translate("Dialog", str(self.nucleation_iterations_2d)))
         self.nucleation_boundary_Label_2D_7.setText(_translate("Dialog", "Boundary"))
         self.nucleation_boundary_Text_2D_7.setPlaceholderText(_translate("Dialog", str(self.nucleation_boundary_conditions)))
         self.nucleation_pattern_Label_2D.setText(_translate("Dialog", "Nucleation"))
-        self.nucleation_pattern_Text_2D.setPlaceholderText(_translate("Dialog", "homogeneous"))
+        self.nucleation_pattern_Text_2D.setPlaceholderText(_translate("Dialog", str(self.nucleation_pattern_2d)))
         self.nucleation_initializeGameButton_2D.setText(_translate("Dialog", "Initialize"))
         self.nucleation_initializeGameButton_2D.clicked.connect(self.initialize_nucleation_parameters)
         self.nucleation_beginGameButton_2D_2.setText(_translate("Dialog", "Start"))
@@ -810,7 +815,6 @@ class Ui_Dialog(QWidget):
     def initialize_nucleation_parameters(self):
         _translate = QtCore.QCoreApplication.translate
         width_or_height_changed = False
-        pattern_changed = False
 
         if str(self.nucleation_widthText_2D.toPlainText()) != "" and str(self.nucleation_widthText_2D.toPlainText()).isdigit():
             self.nucleation_width_2d = int(self.nucleation_widthText_2D.toPlainText())
@@ -850,7 +854,6 @@ class Ui_Dialog(QWidget):
                 self.nucleation_amount_seeds_text_1.setPlaceholderText(_translate("Dialog", str(self.nucleation_seeds_amount)))
                 self.nucleation_amount_seeds_text_1.clear()
                 width_or_height_changed = True
-                # self.nucleation_neighbours_type,
 
         if str(self.nucleation_neighbours_text.toPlainText()) != "":
             if str(self.nucleation_neighbours_text.toPlainText()) in self.NucleationObj.return_neighbour_array():
@@ -859,11 +862,13 @@ class Ui_Dialog(QWidget):
                 self.nucleation_neighbours_text.setPlaceholderText(_translate("Dialog", str(self.nucleation_neighbours_type)))
             else:
                 self.nucleation_neighbours_text.clear()
+
         if str(self.nucleation_heightText2D.toPlainText()) != "" and str(self.nucleation_heightText2D.toPlainText()).isdigit():
             self.nucleation_height_2d = int(self.nucleation_heightText2D.toPlainText())
             self.nucleation_heightText2D.setPlaceholderText(_translate("Dialog", str(self.nucleation_height_2d)))
             self.nucleation_heightText2D.clear()
             width_or_height_changed = True
+
         if str(self.nucleation_iterationsText_2D.toPlainText()) != "" and str(self.nucleation_iterationsText_2D.toPlainText()).isdigit():
             self.nucleation_iterations_2d = int(self.nucleation_iterationsText_2D.toPlainText())
             self.nucleation_iterationsText_2D.setPlaceholderText(_translate("Dialog", str(self.nucleation_iterations_2d)))
@@ -874,6 +879,7 @@ class Ui_Dialog(QWidget):
                 pattern_changed = True
                 self.nucleation_pattern_2d = str(self.nucleation_pattern_Text_2D.toPlainText())
                 self.nucleation_pattern_Text_2D.setPlaceholderText(_translate("Dialog", str(self.nucleation_pattern_2d)))
+                self.nucleation_pattern_Text_2D.clear()
             else:
                 self.nucleation_pattern_Text_2D.clear()
 
@@ -900,14 +906,134 @@ class Ui_Dialog(QWidget):
         if width_or_height_changed:
             self.nucleation_manualInputTextArea_2D.clear()
             self.nucleation_initial_manual_array_2d = self.NucleationObj.return_current_array()
-        if width_or_height_changed or pattern_changed:
             self.nucleation_settings_has_changed = True
 
+    def nucleation_draw_manual_array_on_textarea(self):
+        draw_array = []
+        for row in range(self.nucleation_height_2d):
+            row_array = ''
+
+            for column in range(self.nucleation_width_2d): # zmienic?
+                row_array+=str(self.nucleation_initial_manual_array_2d[row][column].id)
+
+                if column == self.width_2d-1:
+                    row_array+=''
+                else:
+                    row_array+=','
+
+            draw_array.append(row_array)
+        return draw_array
+
+    def nucleation_draw_empty_board_2d(self):
+        # self.width_draw_2d = self.width_2d / 700
+        # self.height_draw_2d = self.height_2d / 350
+
+        self.nucleation_side = 12
+
+
+        for row in range(self.nucleation_height_2d):
+            for column in range(self.nucleation_width_2d):
+                rectangle = QtCore.QRectF(QtCore.QPointF(column * self.nucleation_side, row * self.nucleation_side),
+                                          QtCore.QSizeF(self.nucleation_side, self.nucleation_side))
+                self.nucleation_scene.addRect(rectangle, self.green_pen)
+
+    def nucleation_draw_board_2d(self,input_array):
+        self.nucleation_side = 12
+        #print("method 1")
+        for row in range(len(input_array)):
+            for column in range(len(input_array[row])):
+                rectangle = QtCore.QRectF(QtCore.QPointF(column * self.nucleation_side, row * self.nucleation_side),
+                                          QtCore.QSizeF(self.nucleation_side, self.nucleation_side))
+
+                colors_array = input_array[row][column].return_colours_array()
+                #print(colors_array)
+                self.nucleation_scene.addRect(rectangle, QtGui.QPen(QColor(colors_array[0],colors_array[1],colors_array[2])))
+
     def begin_nucleation(self):
-        pass
+        _translate = QtCore.QCoreApplication.translate
+        if self.NucleationObj.check_if_last_iteration():
+            self.restart_nucleation()
+        # if self.pattern_2d == "manual":
+        #     _translate = QtCore.QCoreApplication.translate
+        #print("Here0")
+        # self.manualInputTextArea_2D.
+        #print("Here1")
+        self.nucleation_previous_iteration_array_2d = self.NucleationObj.return_previous_array()
+        self.nucleation_current_iteration_array_2d = self.NucleationObj.return_current_array()
+        #self.NucleationObj.print_current_array()
+        #print("Here3")
+        self.nucleation_scene.clear()
+        if self.nucleation_pattern_2d == "manual":
+            self.nucleation_initial_manual_array_2d = str(self.nucleation_draw_manual_array_on_textarea())[1:-1]
+        self.nucleation_draw_empty_board_2d()
+        #print("Here1.9")
+        # self.draw_board_2d(self.current_iteration_array_2d)
+        self.nucleation_draw_board_2d(self.NucleationObj.next_iteration())
+        #self.NucleationObj.print_current_array()
+        self.nucleation_draw_board_2d(self.nucleation_current_iteration_array_2d)
+        print("FIRST ITERATION")
+
+
+        while not self.NucleationObj.check_if_last_iteration():
+            #print("Here loop")
+            QtTest.QTest.qWait(250)
+            self.nucleation_draw_empty_board_2d()
+            self.nucleation_previous_iteration_array_2d = self.nucleation_current_iteration_array_2d
+            self.nucleation_current_iteration_array_2d = self.NucleationObj.next_iteration()
+            #self.NucleationObj.print_current_array()
+            self.nucleation_draw_board_2d(self.nucleation_current_iteration_array_2d)
+
+            if self.nucleation_pattern_2d == "manual":
+                self.nucleation_initial_manual_array_2d = self.nucleation_current_iteration_array_2d
+                self.nucleation_read_manual_array_from_textarea()
+                self.nucleation_manualInputTextArea_2D.clear()
+                self.nucleation_manualInputTextArea_2D.appendPlainText(_translate("Dialog", str(self.nucleation_draw_manual_array_on_textarea())[1:-1]))
+
+    def nucleation_read_manual_array_from_textarea(self):
+        if self.nucleation_settings_has_changed:
+            self.nucleation_settings_has_changed = False
+            return
+        else:
+            current_text =  str(self.nucleation_manualInputTextArea_2D.toPlainText())
+            current_text_modified = current_text.replace(" ","").replace("',","S").replace("'","").split("S")
+            #print(current_text)
+            #print(str(self.manual_array_text_backup))
+            if current_text != self.nucleation_manual_array_text_backup:
+                user_edited_array = []
+                for row in range(len(current_text_modified)):
+                    row_array = []
+                    splitted_array = current_text_modified[row].split(",")
+                    for column in range(len(current_text_modified[row].split(","))):
+                        #print(splitted_array[column],end="")
+                        # if splitted_array[column] == "1": # ZMIENIC DONE
+                        #     #print("im adding alive cell")
+                        #     new_cell = Cell()
+                        #     new_cell.is_alive = True
+                        #     row_array.append(new_cell)
+                        # if splitted_array[column] == "0":
+                        #     row_array.append(Cell(False))
+                        splitted_array_index = int(splitted_array[column])
+                        new_cell = Cell()
+                        new_cell.set_id(splitted_array_index)
+                        if splitted_array_index in self.NucleationObj.return_colors_dictionary():
+                            new_cell.set_colours_array(self.NucleationObj.return_colors_dictionary().get(splitted_array_index))
+                        else:
+                            random_red = random.randint(0, 255)
+                            random_green = random.randint(0, 255)
+                            random_blue = random.randint(0, 255)
+                            new_cell.set_colours_array([random_red, random_green, random_blue])
+                            self.NucleationObj.set_colors_dictionary_element(splitted_array_index,[random_red, random_green, random_blue])
+                        row_array.append(new_cell)
+                    #print(row_array)
+                    user_edited_array.append(row_array)
+                self.NucleationObj.set_current_array(user_edited_array)
 
     def restart_nucleation(self):
-        pass
+        self.nucleation_scene.clear()
+        self.nucleation_row = 0
+        self.nucleation_column = 0
+        self.NucleationObj.restart_grid()
+
 # if __name__ == "__main__":
 #     import sys
 #     app = QtWidgets.QApplication(sys.argv)
