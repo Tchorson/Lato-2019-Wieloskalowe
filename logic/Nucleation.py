@@ -6,7 +6,7 @@ import math
 
 class Nucleation:
 
-    def __init__(self, width=10, height=10, iterations=10, pattern='homogeneous', periodical=False, neighbours = "Neumann",
+    def __init__(self, width=10, height=10, iterations=10, pattern='manual', periodical=False, neighbours = "Neumann",
                  seeds_amount = 1, width_amount = 7, height_amount = 8, radius = 5):
         self.width = width
         self.height = height
@@ -39,6 +39,13 @@ class Nucleation:
         self.set_pattern_in_array(self.pattern)
         self.set_neighbour(neighbours)
 
+    def check_if_only_zeros(self):
+        only_zeros = True
+        for row in range(self.height):
+            for column in range(self.width):
+                if self.game_array_current_state_2d[row][column].id != 0:
+                    only_zeros = False
+        return only_zeros
 
     def return_colors_dictionary(self):
         return self.colors_dictionary
@@ -250,12 +257,6 @@ class Nucleation:
                     self.tmp_width_amount = self.width_amount
 
                 iteration = 0
-
-                print(str(disbalanced_amount_in_rows)+" "+ str(disbalanced_amount_in_columns))
-                print(str(space_between_rows) + " " + str(space_between_columns))
-
-
-
                 row_counter = space_between_columns//2
                 for index_row in range(self.tmp_height_amount):
                     column_counter = space_between_columns//2
@@ -272,7 +273,6 @@ class Nucleation:
 
 
                 if height_disbalance !=False and width_disbalance !=False:
-                    print("HERE1")
                     disbalanced_row_counter = 0
                     for disbalanced_index_row in range(disbalanced_amount_in_rows):
                         disbalanced_column_counter = 0
@@ -289,7 +289,6 @@ class Nucleation:
                         disbalanced_row_counter += space_between_rows
 
                 if height_disbalance == False and width_disbalance != False:
-                    print("HERE2")
                     row_counter = 1
                     for index_row in range(self.tmp_height_amount):
                         disbalanced_column_counter = 0
@@ -306,7 +305,6 @@ class Nucleation:
                         row_counter += space_between_rows
 
                 if height_disbalance != False and width_disbalance == False:
-                    print("HERE3")
                     disbalanced_row_counter = 0
                     for disbalanced_index_row in range(disbalanced_amount_in_rows):
                         column_counter = 1
@@ -344,7 +342,6 @@ class Nucleation:
                         #print("INSIDE3")
                     else:
                         print(" iteration number: "+str(iteration)+" was not applied")
-
             if pattern == 'manual':
                 pass
         else:
@@ -423,7 +420,6 @@ class Nucleation:
         for row in range(len(self.game_array_current_state_2d)):
             for column in range(len(self.game_array_current_state_2d[row])):
                 print(str(self.game_array_current_state_2d[row][column].return_id()), end=' ')
-
             print("\n")
 
     def set_current_array(self,array):

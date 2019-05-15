@@ -490,6 +490,8 @@ class Ui_Dialog(QWidget):
         self.widthLabel_2D.setText(_translate("Dialog", "Width"))
         self.manualInputTextArea_2D.appendPlainText(
             _translate("Dialog", str(self.draw_manual_array_on_textarea())[1:-1]))
+        self.nucleation_manualInputTextArea_2D.appendPlainText(
+            _translate("Dialog", str(self.nucleation_draw_manual_array_on_textarea())[1:-1]))
         self.widthText_2D.setPlaceholderText(_translate("Dialog", str(self.width_2d)))
         self.heightLabel2D.setText(_translate("Dialog", "Height"))
         self.heightText2D.setPlaceholderText(_translate("Dialog", str(self.height_2d)))
@@ -912,9 +914,9 @@ class Ui_Dialog(QWidget):
         self.nucleation_scene.clear()
         if self.nucleation_pattern_2d == "manual":
             self.manual_array_text_backup = str(self.nucleation_draw_manual_array_on_textarea())[1:-1]
+            self.nucleation_current_iteration_array_2d = self.nucleation_read_manual_array_from_textarea()
         self.nucleation_draw_empty_board_2d()
         self.nucleation_draw_board_2d(self.NucleationObj.next_iteration())
-        self.nucleation_draw_board_2d(self.nucleation_current_iteration_array_2d)
         QtTest.QTest.qWait(2000)
         while not self.NucleationObj.check_if_last_iteration():
             QtTest.QTest.qWait(150)
@@ -922,12 +924,15 @@ class Ui_Dialog(QWidget):
             self.nucleation_previous_iteration_array_2d = self.nucleation_current_iteration_array_2d
             self.nucleation_current_iteration_array_2d = self.NucleationObj.next_iteration()
             self.nucleation_draw_board_2d(self.nucleation_current_iteration_array_2d)
+            if self.NucleationObj.search_for_zeros():
+                print("BREAK")
+                break
 
-            if self.nucleation_pattern_2d == "manual":
-                self.nucleation_initial_manual_array_2d = self.nucleation_current_iteration_array_2d
-                self.nucleation_read_manual_array_from_textarea()
-                self.nucleation_manualInputTextArea_2D.clear()
-                self.nucleation_manualInputTextArea_2D.appendPlainText(_translate("Dialog", str(self.nucleation_draw_manual_array_on_textarea())[1:-1]))
+        if self.nucleation_pattern_2d == "manual":
+            self.nucleation_initial_manual_array_2d = self.nucleation_current_iteration_array_2d
+            self.nucleation_read_manual_array_from_textarea()
+            self.nucleation_manualInputTextArea_2D.clear()
+            self.nucleation_manualInputTextArea_2D.appendPlainText(_translate("Dialog", str(self.nucleation_draw_manual_array_on_textarea())[1:-1]))
 
     def nucleation_read_manual_array_from_textarea(self):
         if self.nucleation_settings_has_changed:
@@ -1005,10 +1010,15 @@ class Ui_Dialog(QWidget):
 
 
     def restart_nucleation(self):
+        _translate = QtCore.QCoreApplication.translate
         self.nucleation_scene.clear()
         self.nucleation_row = 0
         self.nucleation_column = 0
         self.NucleationObj.restart_grid()
+        self.nucleation_manualInputTextArea_2D.clear()
+        self.nucleation_initial_manual_array_2d = self.NucleationObj.return_initial_array()
+        self.nucleation_manualInputTextArea_2D.appendPlainText(
+                    _translate("Dialog", str(self.nucleation_draw_manual_array_on_textarea())[1:-1]))
 
 # if __name__ == "__main__":
 #     import sys
