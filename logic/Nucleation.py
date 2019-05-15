@@ -320,7 +320,28 @@ class Nucleation:
                             iteration += 1
                         disbalanced_row_counter += space_between_rows
 
-            if pattern == 'radius': # radius w menu glownym nie tu
+            if pattern == 'radius': # radius w menu glownym nie tu albo jebac tutaj
+                local_side = 7
+                for iteration in range(self.seeds_amount):
+                    random_row = random.randint(0,len(self.game_array_current_state_2d)-1)
+                    random_column = random.randint(0,len(self.game_array_current_state_2d[random_row])-1)
+                    #print("ITERATION")
+                    if (self.game_array_current_state_2d[random_row][random_column].id == 0):
+                        base_radius_size= local_side/2
+                        element_center_x = random_row + base_radius_size
+                        element_center_y = random_column + base_radius_size
+
+
+                        random_red = random.randint(0, 255)
+                        random_green = random.randint(0, 255)
+                        random_blue = random.randint(0,255)
+
+                        self.game_array_current_state_2d[random_row][random_column].id = iteration+1
+                        self.game_array_current_state_2d[random_row][random_column].set_colours_array([random_red, random_green, random_blue])
+                        self.colors_dictionary[iteration+1] = [random_red,random_green,random_blue]
+                    else:
+                        print(" iteration number: "+str(iteration)+" was not applied")
+
                 pass
             #print("BEFORE RANDOM")
             if pattern == 'random':
@@ -335,11 +356,8 @@ class Nucleation:
                         random_blue = random.randint(0,255)
 
                         self.game_array_current_state_2d[random_row][random_column].id = iteration+1
-                        #print("INSIDE1")
                         self.game_array_current_state_2d[random_row][random_column].set_colours_array([random_red, random_green, random_blue])
-                        #print("INSIDE2")
                         self.colors_dictionary[iteration+1] = [random_red,random_green,random_blue]
-                        #print("INSIDE3")
                     else:
                         print(" iteration number: "+str(iteration)+" was not applied")
             if pattern == 'manual':

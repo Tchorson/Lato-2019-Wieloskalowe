@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/view/Gui_converted.py" description="splitted_array_index = int(splitted_array[column])" line="954" />
+    <bookmark url="file://$PROJECT_DIR$/view/Gui_converted.py" description="splitted_array_index = int(splitted_array[column])" line="972" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="57349c8a-6d1d-448d-af98-3993fed38578" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logic/Nucleation.py" beforeDir="false" afterPath="$PROJECT_DIR$/logic/Nucleation.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/view/Gui_converted.py" beforeDir="false" afterPath="$PROJECT_DIR$/view/Gui_converted.py" afterDir="false" />
     </list>
@@ -18,98 +19,47 @@
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/Lato_2019_Wieloskalowe$Gui.coverage" NAME="Gui Coverage Results" MODIFIED="1555789677949" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/view" />
     <SUITE FILE_PATH="coverage/Lato_2019_Wieloskalowe$test.coverage" NAME="test Coverage Results" MODIFIED="1555604899285" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Lato_2019_Wieloskalowe$MainApp.coverage" NAME="MainApp Coverage Results" MODIFIED="1557933193083" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Lato_2019_Wieloskalowe$MainApp.coverage" NAME="MainApp Coverage Results" MODIFIED="1557958246967" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Lato_2019_Wieloskalowe$test__1_.coverage" NAME="test (1) Coverage Results" MODIFIED="1555604912431" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/view" />
     <SUITE FILE_PATH="coverage/Lato_2019_Wieloskalowe$Gui_converted.coverage" NAME="Gui_converted Coverage Results" MODIFIED="1555968462817" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/view" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.5">
-      <split-first>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="Gui_converted.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/view/Gui_converted.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-607">
-                  <caret line="471" column="36" selection-start-line="471" selection-start-column="36" selection-end-line="471" selection-end-column="36" />
-                  <folding>
-                    <element signature="e#192#203#0" expanded="true" />
-                    <element signature="e#636#3472#0" />
-                    <element signature="e#300#25845#0" />
-                    <element signature="e#25892#29976#0" />
-                    <element signature="e#34645#34764#0" />
-                    <element signature="e#34822#36927#0" />
-                    <element signature="e#36979#39188#0" />
-                    <element signature="e#39295#40750#0" />
-                    <element signature="e#41002#43516#0" />
-                    <element signature="e#43561#44089#0" />
-                    <element signature="e#44140#44634#0" />
-                    <element signature="e#49185#55719#0" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="MainApp.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/MainApp.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="221">
-                  <caret line="17" selection-start-line="17" selection-end-line="17" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="SecondDimension.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/logic/SecondDimension.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="343">
-                  <caret line="152" column="31" selection-start-line="152" selection-start-column="25" selection-end-line="152" selection-end-column="31" />
-                  <folding>
-                    <element signature="e#0#28#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="Nucleation.py" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/logic/Nucleation.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="298">
-                  <caret line="427" column="8" selection-start-line="427" selection-start-column="8" selection-end-line="427" selection-end-column="8" />
-                  <folding>
-                    <element signature="e#0#28#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="Cell.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/models/Cell.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="85">
-                  <caret line="5" column="18" selection-start-line="5" selection-start-column="15" selection-end-line="5" selection-end-column="18" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-first>
-      <split-second>
-        <leaf>
-          <file leaf-file-name="Gui_converted.py" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/view/Gui_converted.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="179">
-                  <caret line="1017" column="54" selection-start-line="1017" selection-start-column="54" selection-end-line="1017" selection-end-column="54" />
-                  <folding>
-                    <element signature="e#636#3472#0" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-second>
-    </splitter>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="Gui_converted.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/view/Gui_converted.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="166">
+              <caret line="929" column="48" selection-start-line="929" selection-start-column="48" selection-end-line="929" selection-end-column="48" />
+              <folding>
+                <element signature="e#192#205#0" expanded="true" />
+                <element signature="e#49333#55934#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MainApp.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/MainApp.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="221">
+              <caret line="17" selection-start-line="17" selection-end-line="17" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Nucleation.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/logic/Nucleation.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="58" column="8" selection-start-line="58" selection-start-column="8" selection-end-line="58" selection-end-column="8" />
+              <folding>
+                <element signature="e#0#28#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -120,10 +70,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>dictionary</find>
-      <find>random</find>
-      <find>nucleation_pattern</find>
-      <find>print_</find>
       <find>str(</find>
       <find>pri</find>
       <find>qwa</find>
@@ -150,6 +96,10 @@
       <find>nucleation_manualInputTextArea_2d</find>
       <find>manualinputTextArea_2D.appendPlainText</find>
       <find>nucleation_initial_manual_array_2d</find>
+      <find>appendPlainText</find>
+      <find>nucleation_side</find>
+      <find>side</find>
+      <find>QColor</find>
     </findStrings>
     <replaceStrings>
       <replace>pattern_Text_2D</replace>
@@ -190,6 +140,7 @@
         <option value="$PROJECT_DIR$/view/Gui_converted_11_May.py" />
         <option value="$PROJECT_DIR$/MainApp.py" />
         <option value="$PROJECT_DIR$/models/Cell.py" />
+        <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/logic/Nucleation.py" />
         <option value="$PROJECT_DIR$/view/Gui_converted.py" />
       </list>
@@ -205,9 +156,10 @@
     <packageJsonPaths />
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
-    <option name="width" value="977" />
-    <option name="height" value="1038" />
+    <option name="x" value="926" />
+    <option name="y" value="115" />
+    <option name="width" value="978" />
+    <option name="height" value="718" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -251,6 +203,7 @@
   <component name="PropertiesComponent">
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://C:/AGH/Semestr 6/Wieloskalowe/Lato-2019-Wieloskalowe/logic/SecondDimension.py" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="add_unversioned_files" value="true" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
@@ -415,27 +368,27 @@
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49932885" weight="0.32905984" />
-      <window_info anchor="bottom" id="Event Log" order="12" sideWeight="0.3375839" side_tool="true" visible="true" weight="0.2065527" />
+      <window_info anchor="bottom" id="Event Log" order="12" sideWeight="0.34026846" side_tool="true" visible="true" weight="0.2948718" />
       <window_info anchor="right" x="0" y="0" width="337" height="638" id="Documentation" order="5" side_tool="true" visible="true" weight="0.012751678" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.49932885" weight="0.32905984" />
       <window_info anchor="bottom" id="Python Console" order="11" sideWeight="0.49932885" weight="0.32905984" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.6624161" visible="true" weight="0.2065527" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.65973157" visible="true" weight="0.2948718" />
       <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.59731543" weight="0.16239317" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.023489933" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.0738255" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" />
-      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.4986577" weight="0.53988606" />
       <window_info anchor="right" id="SciView" order="4" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.15384616" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49798658" weight="0.24074075" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.4986577" weight="0.53988606" />
       <window_info anchor="bottom" id="Concurrent Activities Diagram" order="13" weight="0.32905984" />
     </layout>
   </component>
@@ -454,17 +407,10 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="33" />
+      <option name="time" value="35" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/MainApp.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="6" column="26" selection-start-line="6" selection-start-column="26" selection-end-line="6" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/logic/FistDimension.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1513">
@@ -557,9 +503,7 @@
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/view/Gui_converted_2_May.py" />
-    <entry file="file://$PROJECT_DIR$/view/Gui_converted_4_May.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/view/Gui_converted_4_May.py" />
     <entry file="file://$PROJECT_DIR$/view/Gui_converted_26_April.py" />
     <entry file="file://$PROJECT_DIR$/view/Gui_converted_backup.py" />
     <entry file="file://$PROJECT_DIR$/view/Gui.ui">
@@ -620,20 +564,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/view/Gui_converted_backup_6_May.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="65">
-          <caret line="571" column="34" selection-start-line="571" selection-start-column="34" selection-end-line="571" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/view/Gui_converted_6_May.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="493" column="59" selection-start-line="493" selection-start-column="59" selection-end-line="493" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/view/Gui_converted_backup_6_May.py" />
+    <entry file="file://$PROJECT_DIR$/view/Gui_converted_6_May.py" />
     <entry file="file://$PROJECT_DIR$/logic/FistDimension.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
@@ -655,13 +587,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/view/Gui_converted_broken_copy.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-7463">
-          <caret line="113" column="56" lean-forward="true" selection-start-line="113" selection-start-column="56" selection-end-line="113" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/view/Gui_converted_broken_copy.py" />
     <entry file="file://$PROJECT_DIR$/view/Gui_converted_12_May.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-13632">
@@ -695,8 +621,25 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/logic/SecondDimension.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="343">
+        <state relative-caret-position="2550">
           <caret line="152" column="31" selection-start-line="152" selection-start-column="25" selection-end-line="152" selection-end-column="31" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="21" lean-forward="true" selection-start-line="9" selection-start-column="21" selection-end-line="9" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/logic/Nucleation.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="58" column="8" selection-start-line="58" selection-start-column="8" selection-end-line="58" selection-end-column="8" />
           <folding>
             <element signature="e#0#28#0" expanded="true" />
           </folding>
@@ -710,22 +653,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/logic/Nucleation.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="298">
-          <caret line="427" column="8" selection-start-line="427" selection-start-column="8" selection-end-line="427" selection-end-column="8" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/view/Gui_converted.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="179">
-          <caret line="1017" column="54" selection-start-line="1017" selection-start-column="54" selection-end-line="1017" selection-end-column="54" />
+        <state relative-caret-position="166">
+          <caret line="929" column="48" selection-start-line="929" selection-start-column="48" selection-end-line="929" selection-end-column="48" />
           <folding>
-            <element signature="e#636#3472#0" />
+            <element signature="e#192#205#0" expanded="true" />
+            <element signature="e#49333#55934#0" />
           </folding>
         </state>
       </provider>

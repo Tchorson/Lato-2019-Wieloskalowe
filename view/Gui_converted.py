@@ -65,11 +65,16 @@ class Ui_Dialog(QWidget):
         self.previous_counter = self.iterations
         self.previous_row = self.row
 
-        self.nucleation_settings_has_changed = True
+        self.nucleation_pattern_2d = self.NucleationObj.return_pattern()
+
+        if self.nucleation_pattern_2d != "manual":
+            self.nucleation_settings_has_changed = False
+        else:
+
+            self.nucleation_settings_has_changed = True
         self.nucleation_height_2d = self.NucleationObj.return_height()
         self.nucleation_width_2d = self.NucleationObj.return_width()
         self.nucleation_iterations_2d = self.NucleationObj.return_iteration()
-        self.nucleation_pattern_2d = self.NucleationObj.return_pattern()
         self.nucleation_boundary_conditions = "absorbing"
         self.nucleation_neighbours_type = "Neumann"
         self.nucleation_seeds_amount = self.NucleationObj.return_seeds_amount()
@@ -907,16 +912,28 @@ class Ui_Dialog(QWidget):
 
     def begin_nucleation(self):
         _translate = QtCore.QCoreApplication.translate
+        self.nucleation_scene.clear()
+
         if self.NucleationObj.check_if_last_iteration():
             self.restart_nucleation()
         self.nucleation_previous_iteration_array_2d = self.NucleationObj.return_previous_array()
         self.nucleation_current_iteration_array_2d = self.NucleationObj.return_current_array()
-        self.nucleation_scene.clear()
+
         if self.nucleation_pattern_2d == "manual":
             self.manual_array_text_backup = str(self.nucleation_draw_manual_array_on_textarea())[1:-1]
-            self.nucleation_current_iteration_array_2d = self.nucleation_read_manual_array_from_textarea()
+            self.nucleation_read_manual_array_from_textarea()
+            self.nucleation_current_iteration_array_2d = self.NucleationObj.return_current_array()
+
         self.nucleation_draw_empty_board_2d()
-        self.nucleation_draw_board_2d(self.NucleationObj.next_iteration())
+
+        #self.nucleation_current_iteration_array_2d = self.NucleationObj.next_iteration()
+        if self.nucleation_pattern_2d == "manual":
+            self.nucleation_draw_board_2d(self.nucleation_current_iteration_array_2d)
+            self.nucleation_draw_board_2d(self.NucleationObj.next_iteration())
+        else:
+            self.nucleation_draw_board_2d(self.NucleationObj.next_iteration())
+            self.nucleation_draw_board_2d(self.nucleation_current_iteration_array_2d)
+
         QtTest.QTest.qWait(2000)
         while not self.NucleationObj.check_if_last_iteration():
             QtTest.QTest.qWait(150)
@@ -924,9 +941,9 @@ class Ui_Dialog(QWidget):
             self.nucleation_previous_iteration_array_2d = self.nucleation_current_iteration_array_2d
             self.nucleation_current_iteration_array_2d = self.NucleationObj.next_iteration()
             self.nucleation_draw_board_2d(self.nucleation_current_iteration_array_2d)
-            if self.NucleationObj.search_for_zeros():
-                print("BREAK")
-                break
+            # if self.NucleationObj.search_for_zeros():
+            #     print("BREAK")
+            #     break
 
         if self.nucleation_pattern_2d == "manual":
             self.nucleation_initial_manual_array_2d = self.nucleation_current_iteration_array_2d
@@ -935,7 +952,7 @@ class Ui_Dialog(QWidget):
             self.nucleation_manualInputTextArea_2D.appendPlainText(_translate("Dialog", str(self.nucleation_draw_manual_array_on_textarea())[1:-1]))
 
     def nucleation_read_manual_array_from_textarea(self):
-        if self.nucleation_settings_has_changed:
+        if self.nucleation_settings_has_changed and self.nucleation_pattern_2d != "manual":
             self.nucleation_settings_has_changed = False
             return
         else:
@@ -1006,7 +1023,7 @@ class Ui_Dialog(QWidget):
             for column in range(self.nucleation_width_2d):
                 rectangle = QtCore.QRectF(QtCore.QPointF(column * self.nucleation_side, row * self.nucleation_side),
                                           QtCore.QSizeF(self.nucleation_side, self.nucleation_side))
-                self.nucleation_scene.addRect(rectangle, self.green_pen)
+                self.nucleation_scene.addRect(rectangle, QtGui.QPen(QColor(255,255,255)))
 
 
     def restart_nucleation(self):
