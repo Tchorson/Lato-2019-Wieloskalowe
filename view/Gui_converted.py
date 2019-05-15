@@ -70,7 +70,7 @@ class Ui_Dialog(QWidget):
         self.nucleation_width_2d = self.NucleationObj.return_width()
         self.nucleation_iterations_2d = self.NucleationObj.return_iteration()
         self.nucleation_pattern_2d = self.NucleationObj.return_pattern()
-        self.nucleation_boundary_conditions = "periodical"
+        self.nucleation_boundary_conditions = "absorbing"
         self.nucleation_neighbours_type = "Neumann"
         self.nucleation_seeds_amount = self.NucleationObj.return_seeds_amount()
         self.nucleation_user_width = self.NucleationObj.return_width_amount()
@@ -733,11 +733,6 @@ class Ui_Dialog(QWidget):
     @pyqtSlot()
     def begin_game_2d(self):
         _translate = QtCore.QCoreApplication.translate
-        # if self.pattern_2d == "manual":
-        #     _translate = QtCore.QCoreApplication.translate
-
-            #self.manualInputTextArea_2D.
-
         self.counter_2d = 0
         self.previous_iteration_array_2d = self.SecondDimensionObj.return_previous_array()
         self.current_iteration_array_2d = self.SecondDimensionObj.return_current_array()
@@ -749,7 +744,7 @@ class Ui_Dialog(QWidget):
         self.draw_board_2d(self.SecondDimensionObj.next_iteration())
 
         while self.counter_2d < self.iterations_2d:
-            QtTest.QTest.qWait(250)
+            QtTest.QTest.qWait(150)
             self.draw_empty_board_2d()
             self.previous_iteration_array_2d = self.current_iteration_array_2d
             self.current_iteration_array_2d = self.SecondDimensionObj.next_iteration()
@@ -901,12 +896,83 @@ class Ui_Dialog(QWidget):
             self.nucleation_manualInputTextArea_2D.clear()
             self.nucleation_initial_manual_array_2d = self.NucleationObj.return_initial_array()
             self.nucleation_manualInputTextArea_2D.appendPlainText(
-                _translate("Dialog", str(self.draw_manual_array_on_textarea())[1:-1]))
+                _translate("Dialog", str(self.nucleation_draw_manual_array_on_textarea())[1:-1]))
 
         if width_or_height_changed:
             self.nucleation_manualInputTextArea_2D.clear()
             self.nucleation_initial_manual_array_2d = self.NucleationObj.return_current_array()
             self.nucleation_settings_has_changed = True
+
+    def begin_nucleation(self):
+        _translate = QtCore.QCoreApplication.translate
+        if self.NucleationObj.check_if_last_iteration():
+            self.restart_nucleation()
+        self.nucleation_previous_iteration_array_2d = self.NucleationObj.return_previous_array()
+        self.nucleation_current_iteration_array_2d = self.NucleationObj.return_current_array()
+        self.nucleation_scene.clear()
+        if self.nucleation_pattern_2d == "manual":
+            self.manual_array_text_backup = str(self.nucleation_draw_manual_array_on_textarea())[1:-1]
+        self.nucleation_draw_empty_board_2d()
+        self.nucleation_draw_board_2d(self.NucleationObj.next_iteration())
+        self.nucleation_draw_board_2d(self.nucleation_current_iteration_array_2d)
+        QtTest.QTest.qWait(2000)
+        while not self.NucleationObj.check_if_last_iteration():
+            QtTest.QTest.qWait(150)
+            self.nucleation_draw_empty_board_2d()
+            self.nucleation_previous_iteration_array_2d = self.nucleation_current_iteration_array_2d
+            self.nucleation_current_iteration_array_2d = self.NucleationObj.next_iteration()
+            self.nucleation_draw_board_2d(self.nucleation_current_iteration_array_2d)
+
+            if self.nucleation_pattern_2d == "manual":
+                self.nucleation_initial_manual_array_2d = self.nucleation_current_iteration_array_2d
+                self.nucleation_read_manual_array_from_textarea()
+                self.nucleation_manualInputTextArea_2D.clear()
+                self.nucleation_manualInputTextArea_2D.appendPlainText(_translate("Dialog", str(self.nucleation_draw_manual_array_on_textarea())[1:-1]))
+
+    def nucleation_read_manual_array_from_textarea(self):
+        if self.nucleation_settings_has_changed:
+            self.nucleation_settings_has_changed = False
+            return
+        else:
+            current_text = str(self.nucleation_manualInputTextArea_2D.toPlainText())
+            current_text_modified = current_text.replace(" ","").replace("',","S").replace("'","").split("S")
+            #print(current_text)
+            #print(current_text_modified)
+            #print(str(self.nucleation_manual_array_text_backup))
+            if current_text != self.nucleation_manual_array_text_backup:
+                user_edited_array = []
+                for row in range(len(current_text_modified)):
+                    row_array = []
+                    splitted_array = current_text_modified[row].split(",")
+                    for column in range(len(current_text_modified[row].split(","))):
+
+
+                        splitted_array_index = int(splitted_array[column])
+                        new_cell = Cell()
+                        new_cell.set_id(splitted_array_index)
+                        if splitted_array_index in self.NucleationObj.return_colors_dictionary():
+                            new_cell.set_colours_array(self.NucleationObj.return_colors_dictionary().get(splitted_array_index))
+                        else:
+                            random_red = random.randint(0, 255)
+                            random_green = random.randint(0, 255)
+                            random_blue = random.randint(0, 255)
+                            new_cell.set_colours_array([random_red, random_green, random_blue])
+                            self.NucleationObj.set_colors_dictionary_element(splitted_array_index,[random_red, random_green, random_blue])
+                        row_array.append(new_cell)
+                    user_edited_array.append(row_array)
+                self.NucleationObj.set_current_array(user_edited_array)
+
+    def nucleation_draw_board_2d(self,input_array):
+        self.nucleation_side = 12
+        #print("method 1")
+        for row in range(len(input_array)):
+            for column in range(len(input_array[row])):
+                rectangle = QtCore.QRectF(QtCore.QPointF(column * self.nucleation_side, row * self.nucleation_side),
+                                          QtCore.QSizeF(self.nucleation_side, self.nucleation_side))
+
+                colors_array = input_array[row][column].return_colours_array()
+                #print(colors_array)
+                self.nucleation_scene.addRect(rectangle, QtGui.QPen(QColor(colors_array[0],colors_array[1],colors_array[2])))
 
     def nucleation_draw_manual_array_on_textarea(self):
         draw_array = []
@@ -916,7 +982,7 @@ class Ui_Dialog(QWidget):
             for column in range(self.nucleation_width_2d): # zmienic?
                 row_array+=str(self.nucleation_initial_manual_array_2d[row][column].id)
 
-                if column == self.width_2d-1:
+                if column == self.nucleation_width_2d-1:
                     row_array+=''
                 else:
                     row_array+=','
@@ -937,96 +1003,6 @@ class Ui_Dialog(QWidget):
                                           QtCore.QSizeF(self.nucleation_side, self.nucleation_side))
                 self.nucleation_scene.addRect(rectangle, self.green_pen)
 
-    def nucleation_draw_board_2d(self,input_array):
-        self.nucleation_side = 12
-        #print("method 1")
-        for row in range(len(input_array)):
-            for column in range(len(input_array[row])):
-                rectangle = QtCore.QRectF(QtCore.QPointF(column * self.nucleation_side, row * self.nucleation_side),
-                                          QtCore.QSizeF(self.nucleation_side, self.nucleation_side))
-
-                colors_array = input_array[row][column].return_colours_array()
-                #print(colors_array)
-                self.nucleation_scene.addRect(rectangle, QtGui.QPen(QColor(colors_array[0],colors_array[1],colors_array[2])))
-
-    def begin_nucleation(self):
-        _translate = QtCore.QCoreApplication.translate
-        if self.NucleationObj.check_if_last_iteration():
-            self.restart_nucleation()
-        # if self.pattern_2d == "manual":
-        #     _translate = QtCore.QCoreApplication.translate
-        #print("Here0")
-        # self.manualInputTextArea_2D.
-        #print("Here1")
-        self.nucleation_previous_iteration_array_2d = self.NucleationObj.return_previous_array()
-        self.nucleation_current_iteration_array_2d = self.NucleationObj.return_current_array()
-        #self.NucleationObj.print_current_array()
-        #print("Here3")
-        self.nucleation_scene.clear()
-        if self.nucleation_pattern_2d == "manual":
-            self.nucleation_initial_manual_array_2d = str(self.nucleation_draw_manual_array_on_textarea())[1:-1]
-        self.nucleation_draw_empty_board_2d()
-        #print("Here1.9")
-        # self.draw_board_2d(self.current_iteration_array_2d)
-        self.nucleation_draw_board_2d(self.NucleationObj.next_iteration())
-        #self.NucleationObj.print_current_array()
-        self.nucleation_draw_board_2d(self.nucleation_current_iteration_array_2d)
-        print("FIRST ITERATION")
-
-
-        while not self.NucleationObj.check_if_last_iteration():
-            #print("Here loop")
-            QtTest.QTest.qWait(250)
-            self.nucleation_draw_empty_board_2d()
-            self.nucleation_previous_iteration_array_2d = self.nucleation_current_iteration_array_2d
-            self.nucleation_current_iteration_array_2d = self.NucleationObj.next_iteration()
-            #self.NucleationObj.print_current_array()
-            self.nucleation_draw_board_2d(self.nucleation_current_iteration_array_2d)
-
-            if self.nucleation_pattern_2d == "manual":
-                self.nucleation_initial_manual_array_2d = self.nucleation_current_iteration_array_2d
-                self.nucleation_read_manual_array_from_textarea()
-                self.nucleation_manualInputTextArea_2D.clear()
-                self.nucleation_manualInputTextArea_2D.appendPlainText(_translate("Dialog", str(self.nucleation_draw_manual_array_on_textarea())[1:-1]))
-
-    def nucleation_read_manual_array_from_textarea(self):
-        if self.nucleation_settings_has_changed:
-            self.nucleation_settings_has_changed = False
-            return
-        else:
-            current_text =  str(self.nucleation_manualInputTextArea_2D.toPlainText())
-            current_text_modified = current_text.replace(" ","").replace("',","S").replace("'","").split("S")
-            #print(current_text)
-            #print(str(self.manual_array_text_backup))
-            if current_text != self.nucleation_manual_array_text_backup:
-                user_edited_array = []
-                for row in range(len(current_text_modified)):
-                    row_array = []
-                    splitted_array = current_text_modified[row].split(",")
-                    for column in range(len(current_text_modified[row].split(","))):
-                        #print(splitted_array[column],end="")
-                        # if splitted_array[column] == "1": # ZMIENIC DONE
-                        #     #print("im adding alive cell")
-                        #     new_cell = Cell()
-                        #     new_cell.is_alive = True
-                        #     row_array.append(new_cell)
-                        # if splitted_array[column] == "0":
-                        #     row_array.append(Cell(False))
-                        splitted_array_index = int(splitted_array[column])
-                        new_cell = Cell()
-                        new_cell.set_id(splitted_array_index)
-                        if splitted_array_index in self.NucleationObj.return_colors_dictionary():
-                            new_cell.set_colours_array(self.NucleationObj.return_colors_dictionary().get(splitted_array_index))
-                        else:
-                            random_red = random.randint(0, 255)
-                            random_green = random.randint(0, 255)
-                            random_blue = random.randint(0, 255)
-                            new_cell.set_colours_array([random_red, random_green, random_blue])
-                            self.NucleationObj.set_colors_dictionary_element(splitted_array_index,[random_red, random_green, random_blue])
-                        row_array.append(new_cell)
-                    #print(row_array)
-                    user_edited_array.append(row_array)
-                self.NucleationObj.set_current_array(user_edited_array)
 
     def restart_nucleation(self):
         self.nucleation_scene.clear()
