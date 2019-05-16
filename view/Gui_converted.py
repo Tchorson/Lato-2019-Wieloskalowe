@@ -928,7 +928,7 @@ class Ui_Dialog(QWidget):
 
         #self.nucleation_current_iteration_array_2d = self.NucleationObj.next_iteration()
         if self.nucleation_pattern_2d == "manual":
-            self.nucleation_draw_board_2d(self.nucleation_current_iteration_array_2d)
+            #self.nucleation_draw_board_2d(self.nucleation_current_iteration_array_2d)
             self.nucleation_draw_board_2d(self.NucleationObj.next_iteration())
         else:
             self.nucleation_draw_board_2d(self.NucleationObj.next_iteration())
@@ -941,9 +941,6 @@ class Ui_Dialog(QWidget):
             self.nucleation_previous_iteration_array_2d = self.nucleation_current_iteration_array_2d
             self.nucleation_current_iteration_array_2d = self.NucleationObj.next_iteration()
             self.nucleation_draw_board_2d(self.nucleation_current_iteration_array_2d)
-            # if self.NucleationObj.search_for_zeros():
-            #     print("BREAK")
-            #     break
 
         if self.nucleation_pattern_2d == "manual":
             self.nucleation_initial_manual_array_2d = self.nucleation_current_iteration_array_2d
@@ -972,14 +969,17 @@ class Ui_Dialog(QWidget):
                         splitted_array_index = int(splitted_array[column])
                         new_cell = Cell()
                         new_cell.set_id(splitted_array_index)
-                        if splitted_array_index in self.NucleationObj.return_colors_dictionary():
-                            new_cell.set_colours_array(self.NucleationObj.return_colors_dictionary().get(splitted_array_index))
+                        if splitted_array_index != 0:
+                            if splitted_array_index in self.NucleationObj.return_colors_dictionary():
+                                new_cell.set_colours_array(self.NucleationObj.return_colors_dictionary().get(splitted_array_index))
+                            else:
+                                random_red = random.randint(0, 255)
+                                random_green = random.randint(0, 255)
+                                random_blue = random.randint(0, 255)
+                                new_cell.set_colours_array([random_red, random_green, random_blue])
+                                self.NucleationObj.set_colors_dictionary_element(splitted_array_index,[random_red, random_green, random_blue])
                         else:
-                            random_red = random.randint(0, 255)
-                            random_green = random.randint(0, 255)
-                            random_blue = random.randint(0, 255)
-                            new_cell.set_colours_array([random_red, random_green, random_blue])
-                            self.NucleationObj.set_colors_dictionary_element(splitted_array_index,[random_red, random_green, random_blue])
+                            new_cell.set_colours_array([255,255,255])
                         row_array.append(new_cell)
                     user_edited_array.append(row_array)
                 self.NucleationObj.set_current_array(user_edited_array)

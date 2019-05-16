@@ -6,8 +6,8 @@ import math
 
 class Nucleation:
 
-    def __init__(self, width=10, height=10, iterations=10, pattern='manual', periodical=False, neighbours = "Neumann",
-                 seeds_amount = 1, width_amount = 7, height_amount = 8, radius = 5):
+    def __init__(self, width=20, height=20, iterations=10, pattern='radius', periodical=False, neighbours = "Neumann",
+                 seeds_amount = 4, width_amount = 7, height_amount = 8, radius = 5):
         self.width = width
         self.height = height
         self.iterations = iterations
@@ -19,8 +19,8 @@ class Nucleation:
         self.neighbours_states = 'Neumann,Hexagonal,Pentagonal,Radius'
         self.neighbours_array = self.neighbours_states.split(",")
         self.nucleation_neighbour = neighbours
-        self.colors_dictionary = {}
-        self.colors_dictionary[0]=[255,255,255]
+        self.colors_dictionary = {0: [255, 255, 255]}
+        self.radius_dictionary = {}
         self.seeds_amount = seeds_amount # for random mode
         self.width_amount = width_amount # for homogeneous mode
         self.height_amount = height_amount # for homogeneous mode
@@ -321,28 +321,64 @@ class Nucleation:
                         disbalanced_row_counter += space_between_rows
 
             if pattern == 'radius': # radius w menu glownym nie tu albo jebac tutaj
-                local_side = 7
-                for iteration in range(self.seeds_amount):
-                    random_row = random.randint(0,len(self.game_array_current_state_2d)-1)
-                    random_column = random.randint(0,len(self.game_array_current_state_2d[random_row])-1)
-                    #print("ITERATION")
-                    if (self.game_array_current_state_2d[random_row][random_column].id == 0):
-                        base_radius_size= local_side/2
-                        element_center_x = random_row + base_radius_size
-                        element_center_y = random_column + base_radius_size
 
+                self.radius_dictionary.clear()
+                local_side = 12
+                radius_seeds_counter = 0
+                can_place_more_seeds = True
+                while radius_seeds_counter < self.seeds_amount:
+                    #print(radius_seeds_counter)
+                    if not can_place_more_seeds:
+                        print("no more space on map, leaving, set this amont of seeds: "+str(radius_seeds_counter))
+                        break
 
-                        random_red = random.randint(0, 255)
-                        random_green = random.randint(0, 255)
-                        random_blue = random.randint(0,255)
+                    seed_can_be_placed_in_array = False
+                    fail_counter = 0
 
-                        self.game_array_current_state_2d[random_row][random_column].id = iteration+1
-                        self.game_array_current_state_2d[random_row][random_column].set_colours_array([random_red, random_green, random_blue])
-                        self.colors_dictionary[iteration+1] = [random_red,random_green,random_blue]
-                    else:
-                        print(" iteration number: "+str(iteration)+" was not applied")
+                    while not seed_can_be_placed_in_array:
+                        print(radius_seeds_counter)
+                        seed_can_be_placed_in_array = True
+                        if fail_counter >= 10000:
+                            print("no free space for iteration: "+str(radius_seeds_counter+1))
+                            can_place_more_seeds = False
+                            break
 
-                pass
+                        random_row = random.randint(0, len(self.game_array_current_state_2d) - 1)
+                        random_column = random.randint(0, len(self.game_array_current_state_2d[random_row]) - 1)
+
+                        if len(self.radius_dictionary) == 0:
+                            self.radius_dictionary[radius_seeds_counter+1] = [random_row, random_column]
+                            random_red = random.randint(0, 255)
+                            random_green = random.randint(0, 255)
+                            random_blue = random.randint(0, 255)
+                            self.game_array_current_state_2d[random_row][random_column].id = radius_seeds_counter + 1
+                            self.game_array_current_state_2d[random_row][random_column].set_colours_array(
+                                [random_red, random_green, random_blue])
+                            self.colors_dictionary[radius_seeds_counter + 1] = [random_red, random_green, random_blue]
+                            break
+
+                        for index in self.radius_dictionary:
+                            already_set_row = self.radius_dictionary.get(index)[0]
+                            already_set_column = self.radius_dictionary.get(index)[1]
+
+                            if self.game_array_current_state_2d[random_row][random_column].id != 0 or self.in_circle(already_set_row, already_set_column, self.radius, random_row, random_column):
+                                seed_can_be_placed_in_array = False
+
+                        if seed_can_be_placed_in_array:
+                            print(radius_seeds_counter)
+                            self.radius_dictionary[radius_seeds_counter+1] = [random_row, random_column]
+                            random_red = random.randint(0, 255)
+                            random_green = random.randint(0, 255)
+                            random_blue = random.randint(0, 255)
+                            self.game_array_current_state_2d[random_row][random_column].id = radius_seeds_counter + 1
+                            self.game_array_current_state_2d[random_row][random_column].set_colours_array(
+                                [random_red, random_green, random_blue])
+                            self.colors_dictionary[radius_seeds_counter + 1] = [random_red, random_green, random_blue]
+                            break
+                        fail_counter+=1
+
+                    radius_seeds_counter += 1
+
             #print("BEFORE RANDOM")
             if pattern == 'random':
 
@@ -421,8 +457,14 @@ class Nucleation:
         else:
             self.nucleation_neighbour = "Neumann"
 
+    def in_circle(self,center_x, center_y, radius, x, y):
+        dist = math.sqrt( (12*(center_x - x)) ** 2 + (12*(center_y - y)) ** 2)
+        return dist <= radius ** 2
+
     def restart_grid(self):
         self.colors_dictionary.clear()
+        self.colors_dictionary[0]=[255,255,255]
+        self.game_array_previous_state_2d = self.initialize_2d_array()
         self.game_array_current_state_2d = self.initialize_2d_array()
         self.set_neighbour(self.nucleation_neighbour)
         #print("RESTART")
