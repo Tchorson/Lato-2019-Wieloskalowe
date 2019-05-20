@@ -32,7 +32,7 @@ class Ui_Dialog(QWidget):
         self.alive_cels_numbers = [51]
         self.side = 7
         self.side_2d = 7
-        self.nucleation_side = 12
+        self.nucleation_side = 8
         self.width_draw_2d = 7
         self.height_draw_2d = 7
         self.row = 0
@@ -70,8 +70,8 @@ class Ui_Dialog(QWidget):
         if self.nucleation_pattern_2d != "manual":
             self.nucleation_settings_has_changed = False
         else:
-
             self.nucleation_settings_has_changed = True
+
         self.nucleation_height_2d = self.NucleationObj.return_height()
         self.nucleation_width_2d = self.NucleationObj.return_width()
         self.nucleation_iterations_2d = self.NucleationObj.return_iteration()
@@ -124,8 +124,6 @@ class Ui_Dialog(QWidget):
         self.green_pen = QtGui.QPen(QtCore.Qt.green) #QColor(200,200,0)
         self.red_pen = QtGui.QPen(QtCore.Qt.red)
         self.blue_pen = QtGui.QPen(QtCore.Qt.blue)
-
-
         self.width_layout_horizontal = QtWidgets.QHBoxLayout()
         self.width_layout_horizontal.setObjectName("width_layout_horizontal")
         self.widthLabel1D = QtWidgets.QLabel(self.horizontalLayoutWidget_7)
@@ -138,7 +136,6 @@ class Ui_Dialog(QWidget):
         self.widthText1D.setMaximumSize(QtCore.QSize(60, 30))
         self.widthText1D.setDocumentTitle("")
         self.widthText1D.setObjectName("widthText1D")
-
         self.width_layout_horizontal.addWidget(self.widthText1D)
         self.iterationsLayout = QtWidgets.QHBoxLayout()
         self.iterationsLayout.setObjectName("iterationsLayout")
@@ -181,14 +178,12 @@ class Ui_Dialog(QWidget):
         self.aliveLayout.addLayout(self.ruleLayout)
         self.iterationsLayout.addLayout(self.aliveLayout)
         self.width_layout_horizontal.addLayout(self.iterationsLayout)
-
         self.initializeGameButton1D = QtWidgets.QPushButton(self.horizontalLayoutWidget_7)
         self.initializeGameButton1D.setMinimumSize(QtCore.QSize(60, 0))
         self.initializeGameButton1D.setMaximumSize(QtCore.QSize(60, 16777215))
         self.initializeGameButton1D.setObjectName("initializeGameButton1D")
         self.initializeGameButton1D.clicked.connect(self.initialize_click)
         self.width_layout_horizontal.addWidget(self.initializeGameButton1D)
-
         self.beginGameButton1D = QtWidgets.QPushButton(self.horizontalLayoutWidget_7)
         self.beginGameButton1D.setMinimumSize(QtCore.QSize(60, 0))
         self.beginGameButton1D.setMaximumSize(QtCore.QSize(60, 16777215))
@@ -198,7 +193,6 @@ class Ui_Dialog(QWidget):
         self.restart_button_1d = QtWidgets.QPushButton(self.horizontalLayoutWidget_7)
         self.restart_button_1d.setObjectName("restart_button_1d")
         self.restart_button_1d.clicked.connect(self.restart_plot)
-
         self.width_layout_horizontal.addWidget(self.restart_button_1d)
         self.formLayout.setLayout(1, QtWidgets.QFormLayout.LabelRole, self.width_layout_horizontal)
         self.graphic_ca_1d = QtWidgets.QGraphicsView(self.horizontalLayoutWidget_7)
@@ -220,11 +214,6 @@ class Ui_Dialog(QWidget):
         self.formLayout_2.setContentsMargins(0, 0, 0, 0)
         self.formLayout_2.setObjectName("formLayout_2")
         self.scene_2d = QtWidgets.QGraphicsScene()
-        # self.graphic_ca_2d = QtWidgets.QGraphicsView(self.formLayoutWidget_2)
-        # self.graphic_ca_2d.setMinimumSize(QtCore.QSize(849, 350))
-        # self.graphic_ca_2d.setObjectName("graphic_ca_2d")
-        # self.graphic_ca_2d.setScene(self.scene_2d)
-        # self.formLayout_2.setWidget(2, QtWidgets.QFormLayout.SpanningRole, self.graphic_ca_2d)
         self.horizontalLayout_7 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_7.setObjectName("horizontalLayout_7")
         self.horizontalLayout_8 = QtWidgets.QHBoxLayout()
@@ -303,7 +292,6 @@ class Ui_Dialog(QWidget):
         self.restart_button_2d.setMaximumSize(QtCore.QSize(80, 16777215))
         self.restart_button_2d.setObjectName("restart_button_2d")
         self.restart_button_2d.clicked.connect(self.restart_plot_2d)
-
         self.horizontalLayout_7.addWidget(self.restart_button_2d)
         self.formLayout_2.setLayout(1, QtWidgets.QFormLayout.LabelRole, self.horizontalLayout_7)
         self.verticalLayout_6 = QtWidgets.QVBoxLayout()
@@ -469,7 +457,6 @@ class Ui_Dialog(QWidget):
         self.formLayout_3.setLayout(2, QtWidgets.QFormLayout.LabelRole, self.horizontalLayout)
         self.tabWidget.addTab(self.nucleation_tab, "")
         self.mode_menu.addWidget(self.tabWidget)
-
         self.retranslateUi(Dialog)
         self.tabWidget.setCurrentIndex(2)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
@@ -537,7 +524,6 @@ class Ui_Dialog(QWidget):
         self.nucleation_neighbours_text.setPlaceholderText(_translate("Dialog", "Neumann"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.nucleation_tab), _translate("Dialog", "Nucleation"))
 
-
     @pyqtSlot()
     def restart_plot(self):
         self.first_time = True
@@ -552,7 +538,6 @@ class Ui_Dialog(QWidget):
         if str(self.widthText1D.toPlainText()) != "" and str(self.widthText1D.toPlainText()).isdigit():
             if any(element > int(self.widthText1D.toPlainText()) for element in self.alive_cels_numbers):
                 self.widthText1D.clear()
-                pass
             else:
                 self.width = int(self.widthText1D.toPlainText())
                 self.widthText1D.setPlaceholderText(_translate("Dialog", str(self.width)))
@@ -577,22 +562,12 @@ class Ui_Dialog(QWidget):
             self.ruleText1D.clear()
             changed = True
 
-        # if changed == True:
-        # self.scene_1d.clear()
-        # self.row = 0
-
         self.FirstDimensionObj.set_parameters(self.width, self.iterations, self.rule, self.alive_cels_numbers)
-        # print('parameters set')
-        # print(self.FirstDimensionObj.return_parameters())
 
     @pyqtSlot()
     def begin_game(self):
-        # self.scene_1d.clear()
-        # self.FirstDimensionObj.begin_the_game()
-        # print(' ')
         if self.first_time == False:
             self.mark_previous_iteration(self.previous_iteration_array_2d, self.previous_counter, self.previous_row)
-
         counter = self.iterations
 
         self.previous_iteration_array_2d = []
@@ -610,7 +585,6 @@ class Ui_Dialog(QWidget):
 
                 if self.current_iteration_array[index].is_alive:
                     self.scene_1d.addRect(rectangle, self.red_pen)
-
                 else:
                     line_left = QtCore.QLineF(index * self.side, self.row * self.side, index * self.side,
                                               self.row * self.side + self.side)
@@ -624,9 +598,6 @@ class Ui_Dialog(QWidget):
                         self.scene_1d.addLine(line_left, self.green_pen)
                     self.scene_1d.addLine(line_down, self.green_pen)
                     self.scene_1d.addLine(line_right, self.green_pen)
-
-            # for element in self.current_iteration_array:
-            #     print(element, end='')
 
             counter -= 1
             self.row += 1
@@ -713,12 +684,8 @@ class Ui_Dialog(QWidget):
             self.settings_has_changed = True
 
     def draw_empty_board_2d(self):
-        # self.width_draw_2d = self.width_2d / 700
-        # self.height_draw_2d = self.height_2d / 350
-
         self.width_draw_2d = 7
         self.height_draw_2d = 7
-
 
         for row in range(self.height_2d):
             for column in range(self.width_2d):
@@ -733,7 +700,6 @@ class Ui_Dialog(QWidget):
             for column in range(len(input_array[row])):
                 rectangle = QtCore.QRectF(QtCore.QPointF(column * self.width_draw_2d, row * self.height_draw_2d),
                                           QtCore.QSizeF(self.width_draw_2d, self.height_draw_2d))
-
                 if input_array[row][column].is_alive==True:
                     self.scene_2d.addRect(rectangle, self.red_pen)
 
@@ -765,7 +731,6 @@ class Ui_Dialog(QWidget):
             self.manualInputTextArea_2D.appendPlainText(
                 _translate("Dialog", str(self.draw_manual_array_on_textarea())[1:-1]))
 
-
     def draw_manual_array_on_textarea(self):
         draw_array = []
         for row in range(self.height_2d):
@@ -794,8 +759,6 @@ class Ui_Dialog(QWidget):
         else:
             current_text =  str(self.manualInputTextArea_2D.toPlainText())
             current_text_modified = current_text.replace(" ","").replace("',","S").replace("'","").split("S")
-            #print(current_text)
-            #print(str(self.manual_array_text_backup))
             if current_text != self.manual_array_text_backup:
                 user_edited_array = []
                 for row in range(len(current_text_modified)):
@@ -936,7 +899,7 @@ class Ui_Dialog(QWidget):
 
         QtTest.QTest.qWait(2000)
         while not self.NucleationObj.check_if_last_iteration():
-            QtTest.QTest.qWait(150)
+            QtTest.QTest.qWait(50)
             self.nucleation_draw_empty_board_2d()
             self.nucleation_previous_iteration_array_2d = self.nucleation_current_iteration_array_2d
             self.nucleation_current_iteration_array_2d = self.NucleationObj.next_iteration()
@@ -955,16 +918,13 @@ class Ui_Dialog(QWidget):
         else:
             current_text = str(self.nucleation_manualInputTextArea_2D.toPlainText())
             current_text_modified = current_text.replace(" ","").replace("',","S").replace("'","").split("S")
-            #print(current_text)
-            #print(current_text_modified)
-            #print(str(self.nucleation_manual_array_text_backup))
+
             if current_text != self.nucleation_manual_array_text_backup:
                 user_edited_array = []
                 for row in range(len(current_text_modified)):
                     row_array = []
                     splitted_array = current_text_modified[row].split(",")
                     for column in range(len(current_text_modified[row].split(","))):
-
 
                         splitted_array_index = int(splitted_array[column])
                         new_cell = Cell()
@@ -985,8 +945,7 @@ class Ui_Dialog(QWidget):
                 self.NucleationObj.set_current_array(user_edited_array)
 
     def nucleation_draw_board_2d(self,input_array):
-        self.nucleation_side = 12
-        #print("method 1")
+        self.nucleation_side = 8
         for row in range(len(input_array)):
             for column in range(len(input_array[row])):
                 rectangle = QtCore.QRectF(QtCore.QPointF(column * self.nucleation_side, row * self.nucleation_side),
@@ -1013,18 +972,13 @@ class Ui_Dialog(QWidget):
         return draw_array
 
     def nucleation_draw_empty_board_2d(self):
-        # self.width_draw_2d = self.width_2d / 700
-        # self.height_draw_2d = self.height_2d / 350
-
-        self.nucleation_side = 12
-
+        self.nucleation_side = 8
 
         for row in range(self.nucleation_height_2d):
             for column in range(self.nucleation_width_2d):
                 rectangle = QtCore.QRectF(QtCore.QPointF(column * self.nucleation_side, row * self.nucleation_side),
                                           QtCore.QSizeF(self.nucleation_side, self.nucleation_side))
                 self.nucleation_scene.addRect(rectangle, QtGui.QPen(QColor(255,255,255)))
-
 
     def restart_nucleation(self):
         _translate = QtCore.QCoreApplication.translate
@@ -1036,12 +990,3 @@ class Ui_Dialog(QWidget):
         self.nucleation_initial_manual_array_2d = self.NucleationObj.return_initial_array()
         self.nucleation_manualInputTextArea_2D.appendPlainText(
                     _translate("Dialog", str(self.nucleation_draw_manual_array_on_textarea())[1:-1]))
-
-# if __name__ == "__main__":
-#     import sys
-#     app = QtWidgets.QApplication(sys.argv)
-#     Dialog = QtWidgets.QDialog()
-#     ui = Ui_Dialog()
-#     ui.setupUi(Dialog)
-#     Dialog.show()
-#     sys.exit(app.exec_())

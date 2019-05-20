@@ -1,5 +1,4 @@
 from models.Cell import Cell
-import os
 import random
 import numpy
 import math
@@ -7,7 +6,7 @@ import math
 class Nucleation:
 
     def __init__(self, width=20, height=20, iterations=10, pattern='radius', periodical=False, neighbours = "Neumann",
-                 seeds_amount = 4, width_amount = 7, height_amount = 8, radius = 5):
+                 seeds_amount = 7, width_amount = 7, height_amount = 8, radius = 11):
         self.width = width
         self.height = height
         self.iterations = iterations
@@ -336,11 +335,10 @@ class Nucleation:
                     fail_counter = 0
 
                     while not seed_can_be_placed_in_array:
-                        print(radius_seeds_counter)
                         seed_can_be_placed_in_array = True
-                        if fail_counter >= 10000:
+                        if fail_counter >= 20000:
                             print("no free space for iteration: "+str(radius_seeds_counter+1))
-                            can_place_more_seeds = False
+                            #can_place_more_seeds = False
                             break
 
                         random_row = random.randint(0, len(self.game_array_current_state_2d) - 1)
@@ -365,7 +363,6 @@ class Nucleation:
                                 seed_can_be_placed_in_array = False
 
                         if seed_can_be_placed_in_array:
-                            print(radius_seeds_counter)
                             self.radius_dictionary[radius_seeds_counter+1] = [random_row, random_column]
                             random_red = random.randint(0, 255)
                             random_green = random.randint(0, 255)
@@ -379,13 +376,11 @@ class Nucleation:
 
                     radius_seeds_counter += 1
 
-            #print("BEFORE RANDOM")
             if pattern == 'random':
 
                 for iteration in range(self.seeds_amount):
                     random_row = random.randint(0,len(self.game_array_current_state_2d)-1)
                     random_column = random.randint(0,len(self.game_array_current_state_2d[random_row])-1)
-                    #print("ITERATION")
                     if (self.game_array_current_state_2d[random_row][random_column].id == 0):
                         random_red = random.randint(0, 255)
                         random_green = random.randint(0, 255)
@@ -400,7 +395,6 @@ class Nucleation:
                 pass
         else:
             self.game_array_current_state_2d = self.initialize_2d_array()
-        #self.print_current_array()
 
     def set_parameters(self, width, height, iterations, pattern, periodical, neighbour, seeds_amount, width_amount, height_amount, radius):
         self.iterations = iterations
@@ -467,7 +461,6 @@ class Nucleation:
         self.game_array_previous_state_2d = self.initialize_2d_array()
         self.game_array_current_state_2d = self.initialize_2d_array()
         self.set_neighbour(self.nucleation_neighbour)
-        #print("RESTART")
         self.set_pattern_in_array(self.pattern)
 
 
@@ -476,7 +469,6 @@ class Nucleation:
             self.pattern) + " " + repr(self.game_array_previous_state_2d)
 
     def print_current_array(self):
-        #print("HERE")
         for row in range(len(self.game_array_current_state_2d)):
             for column in range(len(self.game_array_current_state_2d[row])):
                 print(str(self.game_array_current_state_2d[row][column].return_id()), end=' ')
