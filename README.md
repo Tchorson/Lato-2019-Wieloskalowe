@@ -4,7 +4,7 @@ Repozytorium dla modelowania wieloskalowego
 <br>
 <br>
 
-##  master
+##  Master
 Tu znajduja sie tematy ktore zostały dopracowane w wystarczajacym stopniu oraz nie ma na tyle duzych defektow, ktore uniemozliwialyby skuteczne przeprowadzenie symulacji.
 
 ## Develop
