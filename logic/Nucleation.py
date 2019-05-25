@@ -6,7 +6,7 @@ import math
 class Nucleation:
 
     def __init__(self, width=20, height=20, iterations=10, pattern='radius', periodical=False, neighbours = "Neumann",
-                 seeds_amount = 7, width_amount = 7, height_amount = 8, radius = 11):
+                 seeds_amount = 7, width_amount = 7, height_amount = 8, radius = 11,neighbour_radius = 4):
         self.width = width
         self.height = height
         self.iterations = iterations
@@ -15,7 +15,7 @@ class Nucleation:
         self.game_array_previous_state_2d = self.initialize_2d_array()
         self.initial_states_2d = 'homogeneous,radius,random,manual'
         self.patterns_array = self.initial_states_2d.split(",")
-        self.neighbours_states = 'Neumann,Hexagonal,Pentagonal,Radius'
+        self.neighbours_states = 'Neumann,PentagonalLeft,PentagonalRight,PentagonalDown,PentagonalUp,Moore,Radius,HexagonalR,HexagonalL'
         self.neighbours_array = self.neighbours_states.split(",")
         self.nucleation_neighbour = neighbours
         self.colors_dictionary = {0: [255, 255, 255]}
@@ -24,6 +24,7 @@ class Nucleation:
         self.width_amount = width_amount # for homogeneous mode
         self.height_amount = height_amount # for homogeneous mode
         self.radius = radius
+        self.neighbour_radius = neighbour_radius
         self.last_iteration = False
         self.periodical = periodical
         if periodical == "periodical":
@@ -37,6 +38,46 @@ class Nucleation:
 
         self.set_pattern_in_array(self.pattern)
         self.set_neighbour(neighbours)
+
+    def compare_coordinates_with_pattern(self,current_row,current_column,index_row,index_column):
+        if self.nucleation_neighbour == "Neumann":
+            if self.periodical:
+                if current_row == index_row and current_column == index_column or \
+                        current_row == index_row - 1 and current_column == index_column - 1 \
+                        or current_row == index_row - 1 and current_column == index_column + 1 \
+                        or current_row == index_row + 1 and current_column == index_column - 1 \
+                        or current_row == index_row + 1 and current_column == index_column + 1:
+                    return True
+            else:
+
+                if current_column >= len(self.game_array_previous_state_2d[0]) or current_row >= len(
+                        self.game_array_previous_state_2d) or current_column < 0 or current_row < 0:
+                    return True
+                if current_row == index_row and current_column == index_column or \
+                        current_row == index_row - 1 and current_column == index_column - 1 or \
+                        current_row == index_row - 1 and current_column == index_column + 1 or \
+                        current_row == index_row + 1 and current_column == index_column - 1 or \
+                        current_row == index_row + 1 and current_column == index_column + 1:
+                    return True
+        if self.nucleation_neighbour == "Moore":
+            if self.periodical:
+                if current_row == index_row and current_column == index_column:
+                    return True
+            else:
+                if current_column >= len(self.game_array_previous_state_2d[0]) or current_row >= len(
+                        self.game_array_previous_state_2d) or current_column < 0 or current_row < 0:
+                    return True
+                if current_row == index_row and current_column == index_column:
+                    return True
+        #if self.nucleation_neighbour == ""
+
+
+
+            #'Neumann,PentagonalLeft,PentagonalRight,PentagonalDown,PentagonalUp,Moore,Radius,HexagonalR,HexagonalL'
+        return False
+
+
+
 
     def check_if_only_zeros(self):
         only_zeros = True
@@ -65,13 +106,20 @@ class Nucleation:
     def check_if_last_iteration(self):
         return self.last_iteration
 
+    def randomize_cell_weight_centre(self,index_row,index_column,next_index_row,next_index_column):
+        random_weight_row = random.randint(index_row,next_index_row)
+        random_weight_column = random.randint(index_column,next_index_column)
+        return [random_weight_row,random_weight_column]
+
 
     def initialize_2d_array(self):
         tmp_array = []
         for row in range(self.height):
             row_array = []
             for column in range(self.width):
-                row_array.append(Cell(False))
+                cell_obj = Cell(False)
+                cell_obj.set_weight_center(self.randomize_cell_weight_centre(row,column,row+1,column+1))
+                row_array.append(cell_obj)
             tmp_array.append(row_array)
 
         return tmp_array
@@ -83,12 +131,13 @@ class Nucleation:
         current_column = index_column - 1
         dictionary = {}
 
+
         if self.periodical:
             if self.game_array_previous_state_2d[index_row][index_column].return_id() == 0:
                 for row_index in range(3):
                     current_column = index_column - 1
                     for column_index in range(3):
-                        if current_row == index_row and current_column == index_column or current_row == index_row - 1 and current_column == index_column - 1 or current_row == index_row - 1 and current_column == index_column + 1 or current_row == index_row + 1 and current_column == index_column - 1 or current_row == index_row + 1 and current_column == index_column + 1:
+                        if self.compare_coordinates_with_pattern(current_row,current_column,index_row,index_column):
                             current_column += 1
                             continue
                         neighbour_number = self.game_array_previous_state_2d[current_row % len(self.game_array_previous_state_2d)][current_column % len(self.game_array_previous_state_2d[0])].return_id()
@@ -120,19 +169,15 @@ class Nucleation:
                 not_zero_index = self.game_array_previous_state_2d[index_row][index_column].return_id()
                 return [not_zero_index, self.colors_dictionary.get(not_zero_index)]
         else:
+
+
             current_row = index_row - 1
             if self.game_array_previous_state_2d[index_row][index_column].return_id() == 0:
                 for row_index in range(3):
                     current_column = index_column - 1
                     for column_index in range(3):
-                        if current_column >= len(self.game_array_previous_state_2d[0]) or current_row >= len(self.game_array_previous_state_2d) or current_column <0 or current_row <0:
-                            current_column+=1
-                            continue
-                        if current_row == index_row and current_column == index_column or \
-                                current_row == index_row - 1 and current_column == index_column - 1 or \
-                                current_row == index_row - 1 and current_column == index_column + 1 or \
-                                current_row == index_row + 1 and current_column == index_column - 1 or \
-                                current_row == index_row + 1 and current_column == index_column + 1:
+
+                        if self.compare_coordinates_with_pattern(current_row,current_column,index_row,index_column):
                             current_column +=1
                             continue
                         neighbour_number = self.game_array_previous_state_2d[current_row][current_column].return_id()
@@ -198,6 +243,12 @@ class Nucleation:
 
     def return_previous_array(self):
         return self.game_array_previous_state_2d
+
+    def set_neighbour_radius(self,radius):
+        self.radius = radius
+
+    def return_neighbour_radius(self):
+        return self.radius
 
     def set_iteration(self, iteration):
         self.iterations = iteration
@@ -396,7 +447,7 @@ class Nucleation:
         else:
             self.game_array_current_state_2d = self.initialize_2d_array()
 
-    def set_parameters(self, width, height, iterations, pattern, periodical, neighbour, seeds_amount, width_amount, height_amount, radius):
+    def set_parameters(self, width, height, iterations, pattern, periodical, neighbour, seeds_amount, width_amount, height_amount, radius, neighbour_radius):
         self.iterations = iterations
         if periodical == "periodical":
             self.periodical = True
@@ -405,10 +456,11 @@ class Nucleation:
 
         if pattern != self.pattern or self.width != width or self.height != height or \
                 self.nucleation_neighbour != neighbour or self.seeds_amount != seeds_amount or\
-                self.width_amount != width_amount or self.height_amount != height_amount or self.radius != radius:
+                self.width_amount != width_amount or self.height_amount != height_amount or self.radius != radius or self.neighbour_radius != neighbour_radius:
             self.height_amount = height_amount
             self.width_amount = width_amount
             self.radius = radius
+            self.neighbour_radius = neighbour_radius
 
             self.height = height
             self.width = width

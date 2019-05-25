@@ -4,9 +4,12 @@ class Cell:
     is_alive = False
     id = 0
     colours = [255, 255, 255]
-    def __init__(self, input_alive = False, colours = [255,255,255]):
+    weight_center = [-1,-1]
+
+    def __init__(self, input_alive = False, colours = [255,255,255], weight_center = [-1,-1]):
         self.is_alive = input_alive
         self.colours = colours
+        self.weight_center = weight_center
 
     def __repr__(self):
         #return repr(self.__id) + " " + repr(self.is_alive) + " "
@@ -17,6 +20,12 @@ class Cell:
 
     def set_id(self,input_id):
         self.id = input_id
+
+    def set_weight_center(self,weight_center):
+        self.weight_center = weight_center
+
+    def return_weight_center(self):
+        return self.weight_center
 
     def set_state(self, alive_state):
         self.is_alive = alive_state

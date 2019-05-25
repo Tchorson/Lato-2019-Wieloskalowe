@@ -61,6 +61,7 @@ class Ui_Dialog(QWidget):
 
         self.previous_iteration_array_2d=self.SecondDimensionObj.return_previous_array()
         self.current_iteration_array_2d = self.SecondDimensionObj.return_current_array()
+        self.nucleation_neighbour_radius = self.NucleationObj.return_neighbour_radius()
 
         self.previous_counter = self.iterations
         self.previous_row = self.row
@@ -825,6 +826,19 @@ class Ui_Dialog(QWidget):
                 pattern_changed = True
                 self.nucleation_neighbours_type = str(self.nucleation_neighbours_text.toPlainText())
                 self.nucleation_neighbours_text.setPlaceholderText(_translate("Dialog", str(self.nucleation_neighbours_type)))
+                if self.nucleation_neighbours_type == "Pentagonal":
+                    pentagonal_patterns = ["PentagonalLeft","PentagonalRight","PentagonalDown","PentagonalUp"]
+                    self.nucleation_neighbours_type = random.choice(pentagonal_patterns)
+                    print(self.nucleation_neighbours_type)
+                if self.nucleation_neighbours_type == "HexagonalRand":
+                    hexagonal_patterns = ["HexagonalR","HexagonalL"]
+                    self.nucleation_neighbours_type = random.choice(hexagonal_patterns)
+                    print(self.nucleation_neighbours_type)
+                if self.nucleation_neighbours_type == "Radius" and str(self.nucleation_radius_text.toPlainText()) != "" and str(self.nucleation_radius_text.toPlainText()).isdigit():
+                    self.nucleation_neighbour_radius = int(self.nucleation_radius_text.toPlainText())
+                if self.nucleation_neighbours_type == "Radius" and str(self.nucleation_radius_text.toPlainText() == ""):
+                    self.nucleation_neighbour_radius = self.NucleationObj.return_neighbour_radius()
+
             else:
                 self.nucleation_neighbours_text.clear()
 
@@ -861,7 +875,7 @@ class Ui_Dialog(QWidget):
                                           self.nucleation_iterations_2d, self.nucleation_pattern_2d,
                                           self.nucleation_boundary_conditions, self.nucleation_neighbours_type,
                                           self.nucleation_seeds_amount, self.nucleation_user_width,
-                                          self.nucleation_user_height, self.nucleation_radius)
+                                          self.nucleation_user_height, self.nucleation_radius,self.nucleation_neighbour_radius)
         if self.nucleation_pattern_2d == "manual":
             self.nucleation_manualInputTextArea_2D.clear()
             self.nucleation_initial_manual_array_2d = self.NucleationObj.return_initial_array()
