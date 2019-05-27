@@ -285,7 +285,6 @@ class Nucleation:
             # print(str(return_index)+" "+str(dictionary.get(return_index))+" "+str(index_row)+" "+str(index_column))
             # print(str(return_index)+" "+str(self.local_colours_dictionary_radius.get(return_index)))
             self.decrease_zeros()
-            print("BIG DECREASE")
             return [return_index, self.local_colours_dictionary_radius.get(return_index)]
 
         else:
@@ -301,6 +300,9 @@ class Nucleation:
                 current_column = index_column + item[1]
 
                 if self.periodical:
+                    if self.game_array_previous_state_2d[current_row % self.height][
+                        current_column % self.width].return_id()== 0:
+                        continue
                     neighbour_number = \
                     self.game_array_previous_state_2d[current_row % self.height][
                         current_column % self.width].return_id()
@@ -333,7 +335,8 @@ class Nucleation:
                             else:
                                 self.colors_dictionary[neighbour_number] = array_of_colours
                 else:
-                    if not self.height > current_row >= 0 or not self.width > current_column >= 0:
+                    if not self.height > current_row >= 0 or not self.width > current_column >= 0 or self.game_array_previous_state_2d[current_row][
+                        current_column].return_id() == 0:
                         continue
                     neighbour_number = self.game_array_previous_state_2d[current_row][
                         current_column].return_id()

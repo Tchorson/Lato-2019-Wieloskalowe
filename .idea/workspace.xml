@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="57349c8a-6d1d-448d-af98-3993fed38578" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logic/Nucleation.py" beforeDir="false" afterPath="$PROJECT_DIR$/logic/Nucleation.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/view/Gui_converted.py" beforeDir="false" afterPath="$PROJECT_DIR$/view/Gui_converted.py" afterDir="false" />
     </list>
@@ -27,8 +28,8 @@
       <file leaf-file-name="Gui_converted.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/view/Gui_converted.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="121">
-              <caret line="926" column="59" selection-start-line="926" selection-start-column="59" selection-end-line="926" selection-end-column="59" />
+            <state relative-caret-position="229">
+              <caret line="913" column="89" lean-forward="true" selection-start-line="913" selection-start-column="89" selection-end-line="913" selection-end-column="89" />
               <folding>
                 <element signature="e#192#205#0" expanded="true" />
               </folding>
@@ -36,20 +37,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MainApp.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/MainApp.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="17" selection-start-line="17" selection-end-line="17" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Nucleation.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/logic/Nucleation.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="243">
-              <caret line="234" column="83" selection-start-line="234" selection-start-column="83" selection-end-line="234" selection-end-column="83" />
+            <state relative-caret-position="233">
+              <caret line="340" column="51" selection-start-line="340" selection-start-column="51" selection-end-line="340" selection-end-column="51" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
               </folding>
@@ -75,15 +67,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Cell.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/models/Cell.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
-              <caret line="31" selection-start-line="31" selection-end-line="31" />
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
@@ -95,7 +78,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>Loop</find>
       <find>Neumann</find>
       <find>USER</find>
       <find>print(</find>
@@ -123,8 +105,9 @@
       <find>search_for</find>
       <find>self.zeros</find>
       <find>== 0:</find>
-      <find>nucleation_draw</find>
       <find>&quot;Radius&quot;</find>
+      <find>nucleation_draw</find>
+      <find>choice</find>
     </findStrings>
     <replaceStrings>
       <replace>pattern_Text_2D</replace>
@@ -398,7 +381,7 @@
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.49932885" weight="0.32905984" />
       <window_info anchor="bottom" id="Python Console" order="11" sideWeight="0.49932885" weight="0.32905984" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.6583893" visible="true" weight="0.36039886" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.6583893" visible="true" weight="0.22792023" />
       <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.63557047" weight="0.16239317" />
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.12550336" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
@@ -651,13 +634,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/MainApp.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="17" selection-start-line="17" selection-end-line="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/numpy/core/fromnumeric.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="125">
@@ -674,8 +650,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/view/Gui_converted.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="121">
-          <caret line="926" column="59" selection-start-line="926" selection-start-column="59" selection-end-line="926" selection-end-column="59" />
+        <state relative-caret-position="229">
+          <caret line="913" column="89" lean-forward="true" selection-start-line="913" selection-start-column="89" selection-end-line="913" selection-end-column="89" />
           <folding>
             <element signature="e#192#205#0" expanded="true" />
           </folding>
@@ -689,10 +665,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/MainApp.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="17" selection-start-line="17" selection-end-line="17" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/logic/Nucleation.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="234" column="83" selection-start-line="234" selection-start-column="83" selection-end-line="234" selection-end-column="83" />
+        <state relative-caret-position="233">
+          <caret line="340" column="51" selection-start-line="340" selection-start-column="51" selection-end-line="340" selection-end-column="51" />
           <folding>
             <element signature="e#0#28#0" expanded="true" />
           </folding>

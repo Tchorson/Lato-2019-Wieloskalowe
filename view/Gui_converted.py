@@ -923,7 +923,7 @@ class Ui_Dialog(QWidget):
         QtTest.QTest.qWait(2000)
         while not self.NucleationObj.check_if_last_iteration():
             QtTest.QTest.qWait(150)
-            self.nucleation_draw_empty_board_2d()
+            #self.nucleation_draw_empty_board_2d()
             del self.nucleation_previous_iteration_array_2d
             self.nucleation_previous_iteration_array_2d = self.nucleation_current_iteration_array_2d
             self.nucleation_current_iteration_array_2d = self.NucleationObj.next_iteration()
