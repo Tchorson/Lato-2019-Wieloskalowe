@@ -5,8 +5,8 @@ import math
 
 class Nucleation:
 
-    def __init__(self, width=20, height=20, iterations=10, pattern='radius', periodical=False, neighbours = "Neumann",
-                 seeds_amount = 7, width_amount = 7, height_amount = 8, radius = 11,neighbour_radius = 4):
+    def __init__(self, width=20, height=20, iterations=10, pattern='manual', periodical=False, neighbours = "Radius",
+                 seeds_amount = 7, width_amount = 7, height_amount = 8, radius = 3,neighbour_radius = 4):
         self.width = width
         self.height = height
         self.iterations = iterations
@@ -15,11 +15,13 @@ class Nucleation:
         self.game_array_previous_state_2d = self.initialize_2d_array()
         self.initial_states_2d = 'homogeneous,radius,random,manual'
         self.patterns_array = self.initial_states_2d.split(",")
-        self.neighbours_states = 'Neumann,PentagonalLeft,PentagonalRight,PentagonalDown,PentagonalUp,Moore,Radius,HexagonalR,HexagonalL'
+        self.neighbours_states = 'Neumann,Pentagonal,Hexagonal,PentagonalLeft,PentagonalRight,PentagonalDown,PentagonalUp,Moore,Radius,HexagonalR,HexagonalL'
         self.neighbours_array = self.neighbours_states.split(",")
         self.nucleation_neighbour = neighbours
         self.colors_dictionary = {0: [255, 255, 255]}
         self.radius_dictionary = {}
+        self.local_index_dictionary_radius_neighbour = {}
+        self.local_colours_dictionary_radius = {}
         self.seeds_amount = seeds_amount # for random mode
         self.width_amount = width_amount # for homogeneous mode
         self.height_amount = height_amount # for homogeneous mode
@@ -69,11 +71,103 @@ class Nucleation:
                     return True
                 if current_row == index_row and current_column == index_column:
                     return True
-        #if self.nucleation_neighbour == ""
+        if self.nucleation_neighbour == "PentagonalRight":
+            if self.periodical:
+                if current_row == index_row and current_column == index_column or \
+                        current_row == index_row -1 and current_column == index_column + 1 or \
+                        current_row == index_row and current_column == index_column + 1 or \
+                        current_row == index_row + 1 and current_column == index_column + 1:
+                    return True
+            else:
+                if current_column >= len(self.game_array_previous_state_2d[0]) or current_row >= len(
+                        self.game_array_previous_state_2d) or current_column < 0 or current_row < 0:
+                    return True
+                if current_row == index_row and current_column == index_column or \
+                        current_row == index_row -1 and current_column == index_column + 1 or \
+                        current_row == index_row and current_column == index_column + 1 or \
+                        current_row == index_row + 1 and current_column == index_column + 1:
+                    return True
+        if self.nucleation_neighbour == "PentagonalLeft":
+            if self.periodical:
+                if current_row == index_row and current_column == index_column or \
+                        current_row == index_row -1 and current_column == index_column -1 or \
+                        current_row == index_row  and current_column == index_column -1 or \
+                        current_row == index_row + 1 and current_column == index_column -1:
+                            return True
+            else:
+                if current_column >= len(self.game_array_previous_state_2d[0]) or current_row >= len(
+                        self.game_array_previous_state_2d) or current_column < 0 or current_row < 0:
+                    return True
+                if current_row == index_row and current_column == index_column or \
+                        current_row == index_row -1 and current_column == index_column -1 or \
+                        current_row == index_row  and current_column == index_column -1 or \
+                        current_row == index_row + 1 and current_column == index_column -1:
+                            return True
+        if self.nucleation_neighbour == "PentagonalUp":
+            if self.periodical:
+                if current_row == index_row and current_column == index_column or \
+                        current_row == index_row -1 and current_column == index_column -1 or \
+                        current_row == index_row -1 and current_column == index_column  or \
+                        current_row == index_row -1 and current_column == index_column +1:
+                            return True
+            else:
+                if current_column >= len(self.game_array_previous_state_2d[0]) or current_row >= len(
+                        self.game_array_previous_state_2d) or current_column < 0 or current_row < 0:
+                    return True
+                if current_row == index_row and current_column == index_column or \
+                        current_row == index_row - 1 and current_column == index_column - 1 or \
+                        current_row == index_row - 1 and current_column == index_column or \
+                        current_row == index_row - 1 and current_column == index_column + 1:
+                            return True
+        if self.nucleation_neighbour == "PentagonalDown":
+            if self.periodical:
+                if current_row == index_row and current_column == index_column or \
+                        current_row == index_row + 1 and current_column == index_column - 1 or \
+                        current_row == index_row + 1 and current_column == index_column or \
+                        current_row == index_row + 1 and current_column == index_column + 1:
+                    return True
+            else:
+                if current_column >= len(self.game_array_previous_state_2d[0]) or current_row >= len(
+                        self.game_array_previous_state_2d) or current_column < 0 or current_row < 0:
+                    return True
+                if current_row == index_row and current_column == index_column or \
+                        current_row == index_row + 1 and current_column == index_column - 1 or \
+                        current_row == index_row + 1 and current_column == index_column or \
+                        current_row == index_row + 1 and current_column == index_column + 1:
+                    return True
+        if self.nucleation_neighbour == "HexagonalL":
+            if self.periodical:
+                if current_row == index_row and current_column == index_column or \
+                        current_row == index_row -1 and current_column == index_column -1 or \
+                        current_row == index_row + 1 and current_column == index_column + 1:
+                    return True
+            else:
+                if current_column >= len(self.game_array_previous_state_2d[0]) or current_row >= len(
+                        self.game_array_previous_state_2d) or current_column < 0 or current_row < 0:
 
-
-
-            #'Neumann,PentagonalLeft,PentagonalRight,PentagonalDown,PentagonalUp,Moore,Radius,HexagonalR,HexagonalL'
+                    return True
+                if current_row == index_row and current_column == index_column or \
+                        current_row == index_row -1 and current_column == index_column -1 or \
+                        current_row == index_row + 1 and current_column == index_column + 1:
+                    return True
+        if self.nucleation_neighbour == "HexagonalR":
+            if self.periodical:
+                if current_row == index_row and current_column == index_column or \
+                        current_row == index_row - 1 and current_column == index_column + 1 or \
+                        current_row == index_row + 1 and current_column == index_column - 1:
+                            return True
+            else:
+                if current_column >= len(self.game_array_previous_state_2d[0]) or current_row >= len(
+                        self.game_array_previous_state_2d) or current_column < 0 or current_row < 0:
+                    return True
+                if current_row == index_row and current_column == index_column or \
+                        current_row == index_row - 1 and current_column == index_column + 1 or \
+                        current_row == index_row + 1 and current_column == index_column - 1:
+                    return True
+        if self.nucleation_neighbour == "Radius":
+            if current_row == index_row and current_column == index_column:
+                return True
+                        #Radius'
         return False
 
 
@@ -131,92 +225,137 @@ class Nucleation:
         current_column = index_column - 1
         dictionary = {}
 
+        if self.nucleation_neighbour == "Radius":
 
-        if self.periodical:
-            if self.game_array_previous_state_2d[index_row][index_column].return_id() == 0:
-                for row_index in range(3):
-                    current_column = index_column - 1
-                    for column_index in range(3):
-                        if self.compare_coordinates_with_pattern(current_row,current_column,index_row,index_column):
-                            current_column += 1
-                            continue
-                        neighbour_number = self.game_array_previous_state_2d[current_row % len(self.game_array_previous_state_2d)][current_column % len(self.game_array_previous_state_2d[0])].return_id()
-                        if neighbour_number != 0:
-                            if neighbour_number in neighbour_index_array:
-                                neighbour_amount_array[neighbour_index_array.index(neighbour_number)]+=1
-                                if neighbour_number in self.colors_dictionary:
-                                    dictionary[neighbour_number] = self.colors_dictionary.get(neighbour_number)
-                                    pass
-                                else:
-                                    array_of_colours = \
-                                    self.game_array_previous_state_2d[current_row % len(self.game_array_previous_state_2d)][
-                                        current_column % len(self.game_array_previous_state_2d[0])].return_colours_array()
-                                    self.colors_dictionary[neighbour_number] = array_of_colours
-                                    dictionary[neighbour_number] = array_of_colours
-                            else:
-                                new_neighbour_index = neighbour_index_array.index(0)
-                                neighbour_index_array[new_neighbour_index] = self.game_array_previous_state_2d[current_row % len(self.game_array_previous_state_2d)][current_column % len(self.game_array_previous_state_2d[0])].return_id()
-                                neighbour_amount_array[new_neighbour_index] +=1
-                                array_of_colours = self.game_array_previous_state_2d[current_row % len(self.game_array_previous_state_2d)][current_column % len(self.game_array_previous_state_2d[0])].return_colours_array()
-                                dictionary[neighbour_number] = array_of_colours
-                                if new_neighbour_index in self.colors_dictionary:
-                                    dictionary[neighbour_number] = self.colors_dictionary.get(new_neighbour_index)
-                                else:
-                                    self.colors_dictionary[neighbour_number] = array_of_colours
-                        current_column += 1
-                    current_row += 1
-            else:
-                not_zero_index = self.game_array_previous_state_2d[index_row][index_column].return_id()
-                return [not_zero_index, self.colors_dictionary.get(not_zero_index)]
+            self.local_index_dictionary_radius_neighbour.clear()
+
+            self.local_index_dictionary_radius_neighbour.clear()
+            weight_row_current = self.game_array_previous_state_2d[index_row][index_column].return_weight_center()[0]
+            weight_column_current = self.game_array_previous_state_2d[index_row][index_column].return_weight_center()[1]
+
+            for current_row in range(len(self.game_array_current_state_2d)):
+                for current_column in range(len(self.game_array_current_state_2d[current_row])):
+                    #print("Loop")
+                    is_in_circle = False
+                    weight_row_neighbour = self.game_array_previous_state_2d[current_row][current_column].return_weight_center()[0]
+                    weight_column_neighbour = self.game_array_previous_state_2d[current_row][current_column].return_weight_center()[1]
+
+                    if self.compare_coordinates_with_pattern(weight_row_current,weight_column_current,weight_row_neighbour,weight_column_neighbour):
+                        current_column+=1
+                        continue
+
+                    if self.in_circle(weight_row_current, weight_column_current, self.neighbour_radius, weight_row_neighbour, weight_column_neighbour) and self.game_array_previous_state_2d[current_row][current_column].id != 0:
+
+                        if self.game_array_previous_state_2d[current_row][current_column].id in self.local_index_dictionary_radius_neighbour:
+                           # print(" HERE HERE I AM HERE")
+                            self.local_index_dictionary_radius_neighbour[self.game_array_previous_state_2d[current_row][current_column].id] +=1
+                        else:
+                            self.local_index_dictionary_radius_neighbour[self.game_array_previous_state_2d[current_row][current_column].id] = 1
+
+                            print(str(self.game_array_previous_state_2d[current_row][current_column].return_id())+" "+str(self.game_array_previous_state_2d[current_row][current_column].return_colours_array()))
+                            self.local_colours_dictionary_radius[self.game_array_previous_state_2d[current_row][current_column].id] = self.game_array_previous_state_2d[current_row][current_column].return_colours_array()
+
+            if len(self.local_index_dictionary_radius_neighbour) == 0:
+                return [0,[255,255,255]]
+            max_value = max(self.local_index_dictionary_radius_neighbour.values())
+            #print("Return index")
+            max_indexes = [k for k, v in self.local_index_dictionary_radius_neighbour.items() if v == max_value]
+
+            return_index = random.choice(max_indexes)
+
+            if return_index == 0:
+                return [return_index, [255, 255, 255]]
+            # print(str(return_index)+" "+str(dictionary.get(return_index))+" "+str(index_row)+" "+str(index_column))
+            #print(str(return_index)+" "+str(self.local_colours_dictionary_radius.get(return_index)))
+            return [return_index, self.local_colours_dictionary_radius.get(return_index)]
+
         else:
 
-
-            current_row = index_row - 1
-            if self.game_array_previous_state_2d[index_row][index_column].return_id() == 0:
-                for row_index in range(3):
-                    current_column = index_column - 1
-                    for column_index in range(3):
-
-                        if self.compare_coordinates_with_pattern(current_row,current_column,index_row,index_column):
-                            current_column +=1
-                            continue
-                        neighbour_number = self.game_array_previous_state_2d[current_row][current_column].return_id()
-                        if neighbour_number != 0:
-                            if neighbour_number in neighbour_index_array:
-                                neighbour_amount_array[neighbour_index_array.index(neighbour_number)] += 1
-                                if neighbour_number in self.colors_dictionary:
-                                    dictionary[neighbour_number] = self.colors_dictionary.get(neighbour_number)
-                                    pass
+            if self.periodical:
+                if self.game_array_previous_state_2d[index_row][index_column].return_id() == 0:
+                    for row_index in range(3):
+                        current_column = index_column - 1
+                        for column_index in range(3):
+                            if self.compare_coordinates_with_pattern(current_row,current_column,index_row,index_column):
+                                current_column += 1
+                                continue
+                            neighbour_number = self.game_array_previous_state_2d[current_row % len(self.game_array_previous_state_2d)][current_column % len(self.game_array_previous_state_2d[0])].return_id()
+                            if neighbour_number != 0:
+                                if neighbour_number in neighbour_index_array:
+                                    neighbour_amount_array[neighbour_index_array.index(neighbour_number)]+=1
+                                    if neighbour_number in self.colors_dictionary:
+                                        dictionary[neighbour_number] = self.colors_dictionary.get(neighbour_number)
+                                        pass
+                                    else:
+                                        array_of_colours = \
+                                        self.game_array_previous_state_2d[current_row % len(self.game_array_previous_state_2d)][
+                                            current_column % len(self.game_array_previous_state_2d[0])].return_colours_array()
+                                        self.colors_dictionary[neighbour_number] = array_of_colours
+                                        dictionary[neighbour_number] = array_of_colours
                                 else:
-                                    array_of_colours = self.game_array_previous_state_2d[current_row][current_column].return_colours_array()
-                                    self.colors_dictionary[neighbour_number] = array_of_colours
+                                    new_neighbour_index = neighbour_index_array.index(0)
+                                    neighbour_index_array[new_neighbour_index] = self.game_array_previous_state_2d[current_row % len(self.game_array_previous_state_2d)][current_column % len(self.game_array_previous_state_2d[0])].return_id()
+                                    neighbour_amount_array[new_neighbour_index] +=1
+                                    array_of_colours = self.game_array_previous_state_2d[current_row % len(self.game_array_previous_state_2d)][current_column % len(self.game_array_previous_state_2d[0])].return_colours_array()
                                     dictionary[neighbour_number] = array_of_colours
-                            else:
-                                new_neighbour_index = neighbour_index_array.index(0)
-                                neighbour_index_array[new_neighbour_index] = self.game_array_previous_state_2d[current_row][current_column].return_id()
-                                neighbour_amount_array[new_neighbour_index] += 1
-                                array_of_colours = self.game_array_previous_state_2d[current_row][current_column].return_colours_array()
-                                dictionary[neighbour_number] = array_of_colours
-                                if new_neighbour_index in self.colors_dictionary:
-                                    dictionary[neighbour_number] = self.colors_dictionary.get(new_neighbour_index)
-                                else:
-                                    self.colors_dictionary[neighbour_number] = array_of_colours
-                        current_column += 1
-                    current_row += 1
+                                    if new_neighbour_index in self.colors_dictionary:
+                                        dictionary[neighbour_number] = self.colors_dictionary.get(new_neighbour_index)
+                                    else:
+                                        self.colors_dictionary[neighbour_number] = array_of_colours
+                            current_column += 1
+                        current_row += 1
+                else:
+                    not_zero_index = self.game_array_previous_state_2d[index_row][index_column].return_id()
+                    return [not_zero_index, self.colors_dictionary.get(not_zero_index)]
             else:
-                not_zero_index = self.game_array_previous_state_2d[index_row][index_column].return_id()
-                return [not_zero_index, self.colors_dictionary.get(not_zero_index)]
 
-        #print(str(index_row)+" "+str(index_column)+" "+str(neighbour_index_array)+" "+str(neighbour_amount_array))
 
-        dominant_neighbour_indexes = numpy.where(neighbour_amount_array == numpy.amax(neighbour_amount_array))[0]
-        random_amount_index = random.choice(dominant_neighbour_indexes)
-        return_index = neighbour_index_array[random_amount_index]
-        if return_index == 0:
-            return[return_index, [255,255,255]]
+                current_row = index_row - 1
+                if self.game_array_previous_state_2d[index_row][index_column].return_id() == 0:
+                    for row_index in range(3):
+                        current_column = index_column - 1
+                        for column_index in range(3):
+
+                            if self.compare_coordinates_with_pattern(current_row,current_column,index_row,index_column):
+                                current_column +=1
+                                continue
+                            neighbour_number = self.game_array_previous_state_2d[current_row][current_column].return_id()
+                            if neighbour_number != 0:
+                                if neighbour_number in neighbour_index_array:
+                                    neighbour_amount_array[neighbour_index_array.index(neighbour_number)] += 1
+                                    if neighbour_number in self.colors_dictionary:
+                                        dictionary[neighbour_number] = self.colors_dictionary.get(neighbour_number)
+                                        pass
+                                    else:
+                                        array_of_colours = self.game_array_previous_state_2d[current_row][current_column].return_colours_array()
+                                        self.colors_dictionary[neighbour_number] = array_of_colours
+                                        dictionary[neighbour_number] = array_of_colours
+                                else:
+                                    new_neighbour_index = neighbour_index_array.index(0)
+                                    neighbour_index_array[new_neighbour_index] = self.game_array_previous_state_2d[current_row][current_column].return_id()
+                                    neighbour_amount_array[new_neighbour_index] += 1
+                                    array_of_colours = self.game_array_previous_state_2d[current_row][current_column].return_colours_array()
+                                    dictionary[neighbour_number] = array_of_colours
+                                    if new_neighbour_index in self.colors_dictionary:
+                                        dictionary[neighbour_number] = self.colors_dictionary.get(new_neighbour_index)
+                                    else:
+                                        self.colors_dictionary[neighbour_number] = array_of_colours
+                            current_column += 1
+                        current_row += 1
+                else:
+                    not_zero_index = self.game_array_previous_state_2d[index_row][index_column].return_id()
+                    return [not_zero_index, self.colors_dictionary.get(not_zero_index)]
+
+            #print(str(index_row)+" "+str(index_column)+" "+str(neighbour_index_array)+" "+str(neighbour_amount_array))
+
+            dominant_neighbour_indexes = numpy.where(neighbour_amount_array == numpy.amax(neighbour_amount_array))[0]
+            random_amount_index = random.choice(dominant_neighbour_indexes)
+            return_index = neighbour_index_array[random_amount_index]
+            if return_index == 0:
+                return[return_index, [255,255,255]]
         #print(str(return_index)+" "+str(dictionary.get(return_index))+" "+str(index_row)+" "+str(index_column))
 
-        return [return_index, dictionary.get(return_index)]
+            return [return_index, dictionary.get(return_index)]
 
 
     def begin_the_game(self):
@@ -230,12 +369,14 @@ class Nucleation:
         for row in range(len(self.game_array_previous_state_2d)):
             for column in range(len(self.game_array_previous_state_2d[row])):
                 index_and_colors = self.calculate_value_2d(row, column)
-
-                #print(str(index_and_colors[0])+"    "+str(index_and_colors[1]))
+                #print(str(index_and_colors[0])+"    "+str(index_and_colors[1])+ " new iteration ")
                 self.game_array_current_state_2d[row][column].set_id(index_and_colors[0])
                 self.game_array_current_state_2d[row][column].set_colours_array(index_and_colors[1])
+                self.game_array_current_state_2d[row][column].set_weight_center(self.game_array_previous_state_2d[row][column].return_weight_center())
 
         self.search_for_zeros()
+        print("return")
+        print(self.game_array_current_state_2d)
         return self.game_array_current_state_2d
 
     def return_current_array(self):
@@ -273,6 +414,14 @@ class Nucleation:
 
     def set_current_array(self,array):
         self.game_array_current_state_2d = array
+        if self.pattern == "manual":
+            self.game_array_current_state_2d = self.initialize_weights(self.game_array_current_state_2d)
+
+    def initialize_weights(self,array):
+        for row in range(self.height):
+            for column in range(self.width):
+                array[row][column].set_weight_center(self.randomize_cell_weight_centre(row,column,row+1,column+1))
+        return array
 
     def set_pattern_in_array(self, pattern):  # CHECK FOR WRONG ARRAY WRITE PROCESS
         self.game_array_current_state_2d = self.initialize_2d_array()
@@ -373,13 +522,13 @@ class Nucleation:
             if pattern == 'radius': # radius w menu glownym nie tu albo jebac tutaj
 
                 self.radius_dictionary.clear()
-                local_side = 12
+                local_side = 7
                 radius_seeds_counter = 0
                 can_place_more_seeds = True
                 while radius_seeds_counter < self.seeds_amount:
                     #print(radius_seeds_counter)
                     if not can_place_more_seeds:
-                        print("no more space on map, leaving, set this amont of seeds: "+str(radius_seeds_counter))
+                        #print("no more space on map, leaving, set this amont of seeds: "+str(radius_seeds_counter))
                         break
 
                     seed_can_be_placed_in_array = False
@@ -388,7 +537,7 @@ class Nucleation:
                     while not seed_can_be_placed_in_array:
                         seed_can_be_placed_in_array = True
                         if fail_counter >= 20000:
-                            print("no free space for iteration: "+str(radius_seeds_counter+1))
+                            #print("no free space for iteration: "+str(radius_seeds_counter+1))
                             #can_place_more_seeds = False
                             break
 
@@ -504,10 +653,12 @@ class Nucleation:
             self.nucleation_neighbour = "Neumann"
 
     def in_circle(self,center_x, center_y, radius, x, y):
-        dist = math.sqrt( (12*(center_x - x)) ** 2 + (12*(center_y - y)) ** 2)
+        dist = math.sqrt( (7*(center_x - x)) ** 2 + (7*(center_y - y)) ** 2)
         return dist <= radius ** 2
 
     def restart_grid(self):
+        self.local_index_dictionary_radius_neighbour.clear()
+        self.local_colours_dictionary_radius.clear()
         self.colors_dictionary.clear()
         self.colors_dictionary[0]=[255,255,255]
         self.game_array_previous_state_2d = self.initialize_2d_array()
@@ -526,11 +677,11 @@ class Nucleation:
                 print(str(self.game_array_current_state_2d[row][column].return_id()), end=' ')
             print("\n")
 
-    def set_current_array(self,array):
-        self.game_array_current_state_2d = array
-
     def return_initial_array(self):
         return self.initialize_2d_array()
 
     def return_pattern_array(self):
         return self.patterns_array
+
+    def return_nucleation_neighbour(self):
+        return self.nucleation_neighbour

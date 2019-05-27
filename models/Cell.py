@@ -11,9 +11,16 @@ class Cell:
         self.colours = colours
         self.weight_center = weight_center
 
+    def __eq__(self, other):
+        if isinstance(other,self.__class__):
+            return self.id == other.id and self.colours == other.colours and self.weight_center == other.weight_center
+
+    def __ne__(self, other):
+        return self.id != other.id or self.colours != other.colours or self.weight_center != other.weight_center
+
     def __repr__(self):
         #return repr(self.__id) + " " + repr(self.is_alive) + " "
-        return repr(self.is_alive) + " "
+        return repr(self.id) + " "
 
     def return_state(self):
         return self.is_alive

@@ -77,7 +77,7 @@ class Ui_Dialog(QWidget):
         self.nucleation_width_2d = self.NucleationObj.return_width()
         self.nucleation_iterations_2d = self.NucleationObj.return_iteration()
         self.nucleation_boundary_conditions = "absorbing"
-        self.nucleation_neighbours_type = "Neumann"
+        self.nucleation_neighbours_type = self.NucleationObj.return_nucleation_neighbour()
         self.nucleation_seeds_amount = self.NucleationObj.return_seeds_amount()
         self.nucleation_user_width = self.NucleationObj.return_width_amount()
         self.nucleation_user_height = self.NucleationObj.return_heigh_amount()
@@ -522,7 +522,7 @@ class Ui_Dialog(QWidget):
         self.nucleation_restart_button_2d.setText(_translate("Dialog", "restart"))
         self.nucleation_restart_button_2d.clicked.connect(self.restart_nucleation)
         self.nucleation_neighbours_label.setText(_translate("Dialog", "Neighbours"))
-        self.nucleation_neighbours_text.setPlaceholderText(_translate("Dialog", "Neumann"))
+        self.nucleation_neighbours_text.setPlaceholderText(_translate("Dialog", str(self.nucleation_neighbours_type)))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.nucleation_tab), _translate("Dialog", "Nucleation"))
 
     @pyqtSlot()
@@ -704,6 +704,14 @@ class Ui_Dialog(QWidget):
                 if input_array[row][column].is_alive==True:
                     self.scene_2d.addRect(rectangle, self.red_pen)
 
+    def compare_current_step_with_previous(self):
+        are_they_equal = True
+        for row in range(self.nucleation_height_2d):
+            for column in range(self.nucleation_width_2d): # zmienic?
+                if self.nucleation_previous_iteration_array_2d[row][column] != self.nucleation_current_iteration_array_2d[row][column]:
+                    are_they_equal = False
+        return are_they_equal
+
     @pyqtSlot()
     def begin_game_2d(self):
         _translate = QtCore.QCoreApplication.translate
@@ -830,7 +838,7 @@ class Ui_Dialog(QWidget):
                     pentagonal_patterns = ["PentagonalLeft","PentagonalRight","PentagonalDown","PentagonalUp"]
                     self.nucleation_neighbours_type = random.choice(pentagonal_patterns)
                     print(self.nucleation_neighbours_type)
-                if self.nucleation_neighbours_type == "HexagonalRand":
+                if self.nucleation_neighbours_type == "Hexagonal":
                     hexagonal_patterns = ["HexagonalR","HexagonalL"]
                     self.nucleation_neighbours_type = random.choice(hexagonal_patterns)
                     print(self.nucleation_neighbours_type)
@@ -838,7 +846,7 @@ class Ui_Dialog(QWidget):
                     self.nucleation_neighbour_radius = int(self.nucleation_radius_text.toPlainText())
                 if self.nucleation_neighbours_type == "Radius" and str(self.nucleation_radius_text.toPlainText() == ""):
                     self.nucleation_neighbour_radius = self.NucleationObj.return_neighbour_radius()
-
+                self.nucleation_neighbours_text.clear()
             else:
                 self.nucleation_neighbours_text.clear()
 
@@ -906,13 +914,23 @@ class Ui_Dialog(QWidget):
         #self.nucleation_current_iteration_array_2d = self.NucleationObj.next_iteration()
         if self.nucleation_pattern_2d == "manual":
             #self.nucleation_draw_board_2d(self.nucleation_current_iteration_array_2d)
-            self.nucleation_draw_board_2d(self.NucleationObj.next_iteration())
+            #self.nucleation_draw_board_2d(self.NucleationObj.next_iteration())
+            pass
         else:
             self.nucleation_draw_board_2d(self.NucleationObj.next_iteration())
             self.nucleation_draw_board_2d(self.nucleation_current_iteration_array_2d)
 
         QtTest.QTest.qWait(2000)
         while not self.NucleationObj.check_if_last_iteration():
+            QtTest.QTest.qWait(50)
+            self.nucleation_draw_empty_board_2d()
+            self.nucleation_previous_iteration_array_2d = self.nucleation_current_iteration_array_2d
+            self.nucleation_current_iteration_array_2d = self.NucleationObj.next_iteration()
+            self.nucleation_draw_board_2d(self.nucleation_current_iteration_array_2d)
+            if self.compare_current_step_with_previous():
+                print("They are equal!")
+                break
+        if self.nucleation_neighbours_type == "Radius":
             QtTest.QTest.qWait(50)
             self.nucleation_draw_empty_board_2d()
             self.nucleation_previous_iteration_array_2d = self.nucleation_current_iteration_array_2d
@@ -956,6 +974,8 @@ class Ui_Dialog(QWidget):
                             new_cell.set_colours_array([255,255,255])
                         row_array.append(new_cell)
                     user_edited_array.append(row_array)
+                #print("USER EDITED ARRAY")
+                #print(user_edited_array)
                 self.NucleationObj.set_current_array(user_edited_array)
 
     def nucleation_draw_board_2d(self,input_array):
