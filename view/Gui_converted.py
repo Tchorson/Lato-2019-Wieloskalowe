@@ -30,11 +30,11 @@ class Ui_Dialog(QWidget):
         self.iterations = 100
         self.rule = 90
         self.alive_cels_numbers = [51]
-        self.side = 7
-        self.side_2d = 7
-        self.nucleation_side = 8
-        self.width_draw_2d = 7
-        self.height_draw_2d = 7
+        self.side = 3
+        self.side_2d = 3
+        self.nucleation_side = 3
+        self.width_draw_2d = 3
+        self.height_draw_2d = 3
         self.row = 0
         self.nucleation_row = 0
         self.nucleation_column = 0
@@ -575,7 +575,7 @@ class Ui_Dialog(QWidget):
         self.previous_counter = self.iterations
         self.previous_row = self.row
 
-        self.side = 7
+        self.side = 3
         while counter > 0:
             self.current_iteration_array = self.FirstDimensionObj.single_iteration()
             self.previous_iteration_array_2d.append(self.current_iteration_array)
@@ -685,8 +685,8 @@ class Ui_Dialog(QWidget):
             self.settings_has_changed = True
 
     def draw_empty_board_2d(self):
-        self.width_draw_2d = 7
-        self.height_draw_2d = 7
+        self.width_draw_2d = 3
+        self.height_draw_2d = 3
 
         for row in range(self.height_2d):
             for column in range(self.width_2d):
@@ -695,8 +695,8 @@ class Ui_Dialog(QWidget):
                 self.scene_2d.addRect(rectangle, self.green_pen)
 
     def draw_board_2d(self,input_array):
-        self.width_draw_2d = 7
-        self.height_draw_2d = 7
+        self.width_draw_2d = 3
+        self.height_draw_2d = 3
         for row in range(len(input_array)):
             for column in range(len(input_array[row])):
                 rectangle = QtCore.QRectF(QtCore.QPointF(column * self.width_draw_2d, row * self.height_draw_2d),
@@ -922,20 +922,21 @@ class Ui_Dialog(QWidget):
 
         QtTest.QTest.qWait(2000)
         while not self.NucleationObj.check_if_last_iteration():
-            QtTest.QTest.qWait(50)
+            QtTest.QTest.qWait(150)
             self.nucleation_draw_empty_board_2d()
+            del self.nucleation_previous_iteration_array_2d
             self.nucleation_previous_iteration_array_2d = self.nucleation_current_iteration_array_2d
             self.nucleation_current_iteration_array_2d = self.NucleationObj.next_iteration()
             self.nucleation_draw_board_2d(self.nucleation_current_iteration_array_2d)
             if self.compare_current_step_with_previous():
                 print("They are equal!")
                 break
-        if self.nucleation_neighbours_type == "Radius":
-            QtTest.QTest.qWait(50)
-            self.nucleation_draw_empty_board_2d()
-            self.nucleation_previous_iteration_array_2d = self.nucleation_current_iteration_array_2d
-            self.nucleation_current_iteration_array_2d = self.NucleationObj.next_iteration()
-            self.nucleation_draw_board_2d(self.nucleation_current_iteration_array_2d)
+
+        QtTest.QTest.qWait(50)
+        self.nucleation_draw_empty_board_2d()
+        self.nucleation_previous_iteration_array_2d = self.nucleation_current_iteration_array_2d
+        self.nucleation_current_iteration_array_2d = self.NucleationObj.next_iteration()
+        self.nucleation_draw_board_2d(self.nucleation_current_iteration_array_2d)
 
         if self.nucleation_pattern_2d == "manual":
             self.nucleation_initial_manual_array_2d = self.nucleation_current_iteration_array_2d
@@ -979,7 +980,7 @@ class Ui_Dialog(QWidget):
                 self.NucleationObj.set_current_array(user_edited_array)
 
     def nucleation_draw_board_2d(self,input_array):
-        self.nucleation_side = 8
+        self.nucleation_side = 3
         for row in range(len(input_array)):
             for column in range(len(input_array[row])):
                 rectangle = QtCore.QRectF(QtCore.QPointF(column * self.nucleation_side, row * self.nucleation_side),
@@ -1006,7 +1007,7 @@ class Ui_Dialog(QWidget):
         return draw_array
 
     def nucleation_draw_empty_board_2d(self):
-        self.nucleation_side = 8
+        self.nucleation_side = 3
 
         for row in range(self.nucleation_height_2d):
             for column in range(self.nucleation_width_2d):
