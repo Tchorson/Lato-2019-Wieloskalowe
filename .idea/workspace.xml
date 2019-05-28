@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/view/Gui_converted.py" description="splitted_array_index = int(splitted_array[column])" line="962" />
+    <bookmark url="file://$PROJECT_DIR$/view/Gui_converted.py" description="splitted_array_index = int(splitted_array[column])" line="968" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="57349c8a-6d1d-448d-af98-3993fed38578" name="Default" comment="">
@@ -25,11 +25,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Gui_converted.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Gui_converted.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/view/Gui_converted.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="229">
-              <caret line="913" column="89" lean-forward="true" selection-start-line="913" selection-start-column="89" selection-end-line="913" selection-end-column="89" />
+            <state relative-caret-position="-2001">
+              <caret line="90" lean-forward="true" selection-start-line="90" selection-end-line="90" />
               <folding>
                 <element signature="e#192#205#0" expanded="true" />
               </folding>
@@ -37,11 +37,29 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Nucleation.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="QGraphicsScene.py" pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/.PyCharm2018.1/system/python_stubs/-1353995630/PyQt5/QtWidgets/QGraphicsScene.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="296">
+              <caret line="55" lean-forward="true" selection-start-line="55" selection-end-line="55" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Cell.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/models/Cell.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="357">
+              <caret line="32" lean-forward="true" selection-start-line="32" selection-end-line="32" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Nucleation.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/logic/Nucleation.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="233">
-              <caret line="340" column="51" selection-start-line="340" selection-start-column="51" selection-end-line="340" selection-end-column="51" />
+            <state relative-caret-position="17">
+              <caret line="9" column="43" selection-start-line="9" selection-start-column="43" selection-end-line="9" selection-end-column="43" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
               </folding>
@@ -49,20 +67,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="random.py" pinned="false" current-in-tab="false">
-        <entry file="file://C:/Python36/Lib/random.py">
+      <file leaf-file-name="MonteCarlo.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/logic/MonteCarlo.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
-              <caret line="257" selection-start-line="257" selection-end-line="257" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="fromnumeric.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/numpy/core/fromnumeric.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="125">
-              <caret line="2504" selection-start-line="2504" selection-end-line="2504" />
+            <state relative-caret-position="204">
+              <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
             </state>
           </provider>
         </entry>
@@ -78,12 +87,7 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>Neumann</find>
-      <find>USER</find>
-      <find>print(</find>
-      <find>set_current</find>
       <find>manual</find>
-      <find>restart</find>
       <find>rest</find>
       <find>value</find>
       <find>pattern</find>
@@ -106,8 +110,13 @@
       <find>self.zeros</find>
       <find>== 0:</find>
       <find>&quot;Radius&quot;</find>
-      <find>nucleation_draw</find>
       <find>choice</find>
+      <find>next_i</find>
+      <find>restart</find>
+      <find>draw</find>
+      <find>nucleation_draw</find>
+      <find>next_iteration</find>
+      <find>zeros_counter</find>
     </findStrings>
     <replaceStrings>
       <replace>pattern_Text_2D</replace>
@@ -148,9 +157,10 @@
         <option value="$PROJECT_DIR$/view/Gui_converted_11_May.py" />
         <option value="$PROJECT_DIR$/MainApp.py" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/logic/MonteCarlo.py" />
         <option value="$PROJECT_DIR$/models/Cell.py" />
-        <option value="$PROJECT_DIR$/view/Gui_converted.py" />
         <option value="$PROJECT_DIR$/logic/Nucleation.py" />
+        <option value="$PROJECT_DIR$/view/Gui_converted.py" />
       </list>
     </option>
   </component>
@@ -374,6 +384,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49932885" weight="0.32905984" />
       <window_info anchor="bottom" id="Event Log" order="12" sideWeight="0.34161073" side_tool="true" weight="0.7706553" />
@@ -381,7 +392,7 @@
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.49932885" weight="0.32905984" />
       <window_info anchor="bottom" id="Python Console" order="11" sideWeight="0.49932885" weight="0.32905984" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.6583893" visible="true" weight="0.22792023" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.6583893" weight="0.25498575" />
       <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.63557047" weight="0.16239317" />
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.12550336" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
@@ -419,7 +430,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/logic/__init.py" />
     <entry file="file://$PROJECT_DIR$/logic/__init__.py" />
     <entry file="file://$PROJECT_DIR$/logic/1D.py" />
     <entry file="file://$PROJECT_DIR$/logic/variants.py" />
@@ -453,13 +463,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/view/Gui_converted_backup.py" />
-    <entry file="file://$USER_HOME$/.PyCharm2018.1/system/python_stubs/-1353995630/PyQt5/QtWidgets/QGraphicsScene.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="595">
-          <caret line="37" column="8" selection-start-line="37" selection-start-column="8" selection-end-line="37" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/.PyCharm2018.1/system/python_stubs/-1353995630/PyQt5/QtCore/QLine.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1751">
@@ -634,6 +637,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/MainApp.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="17" selection-start-line="17" selection-end-line="17" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/numpy/core/fromnumeric.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="125">
@@ -648,36 +658,43 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/view/Gui_converted.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="229">
-          <caret line="913" column="89" lean-forward="true" selection-start-line="913" selection-start-column="89" selection-end-line="913" selection-end-column="89" />
-          <folding>
-            <element signature="e#192#205#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/models/Cell.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="31" selection-start-line="31" selection-end-line="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/MainApp.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="17" selection-start-line="17" selection-end-line="17" />
+        <state relative-caret-position="357">
+          <caret line="32" lean-forward="true" selection-start-line="32" selection-end-line="32" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/logic/Nucleation.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="233">
-          <caret line="340" column="51" selection-start-line="340" selection-start-column="51" selection-end-line="340" selection-end-column="51" />
+        <state relative-caret-position="17">
+          <caret line="9" column="43" selection-start-line="9" selection-start-column="43" selection-end-line="9" selection-end-column="43" />
           <folding>
             <element signature="e#0#28#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.PyCharm2018.1/system/python_stubs/-1353995630/PyQt5/QtWidgets/QGraphicsScene.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="296">
+          <caret line="55" lean-forward="true" selection-start-line="55" selection-end-line="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/logic/MonteCarlo.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/view/Gui_converted.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2001">
+          <caret line="90" lean-forward="true" selection-start-line="90" selection-end-line="90" />
+          <folding>
+            <element signature="e#192#205#0" expanded="true" />
           </folding>
         </state>
       </provider>

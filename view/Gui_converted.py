@@ -17,6 +17,7 @@ from logic.FistDimension import FirstDimension
 from logic.SecondDimension import SecondDimension
 from logic.Nucleation import Nucleation
 from models.Cell import  Cell
+import numpy
 
 
 class Ui_Dialog(QWidget):
@@ -86,6 +87,7 @@ class Ui_Dialog(QWidget):
         self.nucleation_manual_array_text_backup = ''
         self.nucleation_previous_iteration_array_2d = self.NucleationObj.return_previous_array()
         self.nucleation_current_iteration_array_2d = self.NucleationObj.return_current_array()
+        self.array_if_is_drawn = numpy.zeros([self.nucleation_height_2d,self.nucleation_width_2d])
 
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
@@ -707,7 +709,7 @@ class Ui_Dialog(QWidget):
     def compare_current_step_with_previous(self):
         are_they_equal = True
         for row in range(self.nucleation_height_2d):
-            for column in range(self.nucleation_width_2d): # zmienic?
+            for column in range(self.nucleation_width_2d):
                 if self.nucleation_previous_iteration_array_2d[row][column] != self.nucleation_current_iteration_array_2d[row][column]:
                     are_they_equal = False
         return are_they_equal
@@ -722,7 +724,6 @@ class Ui_Dialog(QWidget):
         if self.pattern_2d == "manual":
             self.manual_array_text_backup = str(self.draw_manual_array_on_textarea())[1:-1]
         self.draw_empty_board_2d()
-        #self.draw_board_2d(self.current_iteration_array_2d)
         self.draw_board_2d(self.SecondDimensionObj.next_iteration())
 
         while self.counter_2d < self.iterations_2d:
@@ -758,7 +759,6 @@ class Ui_Dialog(QWidget):
                     row_array+=','
 
             draw_array.append(row_array)
-        #self.manual_array_text_backup = str(draw_array)[1:-1]
         return draw_array
 
     def read_manual_array_from_textarea(self):
@@ -884,6 +884,10 @@ class Ui_Dialog(QWidget):
                                           self.nucleation_boundary_conditions, self.nucleation_neighbours_type,
                                           self.nucleation_seeds_amount, self.nucleation_user_width,
                                           self.nucleation_user_height, self.nucleation_radius,self.nucleation_neighbour_radius)
+
+        if self.nucleation_height_2d != len(self.array_if_is_drawn) or self.nucleation_width_2d != len(self.array_if_is_drawn[0]):
+            self.array_if_is_drawn = numpy.zeros([self.nucleation_height_2d, self.nucleation_width_2d])
+
         if self.nucleation_pattern_2d == "manual":
             self.nucleation_manualInputTextArea_2D.clear()
             self.nucleation_initial_manual_array_2d = self.NucleationObj.return_initial_array()
@@ -895,7 +899,9 @@ class Ui_Dialog(QWidget):
             self.nucleation_initial_manual_array_2d = self.NucleationObj.return_current_array()
             self.nucleation_settings_has_changed = True
 
+
     def begin_nucleation(self):
+
         _translate = QtCore.QCoreApplication.translate
         self.nucleation_scene.clear()
 
@@ -933,7 +939,7 @@ class Ui_Dialog(QWidget):
                 break
 
         QtTest.QTest.qWait(50)
-        self.nucleation_draw_empty_board_2d()
+        #self.nucleation_draw_empty_board_2d()
         self.nucleation_previous_iteration_array_2d = self.nucleation_current_iteration_array_2d
         self.nucleation_current_iteration_array_2d = self.NucleationObj.next_iteration()
         self.nucleation_draw_board_2d(self.nucleation_current_iteration_array_2d)
@@ -981,8 +987,12 @@ class Ui_Dialog(QWidget):
 
     def nucleation_draw_board_2d(self,input_array):
         self.nucleation_side = 3
-        for row in range(len(input_array)):
-            for column in range(len(input_array[row])):
+        for row in range(self.nucleation_height_2d):
+            for column in range(self.nucleation_width_2d):
+                if input_array[row][column].id == 0 or self.array_if_is_drawn[row][column] == 2:#or self.array_if_is_drawn[row][column]:
+                    continue
+
+                self.array_if_is_drawn[row][column] += 1
                 rectangle = QtCore.QRectF(QtCore.QPointF(column * self.nucleation_side, row * self.nucleation_side),
                                           QtCore.QSizeF(self.nucleation_side, self.nucleation_side))
 
@@ -1017,6 +1027,7 @@ class Ui_Dialog(QWidget):
 
     def restart_nucleation(self):
         _translate = QtCore.QCoreApplication.translate
+        self.array_if_is_drawn = numpy.zeros([self.nucleation_height_2d,self.nucleation_width_2d])
         self.nucleation_scene.clear()
         self.nucleation_row = 0
         self.nucleation_column = 0
