@@ -6,7 +6,7 @@
 #
 # WARNING! All changes made in this file will be lost!
 
-import random
+import random,sys
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtWidgets import QWidget, QMainWindow, QDialog
@@ -885,9 +885,6 @@ class Ui_Dialog(QWidget):
                                           self.nucleation_seeds_amount, self.nucleation_user_width,
                                           self.nucleation_user_height, self.nucleation_radius,self.nucleation_neighbour_radius)
 
-        if self.nucleation_height_2d != len(self.array_if_is_drawn) or self.nucleation_width_2d != len(self.array_if_is_drawn[0]):
-            self.array_if_is_drawn = numpy.zeros([self.nucleation_height_2d, self.nucleation_width_2d])
-
         if self.nucleation_pattern_2d == "manual":
             self.nucleation_manualInputTextArea_2D.clear()
             self.nucleation_initial_manual_array_2d = self.NucleationObj.return_initial_array()
@@ -898,10 +895,11 @@ class Ui_Dialog(QWidget):
             self.nucleation_manualInputTextArea_2D.clear()
             self.nucleation_initial_manual_array_2d = self.NucleationObj.return_current_array()
             self.nucleation_settings_has_changed = True
+        self.array_if_is_drawn = numpy.zeros([self.nucleation_height_2d, self.nucleation_width_2d])
 
 
     def begin_nucleation(self):
-
+        self.colours_nucleation_local_dictionary = {}
         _translate = QtCore.QCoreApplication.translate
         self.nucleation_scene.clear()
 
@@ -911,6 +909,7 @@ class Ui_Dialog(QWidget):
         self.nucleation_current_iteration_array_2d = self.NucleationObj.return_current_array()
 
         if self.nucleation_pattern_2d == "manual":
+
             self.manual_array_text_backup = str(self.nucleation_draw_manual_array_on_textarea())[1:-1]
             self.nucleation_read_manual_array_from_textarea()
             self.nucleation_current_iteration_array_2d = self.NucleationObj.return_current_array()
@@ -941,14 +940,31 @@ class Ui_Dialog(QWidget):
         QtTest.QTest.qWait(50)
         #self.nucleation_draw_empty_board_2d()
         self.nucleation_previous_iteration_array_2d = self.nucleation_current_iteration_array_2d
+        #self.nucleation_draw_empty_board_2d()
+
+        #print("last printing before drawing")
+        #self.nucleation_last_draw_2d(self.nucleation_current_iteration_array_2d)
         self.nucleation_current_iteration_array_2d = self.NucleationObj.next_iteration()
         self.nucleation_draw_board_2d(self.nucleation_current_iteration_array_2d)
+        #self.nucleation_last_draw_2d(self.nucleation_current_iteration_array_2d)
 
         if self.nucleation_pattern_2d == "manual":
             self.nucleation_initial_manual_array_2d = self.nucleation_current_iteration_array_2d
             self.nucleation_read_manual_array_from_textarea()
             self.nucleation_manualInputTextArea_2D.clear()
             self.nucleation_manualInputTextArea_2D.appendPlainText(_translate("Dialog", str(self.nucleation_draw_manual_array_on_textarea())[1:-1]))
+
+    def nucleation_last_draw_2d(self,input_array):
+        self.nucleation_side = 3
+        for row in range(self.nucleation_height_2d):
+            for column in range(self.nucleation_width_2d):
+                rectangle = QtCore.QRectF(QtCore.QPointF(column * self.nucleation_side, row * self.nucleation_side),
+                                          QtCore.QSizeF(self.nucleation_side, self.nucleation_side))
+
+                colors_array = input_array[row][column].return_colours_array()
+                # print(colors_array)
+                self.nucleation_scene.addRect(rectangle,
+                                              QtGui.QPen(QColor(colors_array[0], colors_array[1], colors_array[2])))
 
     def nucleation_read_manual_array_from_textarea(self):
         if self.nucleation_settings_has_changed and self.nucleation_pattern_2d != "manual":
@@ -981,23 +997,26 @@ class Ui_Dialog(QWidget):
                             new_cell.set_colours_array([255,255,255])
                         row_array.append(new_cell)
                     user_edited_array.append(row_array)
-                #print("USER EDITED ARRAY")
-                #print(user_edited_array)
                 self.NucleationObj.set_current_array(user_edited_array)
 
     def nucleation_draw_board_2d(self,input_array):
         self.nucleation_side = 3
         for row in range(self.nucleation_height_2d):
             for column in range(self.nucleation_width_2d):
-                if input_array[row][column].id == 0 or self.array_if_is_drawn[row][column] == 2:#or self.array_if_is_drawn[row][column]:
+                if input_array[row][column].id == 0 or input_array[row][column].return_colours_array() == [255,255,255] or self.array_if_is_drawn[row][column] >= 2:#or self.array_if_is_drawn[row][column]:
                     continue
+                #if self.nucleation_pattern_2d == "manual":
+                if input_array[row][column].return_id() not in self.colours_nucleation_local_dictionary:
+                    self.colours_nucleation_local_dictionary[input_array[row][column].return_id()] = input_array[row][column].return_colours_array()
+                #print(str(self.colours_nucleation_local_dictionary[input_array[row][column].return_id()])+" id: "+str(input_array[row][column].return_id()))
 
                 self.array_if_is_drawn[row][column] += 1
                 rectangle = QtCore.QRectF(QtCore.QPointF(column * self.nucleation_side, row * self.nucleation_side),
                                           QtCore.QSizeF(self.nucleation_side, self.nucleation_side))
-
-                colors_array = input_array[row][column].return_colours_array()
-                #print(colors_array)
+                #if self.nucleation_pattern_2d == "manual":
+                colors_array = self.colours_nucleation_local_dictionary[input_array[row][column].return_id()]
+                #else:
+                #    colors_array = input_array[row][column].return_colours_array()
                 self.nucleation_scene.addRect(rectangle, QtGui.QPen(QColor(colors_array[0],colors_array[1],colors_array[2])))
 
     def nucleation_draw_manual_array_on_textarea(self):
@@ -1036,3 +1055,12 @@ class Ui_Dialog(QWidget):
         self.nucleation_initial_manual_array_2d = self.NucleationObj.return_initial_array()
         self.nucleation_manualInputTextArea_2D.appendPlainText(
                     _translate("Dialog", str(self.nucleation_draw_manual_array_on_textarea())[1:-1]))
+
+    sys._excepthook = sys.excepthook
+
+    def exception_hook(exctype, value, traceback):
+        print(exctype, value, traceback)
+        sys._excepthook(exctype, value, traceback)
+        sys.exit(1)
+
+    sys.excepthook = exception_hook

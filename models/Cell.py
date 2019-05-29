@@ -6,10 +6,11 @@ class Cell:
     colours = [255, 255, 255]
     weight_center = [-1,-1]
 
-    def __init__(self, input_alive = False, colours = [255,255,255], weight_center = [-1,-1]):
+    def __init__(self, input_alive = False, colours = [255,255,255], weight_center = [-1,-1],energy = -1):
         self.is_alive = input_alive
         self.colours = colours
         self.weight_center = weight_center
+        self.energy = energy
 
     def __eq__(self, other):
         if isinstance(other,self.__class__):
@@ -30,6 +31,12 @@ class Cell:
 
     def set_weight_center(self,weight_center):
         self.weight_center = weight_center
+
+    def set_energy(self,energy):
+        self.energy = energy
+
+    def return_energy(self):
+        return self.energy
 
     def return_weight_center(self):
         return self.weight_center

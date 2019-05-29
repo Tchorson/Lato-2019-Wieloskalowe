@@ -59,7 +59,7 @@ class Nucleation:
 
     def decrease_zeros(self):
         self.zeros -= 1
-        print(self.zeros)
+        #print(self.zeros)
 
     def compare_coordinates_with_pattern(self, current_row, current_column, index_row, index_column):
         if self.nucleation_neighbour == "Neumann":  # mozna zredukowac offsety
@@ -190,7 +190,14 @@ class Nucleation:
         return self.colors_dictionary
 
     def set_colors_dictionary_element(self, index, array):
-        self.colors_dictionary[index] = array
+        if array in self.colors_dictionary.values():
+            while True:
+                new_array = [random.randint(0, 255),random.randint(0, 255),random.randint(0, 255)]
+                if new_array != array:
+                    self.colors_dictionary[index] = new_array
+                    break
+        else:
+            self.colors_dictionary[index] = array
 
     def return_neighbour_array(self):
         return self.neighbours_array
@@ -489,10 +496,21 @@ class Nucleation:
                         random_red = random.randint(0, 255)
                         random_green = random.randint(0, 255)
                         random_blue = random.randint(0, 255)
+
+                        if [random_red, random_green, random_blue] in self.colors_dictionary.values():
+                            while True:
+                                new_array = [random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)]
+                                if new_array != [random_red, random_green, random_blue]:
+                                    self.colors_dictionary[iteration + 1] = new_array
+                                    self.game_array_current_state_2d[row_counter][column_counter].set_colours_array(
+                                        new_array)
+                                    break
+                        else:
+                            self.colors_dictionary[iteration + 1] = [random_red, random_green, random_blue]
+                            self.game_array_current_state_2d[row_counter][column_counter].set_colours_array(
+                                [random_red, random_green, random_blue])
                         self.game_array_current_state_2d[row_counter][column_counter].id = iteration + 1
-                        self.game_array_current_state_2d[row_counter][column_counter].set_colours_array(
-                            [random_red, random_green, random_blue])
-                        self.colors_dictionary[iteration + 1] = [random_red, random_green, random_blue]
+
                         column_counter += space_between_columns
                         iteration += 1
                         self.decrease_zeros()
@@ -508,10 +526,22 @@ class Nucleation:
                             random_blue = random.randint(0, 255)
                             self.game_array_current_state_2d[disbalanced_row_counter][
                                 disbalanced_column_counter].id = iteration + 1
-                            self.game_array_current_state_2d[disbalanced_row_counter][
-                                disbalanced_column_counter].set_colours_array(
-                                [random_red, random_green, random_blue])
-                            self.colors_dictionary[iteration + 1] = [random_red, random_green, random_blue]
+
+                            if [random_red, random_green, random_blue] in self.colors_dictionary.values():
+                                while True:
+                                    new_array = [random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)]
+                                    if new_array != [random_red, random_green, random_blue]:
+                                        self.colors_dictionary[iteration + 1] = new_array
+                                        self.game_array_current_state_2d[disbalanced_row_counter][
+                                            disbalanced_column_counter].set_colours_array(
+                                            new_array)
+                                        break
+                            else:
+                                self.colors_dictionary[iteration + 1] = [random_red, random_green, random_blue]
+                                self.game_array_current_state_2d[disbalanced_row_counter][
+                                    disbalanced_column_counter].set_colours_array(
+                                    [random_red, random_green, random_blue])
+
                             disbalanced_column_counter += space_between_columns
                             iteration += 1
                             self.decrease_zeros()
@@ -525,10 +555,23 @@ class Nucleation:
                             random_red = random.randint(0, 255)
                             random_green = random.randint(0, 255)
                             random_blue = random.randint(0, 255)
+
+                            if [random_red, random_green, random_blue] in self.colors_dictionary.values():
+                                while True:
+                                    new_array = [random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)]
+                                    if new_array != [random_red, random_green, random_blue]:
+                                        self.colors_dictionary[iteration + 1] = new_array
+                                        self.game_array_current_state_2d[row_counter][
+                                            disbalanced_column_counter].set_colours_array(
+                                            new_array)
+                                        break
+                            else:
+                                self.colors_dictionary[iteration + 1] = [random_red, random_green, random_blue]
+                                self.game_array_current_state_2d[row_counter][
+                                    disbalanced_column_counter].set_colours_array(
+                                    [random_red, random_green, random_blue])
+
                             self.game_array_current_state_2d[row_counter][disbalanced_column_counter].id = iteration + 1
-                            self.game_array_current_state_2d[row_counter][disbalanced_column_counter].set_colours_array(
-                                [random_red, random_green, random_blue])
-                            self.colors_dictionary[iteration + 1] = [random_red, random_green, random_blue]
                             disbalanced_column_counter += space_between_columns
                             iteration += 1
                             self.decrease_zeros()
@@ -542,10 +585,19 @@ class Nucleation:
                             random_red = random.randint(0, 255)
                             random_green = random.randint(0, 255)
                             random_blue = random.randint(0, 255)
+                            if [random_red, random_green, random_blue] in self.colors_dictionary.values():
+                                while True:
+                                    new_array = [random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)]
+                                    if new_array != [random_red, random_green, random_blue]:
+                                        self.colors_dictionary[iteration + 1] = new_array
+                                        self.game_array_current_state_2d[disbalanced_row_counter][column_counter].set_colours_array(
+                                            new_array)
+                                        break
+                            else:
+                                self.colors_dictionary[iteration + 1] = [random_red, random_green, random_blue]
+                                self.game_array_current_state_2d[disbalanced_row_counter][column_counter].set_colours_array(
+                                    [random_red, random_green, random_blue])
                             self.game_array_current_state_2d[disbalanced_row_counter][column_counter].id = iteration + 1
-                            self.game_array_current_state_2d[disbalanced_row_counter][column_counter].set_colours_array(
-                                [random_red, random_green, random_blue])
-                            self.colors_dictionary[iteration + 1] = [random_red, random_green, random_blue]
                             column_counter += space_between_columns
                             iteration += 1
                             self.decrease_zeros()
@@ -581,10 +633,20 @@ class Nucleation:
                             random_red = random.randint(0, 255)
                             random_green = random.randint(0, 255)
                             random_blue = random.randint(0, 255)
+                            if [random_red, random_green, random_blue] in self.colors_dictionary.values():
+                                while True:
+                                    new_array = [random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)]
+                                    if new_array != [random_red, random_green, random_blue]:
+                                        self.colors_dictionary[radius_seeds_counter + 1] = new_array
+                                        self.game_array_current_state_2d[random_row][random_column].set_colours_array(
+                                            new_array)
+                                        break
+                            else:
+                                self.colors_dictionary[radius_seeds_counter + 1] = [random_red, random_green, random_blue]
+                                self.game_array_current_state_2d[random_row][random_column].set_colours_array(
+                                    [random_red, random_green, random_blue])
+
                             self.game_array_current_state_2d[random_row][random_column].id = radius_seeds_counter + 1
-                            self.game_array_current_state_2d[random_row][random_column].set_colours_array(
-                                [random_red, random_green, random_blue])
-                            self.colors_dictionary[radius_seeds_counter + 1] = [random_red, random_green, random_blue]
                             self.decrease_zeros()
                             break
 
@@ -601,10 +663,19 @@ class Nucleation:
                             random_red = random.randint(0, 255)
                             random_green = random.randint(0, 255)
                             random_blue = random.randint(0, 255)
+                            if [random_red, random_green, random_blue] in self.colors_dictionary.values():
+                                while True:
+                                    new_array = [random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)]
+                                    if new_array != [random_red, random_green, random_blue]:
+                                        self.colors_dictionary[radius_seeds_counter + 1] = new_array
+                                        self.game_array_current_state_2d[random_row][random_column].set_colours_array(
+                                            new_array)
+                                        break
+                            else:
+                                self.colors_dictionary[radius_seeds_counter + 1] = [random_red, random_green, random_blue]
+                                self.game_array_current_state_2d[random_row][random_column].set_colours_array(
+                                    [random_red, random_green, random_blue])
                             self.game_array_current_state_2d[random_row][random_column].id = radius_seeds_counter + 1
-                            self.game_array_current_state_2d[random_row][random_column].set_colours_array(
-                                [random_red, random_green, random_blue])
-                            self.colors_dictionary[radius_seeds_counter + 1] = [random_red, random_green, random_blue]
                             self.decrease_zeros()
                             break
                         fail_counter += 1
@@ -620,11 +691,19 @@ class Nucleation:
                         random_red = random.randint(0, 255)
                         random_green = random.randint(0, 255)
                         random_blue = random.randint(0, 255)
-
+                        if [random_red, random_green, random_blue] in self.colors_dictionary.values():
+                            while True:
+                                new_array = [random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)]
+                                if new_array != [random_red, random_green, random_blue]:
+                                    self.colors_dictionary[iteration + 1] = new_array
+                                    self.game_array_current_state_2d[random_row][random_column].set_colours_array(
+                                        new_array)
+                                    break
+                        else:
+                            self.colors_dictionary[iteration + 1] = [random_red, random_green, random_blue]
+                            self.game_array_current_state_2d[random_row][random_column].set_colours_array(
+                                [random_red, random_green, random_blue])
                         self.game_array_current_state_2d[random_row][random_column].id = iteration + 1
-                        self.game_array_current_state_2d[random_row][random_column].set_colours_array(
-                            [random_red, random_green, random_blue])
-                        self.colors_dictionary[iteration + 1] = [random_red, random_green, random_blue]
                         self.decrease_zeros()
                     else:
                         print(" iteration number: " + str(iteration) + " was not applied")
