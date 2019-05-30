@@ -7,9 +7,6 @@
     <list default="true" id="57349c8a-6d1d-448d-af98-3993fed38578" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logic/MonteCarlo.py" beforeDir="false" afterPath="$PROJECT_DIR$/logic/MonteCarlo.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logic/Nucleation.py" beforeDir="false" afterPath="$PROJECT_DIR$/logic/Nucleation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/Cell.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/Cell.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/view/Gui_converted.py" beforeDir="false" afterPath="$PROJECT_DIR$/view/Gui_converted.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -30,7 +27,7 @@
       <file leaf-file-name="Gui_converted.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/view/Gui_converted.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
+            <state relative-caret-position="-682">
               <caret line="994" column="93" selection-start-line="994" selection-start-column="93" selection-end-line="994" selection-end-column="93" />
               <folding>
                 <element signature="e#192#209#0" expanded="true" />
@@ -51,11 +48,20 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="MainApp.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/MainApp.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="51">
+              <caret line="7" selection-start-line="7" selection-end-line="7" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="Nucleation.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/logic/Nucleation.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="197" column="25" lean-forward="true" selection-start-line="197" selection-start-column="25" selection-end-line="197" selection-end-column="25" />
+            <state relative-caret-position="98">
+              <caret line="207" column="28" selection-start-line="207" selection-start-column="23" selection-end-line="207" selection-end-column="28" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
               </folding>
@@ -66,8 +72,22 @@
       <file leaf-file-name="MonteCarlo.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/logic/MonteCarlo.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-745">
-              <caret line="35" column="88" selection-start-line="35" selection-start-column="88" selection-end-line="35" selection-end-column="88" />
+            <state relative-caret-position="306">
+              <caret line="53" column="98" selection-start-line="53" selection-start-column="98" selection-end-line="53" selection-end-column="98" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Gui_converted_30_May.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/view/Gui_converted_30_May.py">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file leaf-file-name="numeric.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/numpy/core/numeric.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="178">
+              <caret line="1902" column="4" selection-start-line="1902" selection-start-column="4" selection-end-line="1902" selection-end-column="4" />
             </state>
           </provider>
         </entry>
@@ -92,8 +112,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>restart</find>
-      <find>draw</find>
       <find>next_iteration</find>
       <find>zeros_counter</find>
       <find>print(</find>
@@ -115,13 +133,15 @@
       <find>set_pattern</find>
       <find>in self.colo</find>
       <find>if [random_red, random_green, random_blue] in self.colors_dictionary.values():</find>
-      <find>set</find>
       <find>print</find>
       <find>id:</find>
       <find>nucleation_neighbour</find>
       <find>manual</find>
       <find>if [</find>
+      <find>numpy</find>
+      <find>set</find>
       <find>randint</find>
+      <find>range</find>
     </findStrings>
     <replaceStrings>
       <replace>pattern_Text_2D</replace>
@@ -161,11 +181,11 @@
         <option value="$PROJECT_DIR$/view/Gui_converted_backup_6_May.py" />
         <option value="$PROJECT_DIR$/logic/SecondDimension.py" />
         <option value="$PROJECT_DIR$/view/Gui_converted_11_May.py" />
-        <option value="$PROJECT_DIR$/MainApp.py" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/models/Cell.py" />
         <option value="$PROJECT_DIR$/view/Gui_converted.py" />
         <option value="$PROJECT_DIR$/logic/Nucleation.py" />
+        <option value="$PROJECT_DIR$/MainApp.py" />
         <option value="$PROJECT_DIR$/logic/MonteCarlo.py" />
       </list>
     </option>
@@ -233,11 +253,11 @@
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\AGH\Semestr 6\Wieloskalowe\Lato-2019-Wieloskalowe\view" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\AGH\Semestr 6\Wieloskalowe\Lato-2019-Wieloskalowe" />
+      <recent name="C:\AGH\Semestr 6\Wieloskalowe\Lato-2019-Wieloskalowe\view" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\AGH\Semestr 6\Wieloskalowe\Lato-2019-Wieloskalowe\view" />
     </key>
   </component>
@@ -390,7 +410,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49932885" weight="0.32905984" />
       <window_info anchor="bottom" id="Event Log" order="12" sideWeight="0.34161073" side_tool="true" weight="0.7706553" />
@@ -398,9 +417,9 @@
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.49932885" weight="0.32905984" />
       <window_info anchor="bottom" id="Python Console" order="11" sideWeight="0.49932885" weight="0.32905984" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.6583893" visible="true" weight="0.23931624" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.6583893" visible="true" weight="0.16381766" />
       <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.63557047" weight="0.16239317" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.12550336" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.12550336" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.4986577" weight="0.53988606" />
@@ -432,12 +451,10 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="54" />
+      <option name="time" value="56" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/logic/1D.py" />
-    <entry file="file://$PROJECT_DIR$/logic/variants.py" />
     <entry file="file://$USER_HOME$/.PyCharm2018.1/system/python_stubs/-1353995630/PyQt5/QtWidgets/QMainWindow.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-4658">
@@ -635,13 +652,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/MainApp.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="17" selection-start-line="17" selection-end-line="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/numpy/core/fromnumeric.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="125">
@@ -680,10 +690,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/numpy/core/numeric.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="178">
+          <caret line="1902" column="4" selection-start-line="1902" selection-start-column="4" selection-end-line="1902" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/logic/Nucleation.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="197" column="25" lean-forward="true" selection-start-line="197" selection-start-column="25" selection-end-line="197" selection-end-column="25" />
+        <state relative-caret-position="98">
+          <caret line="207" column="28" selection-start-line="207" selection-start-column="23" selection-end-line="207" selection-end-column="28" />
           <folding>
             <element signature="e#0#28#0" expanded="true" />
           </folding>
@@ -692,7 +709,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/view/Gui_converted.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
+        <state relative-caret-position="-682">
           <caret line="994" column="93" selection-start-line="994" selection-start-column="93" selection-end-line="994" selection-end-column="93" />
           <folding>
             <element signature="e#192#209#0" expanded="true" />
@@ -712,10 +729,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/MainApp.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="7" selection-start-line="7" selection-end-line="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/view/Gui_converted_30_May.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/logic/MonteCarlo.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-745">
-          <caret line="35" column="88" selection-start-line="35" selection-start-column="88" selection-end-line="35" selection-end-column="88" />
+        <state relative-caret-position="306">
+          <caret line="53" column="98" selection-start-line="53" selection-start-column="98" selection-end-line="53" selection-end-column="98" />
         </state>
       </provider>
     </entry>

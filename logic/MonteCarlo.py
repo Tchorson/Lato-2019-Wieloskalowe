@@ -19,7 +19,7 @@ class MonteCarlo:
             'Moore': [[-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [-1, -1], [1, 1]],
         }
         self.border_seed_energy = 1
-        self.counter = self.width * self.height
+        self.shuffled_coordinates_array = numpy.array([[row, column] for row in range(self.height) for column in range(self.width)])
 
     def set_generated_microstructure(self,generated_microstructure,height,width):
         self.height = height
@@ -33,15 +33,13 @@ class MonteCarlo:
             self.iterations = iterations
             self.periodical = periodical
 
-    def iteration(self): #Todo, GUI, repair iteration function, connect gui in main file
-        check_array = numpy.zeros([self.height,self.width])
+    def iteration(self): #Todo, GUI, connect gui in main file
+        random.shuffle(self.shuffled_lcoordinates_array)
+        
+        for random_coordinates in self.shuffled_coordinates_array:
+            random_row = random_coordinates[0]
+            random_column = random_coordinates[1]
 
-        self.counter = self.width * self.height
-        while self.counter >0:
-            random_row = random.randint(0,self.height-1)
-            random_column = random.randint(0,self.width-1)
-            if check_array[random_row][random_column] == 1:
-                continue
             dictionary = {}
 
             energy_before = 0
@@ -66,12 +64,12 @@ class MonteCarlo:
                     if not self.height > current_row >= 0 or not self.width > current_column >= 0:
                         continue
 
-                    if self.generated_microstructure[current_row ][current_column ].return_id() in dictionary:
-                        dictionary[self.generated_microstructure[current_row][current_column ].return_id()][0] += 1
+                    if self.generated_microstructure[current_row][current_column].return_id() in dictionary:
+                        dictionary[self.generated_microstructure[current_row][current_column].return_id()][0] += 1
                     else:
                         dictionary[self.generated_microstructure[current_row][current_column].return_id()] = [1, [self.generated_microstructure[current_row][current_column].return_colours_array()]]
 
-                    if self.generated_microstructure[current_row][current_column ].return_id() != self.generated_microstructure[random_row][random_column].return_id():
+                    if self.generated_microstructure[current_row][current_column].return_id() != self.generated_microstructure[random_row][random_column].return_id():
                         energy_before += 1
 
             random_index, amount_and_colors = random.choice(list(dictionary.items()))
@@ -82,9 +80,7 @@ class MonteCarlo:
                 self.generated_microstructure[random_row][random_column].set_id(random_index)
                 self.generated_microstructure[random_row][random_column].set_colours_array(amount_and_colors[1])
 
-            check_array[random_row][random_column] = 1
             self.generated_microstructure[random_row][random_column].set_energy(energy_before)
-            self.counter-=1
         return self.generated_microstructure
 
     def find_minimal_energy(self,delta_energy):
@@ -95,5 +91,26 @@ class MonteCarlo:
                 return True
         return False
 
-    def calculate_energy(self,index_row,index_column):
-        current_index = self
+    def set_iterations(self, iterations):
+        self.iterations = iterations
+
+    def set_kt(self, kt):
+        self.kt = kt
+
+    def set_periodical(self, periodical):
+        self.periodical = periodical
+
+    def set_neighbour_pattern(self, neighbour_pattern):
+        self.neighbour_pattern = neighbour_pattern
+
+    def return_iterations(self):
+        return self.iterations
+
+    def return_kt(self):
+        return self.kt
+
+    def return_periodical(self):
+        return self.periodical
+
+    def return_neighbour_pattern(self):
+        return self.neighbour_pattern
