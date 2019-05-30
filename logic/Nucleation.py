@@ -45,7 +45,7 @@ class Nucleation:
         self.neighbour_radius = neighbour_radius
         self.last_iteration = False
         self.periodical = periodical
-        if periodical == "periodical":
+        if periodical == "periodical" or periodical == True:
             self.periodical = True
         else:
             self.periodical = False
@@ -56,6 +56,9 @@ class Nucleation:
         self.zeros = self.height * self.width
         self.set_pattern_in_array(self.pattern)
         self.set_neighbour(neighbours)
+
+    def return_periodical(self):
+        return self.periodical
 
     def decrease_zeros(self):
         self.zeros -= 1
@@ -245,39 +248,71 @@ class Nucleation:
             weight_row_current = self.game_array_previous_state_2d[index_row][index_column].return_weight_center()[0]
             weight_column_current = self.game_array_previous_state_2d[index_row][index_column].return_weight_center()[1]
 
-            for current_row in range(
-                    max(0, index_row - self.neighbour_radius),
-                    min(self.height, index_row + self.neighbour_radius)
-            ):
-                for current_column in range(
-                        max(0, index_column - self.neighbour_radius),
-                        min(self.width, index_column + self.neighbour_radius)
+            if self.periodical:
+                for current_row in range(index_row - self.neighbour_radius,index_row + self.neighbour_radius % self.height):
+                    for current_column in range(index_column - self.neighbour_radius,index_column + self.neighbour_radius % self.width):
+                        weight_row_neighbour = \
+                            self.game_array_previous_state_2d[current_row % self.height][current_column % self.width].return_weight_center()[0]
+                        weight_column_neighbour = \
+                            self.game_array_previous_state_2d[current_row % self.height][current_column % self.width].return_weight_center()[1]
+
+                        if current_row == index_row and current_column == index_column:
+                            current_column += 1
+                            continue
+
+                        if self.in_circle(weight_row_current, weight_column_current, self.neighbour_radius,
+                                          weight_row_neighbour, weight_column_neighbour) and \
+                                self.game_array_previous_state_2d[current_row % self.height][current_column % self.width].id != 0:
+
+                            if self.game_array_previous_state_2d[current_row % self.height][
+                                current_column % self.width].id in self.local_index_dictionary_radius_neighbour:
+                                # print(" HERE HERE I AM HERE")
+                                self.local_index_dictionary_radius_neighbour[
+                                    self.game_array_previous_state_2d[current_row % self.height][current_column % self.width].id] += 1
+                            else:
+                                self.local_index_dictionary_radius_neighbour[
+                                    self.game_array_previous_state_2d[current_row % self.height][current_column % self.width].id] = 1
+
+                                # print(str(self.game_array_previous_state_2d[current_row][current_column].return_id())+" "+str(self.game_array_previous_state_2d[current_row][current_column].return_colours_array()))
+                                self.local_colours_dictionary_radius[
+                                    self.game_array_previous_state_2d[current_row % self.height][current_column % self.width].id] = \
+                                    self.game_array_previous_state_2d[current_row % self.height][
+                                        current_column % self.width].return_colours_array()
+
+            else:
+                for current_row in range(
+                        max(0, index_row - self.neighbour_radius),
+                        min(self.height, index_row + self.neighbour_radius)
                 ):
+                    for current_column in range(
+                            max(0, index_column - self.neighbour_radius),
+                            min(self.width, index_column + self.neighbour_radius)
+                    ):
 
-                    weight_row_neighbour = \
-                    self.game_array_previous_state_2d[current_row][current_column].return_weight_center()[0]
-                    weight_column_neighbour = \
-                    self.game_array_previous_state_2d[current_row][current_column].return_weight_center()[1]
+                        weight_row_neighbour = \
+                        self.game_array_previous_state_2d[current_row][current_column].return_weight_center()[0]
+                        weight_column_neighbour = \
+                        self.game_array_previous_state_2d[current_row][current_column].return_weight_center()[1]
 
-                    if current_row == index_row and current_column == index_column:
-                        current_column += 1
-                        continue
+                        if current_row == index_row and current_column == index_column:
+                            current_column += 1
+                            continue
 
-                    if self.in_circle(weight_row_current, weight_column_current, self.neighbour_radius, weight_row_neighbour, weight_column_neighbour) and self.game_array_previous_state_2d[current_row][current_column].id != 0:
+                        if self.in_circle(weight_row_current, weight_column_current, self.neighbour_radius, weight_row_neighbour, weight_column_neighbour) and self.game_array_previous_state_2d[current_row][current_column].id != 0:
 
-                        if self.game_array_previous_state_2d[current_row][
-                            current_column].id in self.local_index_dictionary_radius_neighbour:
-                            # print(" HERE HERE I AM HERE")
-                            self.local_index_dictionary_radius_neighbour[
-                                self.game_array_previous_state_2d[current_row][current_column].id] += 1
-                        else:
-                            self.local_index_dictionary_radius_neighbour[
-                                self.game_array_previous_state_2d[current_row][current_column].id] = 1
+                            if self.game_array_previous_state_2d[current_row][
+                                current_column].id in self.local_index_dictionary_radius_neighbour:
+                                # print(" HERE HERE I AM HERE")
+                                self.local_index_dictionary_radius_neighbour[
+                                    self.game_array_previous_state_2d[current_row][current_column].id] += 1
+                            else:
+                                self.local_index_dictionary_radius_neighbour[
+                                    self.game_array_previous_state_2d[current_row][current_column].id] = 1
 
-                            # print(str(self.game_array_previous_state_2d[current_row][current_column].return_id())+" "+str(self.game_array_previous_state_2d[current_row][current_column].return_colours_array()))
-                            self.local_colours_dictionary_radius[
-                                self.game_array_previous_state_2d[current_row][current_column].id] = \
-                            self.game_array_previous_state_2d[current_row][current_column].return_colours_array()
+                                # print(str(self.game_array_previous_state_2d[current_row][current_column].return_id())+" "+str(self.game_array_previous_state_2d[current_row][current_column].return_colours_array()))
+                                self.local_colours_dictionary_radius[
+                                    self.game_array_previous_state_2d[current_row][current_column].id] = \
+                                self.game_array_previous_state_2d[current_row][current_column].return_colours_array()
 
             if len(self.local_index_dictionary_radius_neighbour) == 0:
                 return [0, [255, 255, 255]]
@@ -423,6 +458,9 @@ class Nucleation:
         self.radius = radius
 
     def return_neighbour_radius(self):
+        return self.neighbour_radius
+
+    def return_radius(self):
         return self.radius
 
     def set_iteration(self, iteration):
@@ -772,7 +810,10 @@ class Nucleation:
             self.nucleation_neighbour = "Neumann"
 
     def in_circle(self, center_x, center_y, radius, x, y):
-        dist = math.sqrt((3 * (center_x - x)) ** 2 + (3 * (center_y - y)) ** 2)
+        if self.periodical:
+            dist = math.sqrt((((3 * (center_x - x))) ** 2)%self.height + (((3 * (center_y - y))) ** 2)%self.width)
+        else:
+            dist = math.sqrt((3 * (center_x - x)) ** 2 + (3 * (center_y - y)) ** 2)
         return dist <= radius ** 2
 
     def restart_grid(self):

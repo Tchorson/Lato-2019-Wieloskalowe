@@ -16,8 +16,6 @@ from PyQt5.QtGui import QColor, QPainter
 from logic.FistDimension import FirstDimension
 from logic.SecondDimension import SecondDimension
 from logic.Nucleation import Nucleation
-from logic.MonteCarlo import MonteCarlo
-
 from models.Cell import  Cell
 import numpy
 
@@ -29,7 +27,6 @@ class Ui_Dialog(QWidget):
         self.FirstDimensionObj = FirstDimension()
         self.SecondDimensionObj = SecondDimension()
         self.NucleationObj = Nucleation()
-        self.MonteCarloObj = MonteCarlo()
         self.width = 100
         self.iterations = 100
         self.rule = 90
@@ -80,10 +77,7 @@ class Ui_Dialog(QWidget):
         self.nucleation_height_2d = self.NucleationObj.return_height()
         self.nucleation_width_2d = self.NucleationObj.return_width()
         self.nucleation_iterations_2d = self.NucleationObj.return_iteration()
-        if self.NucleationObj.return_periodical():
-            self.nucleation_boundary_conditions = "periodical"
-        else:
-            self.nucleation_boundary_conditions = "absorbing"
+        self.nucleation_boundary_conditions = "absorbing"
         self.nucleation_neighbours_type = self.NucleationObj.return_nucleation_neighbour()
         self.nucleation_seeds_amount = self.NucleationObj.return_seeds_amount()
         self.nucleation_user_width = self.NucleationObj.return_width_amount()
@@ -531,22 +525,16 @@ class Ui_Dialog(QWidget):
         self.mc_initializeGameButton_2D.setMinimumSize(QtCore.QSize(55, 0))
         self.mc_initializeGameButton_2D.setMaximumSize(QtCore.QSize(55, 16777215))
         self.mc_initializeGameButton_2D.setObjectName("mc_initializeGameButton_2D")
-        self.mc_initializeGameButton_2D.clicked.connect(self.mc_initialize_parameters)
-
-#       self.horizontalLayout_11.addWidget(self.mc_initializeGameButton_2D)
+        self.horizontalLayout_11.addWidget(self.mc_initializeGameButton_2D)
         self.mc_beginGameButton_2D_3 = QtWidgets.QPushButton(self.formLayoutWidget_4)
         self.mc_beginGameButton_2D_3.setMinimumSize(QtCore.QSize(45, 0))
         self.mc_beginGameButton_2D_3.setMaximumSize(QtCore.QSize(45, 16777215))
         self.mc_beginGameButton_2D_3.setObjectName("mc_beginGameButton_2D_3")
-#        self.mc_beginGameButton_2D_3.clicked.connect(self.mc_begin_process)
-
         self.horizontalLayout_11.addWidget(self.mc_beginGameButton_2D_3)
         self.mc_restart_button_2d_2 = QtWidgets.QPushButton(self.formLayoutWidget_4)
         self.mc_restart_button_2d_2.setMinimumSize(QtCore.QSize(55, 0))
         self.mc_restart_button_2d_2.setMaximumSize(QtCore.QSize(55, 16777215))
         self.mc_restart_button_2d_2.setObjectName("mc_restart_button_2d_2")
- #       self.mc_restart_button_2d_2.clicked.connect(self.mc_restart_process)
-
         self.horizontalLayout_11.addWidget(self.mc_restart_button_2d_2)
         self.formLayout_4.setLayout(1, QtWidgets.QFormLayout.SpanningRole, self.horizontalLayout_11)
         self.horizontalLayout_17 = QtWidgets.QHBoxLayout()
@@ -564,9 +552,8 @@ class Ui_Dialog(QWidget):
         self.formLayout_4.setLayout(2, QtWidgets.QFormLayout.SpanningRole, self.horizontalLayout_17)
         self.tabWidget.addTab(self.mc, "")
         self.mode_menu.addWidget(self.tabWidget)
-
         self.retranslateUi(Dialog)
-        self.tabWidget.setCurrentIndex(3)
+        self.tabWidget.setCurrentIndex(2)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
     def retranslateUi(self, Dialog):
@@ -632,76 +619,17 @@ class Ui_Dialog(QWidget):
         self.nucleation_neighbours_text.setPlaceholderText(_translate("Dialog", str(self.nucleation_neighbours_type)))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.nucleation_tab), _translate("Dialog", "Nucleation"))
         self.mc_kt_label.setText(_translate("Dialog", "kt"))
-        self.mc_kt_text.setPlaceholderText(_translate("Dialog", str(self.MonteCarloObj.return_kt())))
+        self.mc_kt_text.setPlaceholderText(_translate("Dialog", "1"))
         self.mc_iterations_label.setText(_translate("Dialog", "Iterations"))
-        self.mc_iteration_text.setPlaceholderText(_translate("Dialog", str(self.MonteCarloObj.return_iterations())))
+        self.mc_iteration_text.setPlaceholderText(_translate("Dialog", "10"))
         self.mc_bound_label.setText(_translate("Dialog", "Bound"))
-        if self.MonteCarloObj.return_periodical():
-            self.mc_bound_periodical_text.setPlaceholderText(_translate("Diaglog","periodical"))
-        else:
-            self.mc_bound_periodical_text.setPlaceholderText(_translate("Dialog", "absorbing"))
-
+        self.mc_bound_periodical_text.setPlaceholderText(_translate("Dialog", "periodical"))
         self.mc_neighbours_label.setText(_translate("Dialog", "Neighbours"))
-        self.mc_neighbours_text.setPlaceholderText(_translate("Dialog", str(self.MonteCarloObj.return_neighbour_pattern())))
+        self.mc_neighbours_text.setPlaceholderText(_translate("Dialog", "Neumann"))
         self.mc_initializeGameButton_2D.setText(_translate("Dialog", "Initialize"))
         self.mc_beginGameButton_2D_3.setText(_translate("Dialog", "Start"))
         self.mc_restart_button_2d_2.setText(_translate("Dialog", "restart"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.mc), _translate("Dialog", "MC"))
-
-    @pyqtSlot()
-    def mc_initialize_parameters(self):
-        _translate = QtCore.QCoreApplication.translate
-        if str(self.mc_neighbours_text.toPlainText()) != "":
-            if str(self.mc_neighbours_text.toPlainText()) in self.NucleationObj.return_neighbour_array():
-                pattern_changed = True
-                self.nucleation_neighbours_type = str(self.nucleation_neighbours_text.toPlainText())
-                self.nucleation_neighbours_text.setPlaceholderText(
-                    _translate("Dialog", str(self.nucleation_neighbours_type)))
-                if self.nucleation_neighbours_type == "Pentagonal":
-                    pentagonal_patterns = ["PentagonalLeft", "PentagonalRight", "PentagonalDown", "PentagonalUp"]
-                    self.nucleation_neighbours_type = random.choice(pentagonal_patterns)
-                    print(self.nucleation_neighbours_type)
-                if self.nucleation_neighbours_type == "Hexagonal":
-                    hexagonal_patterns = ["HexagonalR", "HexagonalL"]
-                    self.nucleation_neighbours_type = random.choice(hexagonal_patterns)
-                    print(self.nucleation_neighbours_type)
-                if str(self.nucleation_neighbours_text.toPlainText()) == "Radius" and str(
-                        self.nucleation_radius_text.toPlainText()) != "" and str(
-                        self.nucleation_radius_text.toPlainText()).isdigit():
-                    self.nucleation_neighbour_radius = int(self.nucleation_radius_text.toPlainText())
-                    self.nucleation_radius_text.clear()
-
-                if str(self.nucleation_pattern_Text_2D.toPlainText()) == "radius" and str(
-                        self.nucleation_radius_text.toPlainText()) != "" and str(
-                    self.nucleation_radius_text.toPlainText()).isdigit():
-                    self.nucleation_radius = int(self.nucleation_radius_text.toPlainText())
-                    self.nucleation_radius_text.clear()
-
-                if str(self.nucleation_neighbours_text.toPlainText()) == "Radius" and str(self.nucleation_radius_text.toPlainText() == ""):
-                    self.nucleation_neighbour_radius = self.NucleationObj.return_neighbour_radius()
-                    self.nucleation_radius_text.clear()
-
-                if str(self.nucleation_pattern_Text_2D.toPlainText()) == "radius" and str(
-                        self.nucleation_radius_text.toPlainText() == ""):
-                    self.nucleation_radius = self.NucleationObj.return_radius()
-                    self.nucleation_radius_text.clear()
-
-                self.nucleation_neighbours_text.clear()
-            else:
-                self.nucleation_neighbours_text.clear()
-                self.nucleation_seeds_amount = int(self.nucleation_radius_text.toPlainText())
-                self.nucleation_radius_text.setPlaceholderText(
-                    _translate("Dialog", str(self.nucleation_seeds_amount)))
-                self.nucleation_radius_text.clear()
-
-        if str(self.nucleation_boundary_Text_2D_7.toPlainText()) != "": # boundary conditions = periodical
-            self.nucleation_boundary_conditions = str(self.nucleation_boundary_Text_2D_7.toPlainText())
-            if self.nucleation_boundary_conditions.lower() == "periodical":
-                self.nucleation_boundary_conditions = "periodical"
-            else:
-                self.nucleation_boundary_conditions = "absorbing"
-            self.nucleation_boundary_Text_2D_7.setPlaceholderText(_translate("Dialog", str(self.nucleation_boundary_conditions)))
-            self.nucleation_boundary_Text_2D_7.clear()
 
     @pyqtSlot()
     def restart_plot(self):
@@ -1018,26 +946,10 @@ class Ui_Dialog(QWidget):
                     hexagonal_patterns = ["HexagonalR","HexagonalL"]
                     self.nucleation_neighbours_type = random.choice(hexagonal_patterns)
                     print(self.nucleation_neighbours_type)
-                if str(self.nucleation_neighbours_text.toPlainText()) == "Radius" and str(
-                        self.nucleation_radius_text.toPlainText()) != "" and str(
-                        self.nucleation_radius_text.toPlainText()).isdigit():
+                if self.nucleation_neighbours_type == "Radius" and str(self.nucleation_radius_text.toPlainText()) != "" and str(self.nucleation_radius_text.toPlainText()).isdigit():
                     self.nucleation_neighbour_radius = int(self.nucleation_radius_text.toPlainText())
-                    self.nucleation_radius_text.clear()
-
-                if str(self.nucleation_pattern_Text_2D.toPlainText()) == "radius" and str(
-                        self.nucleation_radius_text.toPlainText()) != "" and str(
-                    self.nucleation_radius_text.toPlainText()).isdigit():
-                    self.nucleation_radius = int(self.nucleation_radius_text.toPlainText())
-                    self.nucleation_radius_text.clear()
-
-                if str(self.nucleation_neighbours_text.toPlainText()) == "Radius" and str(self.nucleation_radius_text.toPlainText() == ""):
+                if self.nucleation_neighbours_type == "Radius" and str(self.nucleation_radius_text.toPlainText() == ""):
                     self.nucleation_neighbour_radius = self.NucleationObj.return_neighbour_radius()
-                    self.nucleation_radius_text.clear()
-
-                if str(self.nucleation_pattern_Text_2D.toPlainText()) == "radius" and str(
-                        self.nucleation_radius_text.toPlainText() == ""):
-                    self.nucleation_radius = self.NucleationObj.return_radius()
-                    self.nucleation_radius_text.clear()
                 self.nucleation_neighbours_text.clear()
             else:
                 self.nucleation_neighbours_text.clear()

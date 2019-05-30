@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/view/Gui_converted.py" description="splitted_array_index = int(splitted_array[column])" line="984" />
-  </component>
   <component name="ChangeListManager">
     <list default="true" id="57349c8a-6d1d-448d-af98-3993fed38578" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logic/MonteCarlo.py" beforeDir="false" afterPath="$PROJECT_DIR$/logic/MonteCarlo.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logic/Nucleation.py" beforeDir="false" afterPath="$PROJECT_DIR$/logic/Nucleation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/Gui.ui" beforeDir="false" afterPath="$PROJECT_DIR$/view/Gui.ui" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/Gui_converted.py" beforeDir="false" afterPath="$PROJECT_DIR$/view/Gui_converted.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -24,27 +24,53 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Gui_converted.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Gui_converted.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/view/Gui_converted.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-682">
-              <caret line="994" column="93" selection-start-line="994" selection-start-column="93" selection-end-line="994" selection-end-column="93" />
+            <state relative-caret-position="202">
+              <caret line="636" column="46" selection-start-line="636" selection-start-column="46" selection-end-line="636" selection-end-column="46" />
               <folding>
                 <element signature="e#192#209#0" expanded="true" />
-                <element signature="e#3728#30416#0" />
-                <element signature="e#30463#35658#0" />
-                <element signature="e#35889#37793#0" />
-                <element signature="e#37845#39848#0" />
-                <element signature="e#39955#41410#0" />
-                <element signature="e#41467#41601#0" />
-                <element signature="e#41662#44176#0" />
-                <element signature="e#44221#44643#0" />
-                <element signature="e#44760#45222#0" />
-                <element signature="e#45247#45600#0" />
-                <element signature="e#45655#46984#0" />
-                <element signature="e#47039#47605#0" />
+                <element signature="e#43380#43499#0" />
+                <element signature="e#43557#45461#0" />
+                <element signature="e#45513#47516#0" />
+                <element signature="e#41105#42560#0" />
+                <element signature="e#42617#42751#0" />
+                <element signature="e#42812#45326#0" />
+                <element signature="e#45371#45793#0" />
+                <element signature="e#45844#46337#0" />
+                <element signature="e#46397#46739#0" />
+                <element signature="e#46794#48062#0" />
+                <element signature="e#48117#48620#0" />
+                <element signature="e#48677#49948#0" />
+                <element signature="e#57955#60921#0" />
+                <element signature="e#60982#61628#0" />
+                <element signature="e#61696#63665#0" />
+                <element signature="e#63727#65248#0" />
+                <element signature="e#65314#65785#0" />
+                <element signature="e#65841#66286#0" />
+                <element signature="e#66330#66935#0" />
               </folding>
             </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Nucleation.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/logic/Nucleation.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="34">
+              <caret line="10" column="30" lean-forward="true" selection-start-line="10" selection-start-column="30" selection-end-line="10" selection-end-column="30" />
+              <folding>
+                <element signature="e#0#28#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Gui_converted_30_May_02.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/view/Gui_converted_30_May_02.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-340" />
           </provider>
         </entry>
       </file>
@@ -57,46 +83,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Nucleation.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/logic/Nucleation.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="98">
-              <caret line="207" column="28" selection-start-line="207" selection-start-column="23" selection-end-line="207" selection-end-column="28" />
-              <folding>
-                <element signature="e#0#28#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MonteCarlo.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MonteCarlo.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/logic/MonteCarlo.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="53" column="98" selection-start-line="53" selection-start-column="98" selection-end-line="53" selection-end-column="98" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Gui_converted_30_May.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/view/Gui_converted_30_May.py">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file leaf-file-name="numeric.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/numpy/core/numeric.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="178">
-              <caret line="1902" column="4" selection-start-line="1902" selection-start-column="4" selection-end-line="1902" selection-end-column="4" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Cell.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/models/Cell.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
-              <caret line="46" column="25" selection-start-line="46" selection-start-column="8" selection-end-line="46" selection-end-column="25" />
+            <state relative-caret-position="221">
+              <caret line="33" column="41" selection-start-line="33" selection-start-column="41" selection-end-line="33" selection-end-column="41" />
             </state>
           </provider>
         </entry>
@@ -112,41 +103,44 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>next_iteration</find>
-      <find>zeros_counter</find>
-      <find>print(</find>
-      <find>radius</find>
-      <find>initialize</find>
-      <find>set_parameters</find>
-      <find>parame</find>
-      <find>nextite</find>
-      <find>periodical</find>
-      <find>microstructure_height</find>
-      <find>dictionary</find>
-      <find>initiali</find>
-      <find>zeros</find>
-      <find>choice</find>
-      <find>dr</find>
-      <find>nucleation_draw</find>
-      <find>nucleati</find>
-      <find>&quot;random&quot;</find>
-      <find>set_pattern</find>
-      <find>in self.colo</find>
-      <find>if [random_red, random_green, random_blue] in self.colors_dictionary.values():</find>
-      <find>print</find>
-      <find>id:</find>
       <find>nucleation_neighbour</find>
       <find>manual</find>
       <find>if [</find>
       <find>numpy</find>
       <find>set</find>
       <find>randint</find>
+      <find>Radius</find>
+      <find>&quot;Radius&quot;</find>
+      <find>Boundary</find>
+      <find>abso</find>
+      <find>nucleation_radius_text</find>
+      <find>== &quot;radius&quot;</find>
+      <find>nucleation_radius</find>
+      <find>.connect</find>
+      <find>mc_</find>
+      <find>set_paramet</find>
+      <find>connect</find>
       <find>range</find>
+      <find>index_row</find>
+      <find>random_row</find>
+      <find>random_column</find>
+      <find>g</find>
+      <find>neighbour_radius</find>
+      <find>== &quot;Radius&quot;</find>
+      <find>MonteCarlo</find>
+      <find>self.local_index_dictionary_radius_neighbour</find>
+      <find>in_circle</find>
+      <find>if str(self.nucleation_neighbours_text.toPlainText()) != &quot;&quot;:</find>
+      <find>if self.nucleation_neighbours_type == &quot;Radius&quot; and str(self.nucleation_radius_text.toPlainText()) != &quot;&quot; and str(self.nucleation_radius_text.toPlainText()).isdigit():</find>
+      <find>nucleation_seeds_amount</find>
     </findStrings>
     <replaceStrings>
       <replace>pattern_Text_2D</replace>
       <replace>self.seeds_amount</replace>
+      <replace>index_row</replace>
+      <replace>index_column</replace>
       <replace>height</replace>
+      <replace>dictionary</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -183,10 +177,10 @@
         <option value="$PROJECT_DIR$/view/Gui_converted_11_May.py" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/models/Cell.py" />
-        <option value="$PROJECT_DIR$/view/Gui_converted.py" />
-        <option value="$PROJECT_DIR$/logic/Nucleation.py" />
         <option value="$PROJECT_DIR$/MainApp.py" />
+        <option value="$PROJECT_DIR$/logic/Nucleation.py" />
         <option value="$PROJECT_DIR$/logic/MonteCarlo.py" />
+        <option value="$PROJECT_DIR$/view/Gui_converted.py" />
       </list>
     </option>
   </component>
@@ -417,7 +411,7 @@
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.49932885" weight="0.32905984" />
       <window_info anchor="bottom" id="Python Console" order="11" sideWeight="0.49932885" weight="0.32905984" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.6583893" visible="true" weight="0.16381766" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.6583893" visible="true" weight="0.2977208" />
       <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.63557047" weight="0.16239317" />
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.12550336" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
@@ -451,17 +445,10 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="56" />
+      <option name="time" value="59" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$USER_HOME$/.PyCharm2018.1/system/python_stubs/-1353995630/PyQt5/QtWidgets/QMainWindow.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-4658">
-          <caret line="21" column="59" lean-forward="true" selection-start-line="21" selection-start-column="59" selection-end-line="21" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/PyQt5/uic/Loader/loader.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
@@ -697,36 +684,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/logic/Nucleation.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="98">
-          <caret line="207" column="28" selection-start-line="207" selection-start-column="23" selection-end-line="207" selection-end-column="28" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/view/Gui_converted_30_May.py">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/view/Gui_converted.py">
+    <entry file="file://$PROJECT_DIR$/view/Gui_converted_30_May_02.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-682">
-          <caret line="994" column="93" selection-start-line="994" selection-start-column="93" selection-end-line="994" selection-end-column="93" />
-          <folding>
-            <element signature="e#192#209#0" expanded="true" />
-            <element signature="e#3728#30416#0" />
-            <element signature="e#30463#35658#0" />
-            <element signature="e#35889#37793#0" />
-            <element signature="e#37845#39848#0" />
-            <element signature="e#39955#41410#0" />
-            <element signature="e#41467#41601#0" />
-            <element signature="e#41662#44176#0" />
-            <element signature="e#44221#44643#0" />
-            <element signature="e#44760#45222#0" />
-            <element signature="e#45247#45600#0" />
-            <element signature="e#45655#46984#0" />
-            <element signature="e#47039#47605#0" />
-          </folding>
-        </state>
+        <state relative-caret-position="-340" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/MainApp.py">
@@ -736,13 +699,49 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/view/Gui_converted_30_May.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/logic/MonteCarlo.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="53" column="98" selection-start-line="53" selection-start-column="98" selection-end-line="53" selection-end-column="98" />
+        <state relative-caret-position="221">
+          <caret line="33" column="41" selection-start-line="33" selection-start-column="41" selection-end-line="33" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/logic/Nucleation.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="10" column="30" lean-forward="true" selection-start-line="10" selection-start-column="30" selection-end-line="10" selection-end-column="30" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/view/Gui_converted.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="202">
+          <caret line="636" column="46" selection-start-line="636" selection-start-column="46" selection-end-line="636" selection-end-column="46" />
+          <folding>
+            <element signature="e#192#209#0" expanded="true" />
+            <element signature="e#43380#43499#0" />
+            <element signature="e#43557#45461#0" />
+            <element signature="e#45513#47516#0" />
+            <element signature="e#41105#42560#0" />
+            <element signature="e#42617#42751#0" />
+            <element signature="e#42812#45326#0" />
+            <element signature="e#45371#45793#0" />
+            <element signature="e#45844#46337#0" />
+            <element signature="e#46397#46739#0" />
+            <element signature="e#46794#48062#0" />
+            <element signature="e#48117#48620#0" />
+            <element signature="e#48677#49948#0" />
+            <element signature="e#57955#60921#0" />
+            <element signature="e#60982#61628#0" />
+            <element signature="e#61696#63665#0" />
+            <element signature="e#63727#65248#0" />
+            <element signature="e#65314#65785#0" />
+            <element signature="e#65841#66286#0" />
+            <element signature="e#66330#66935#0" />
+          </folding>
         </state>
       </provider>
     </entry>

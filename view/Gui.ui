@@ -1164,7 +1164,7 @@
           <x>0</x>
           <y>0</y>
           <width>1231</width>
-          <height>604</height>
+          <height>661</height>
          </rect>
         </property>
         <layout class="QFormLayout" name="formLayout_4">
@@ -1323,6 +1323,44 @@
                  </property>
                  <property name="placeholderText">
                   <string>Neumann</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="Mc_radius_label">
+                 <property name="minimumSize">
+                  <size>
+                   <width>100</width>
+                   <height>30</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>100</width>
+                   <height>30</height>
+                  </size>
+                 </property>
+                 <property name="text">
+                  <string>Radius</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPlainTextEdit" name="Mc_Radius_text">
+                 <property name="minimumSize">
+                  <size>
+                   <width>100</width>
+                   <height>30</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>100</width>
+                   <height>30</height>
+                  </size>
+                 </property>
+                 <property name="placeholderText">
+                  <string>5</string>
                  </property>
                 </widget>
                </item>
