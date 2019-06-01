@@ -30,6 +30,9 @@ class Ui_Dialog(QWidget):
         self.SecondDimensionObj = SecondDimension()
         self.NucleationObj = Nucleation()
         self.MonteCarloObj = MonteCarlo()
+        self.MonteCarloObj.set_periodical(self.NucleationObj.return_periodical())
+        self.MonteCarloObj.set_initial_height(self.NucleationObj.return_height())
+        self.MonteCarloObj.set_initial_height(self.NucleationObj.return_width())
         self.width = 100
         self.iterations = 100
         self.rule = 90
@@ -79,6 +82,9 @@ class Ui_Dialog(QWidget):
 
         self.nucleation_height_2d = self.NucleationObj.return_height()
         self.nucleation_width_2d = self.NucleationObj.return_width()
+        self.mc_height = self.nucleation_height_2d
+        self.mc_width = self.nucleation_width_2d
+
         self.nucleation_iterations_2d = self.NucleationObj.return_iteration()
         if self.NucleationObj.return_periodical():
             self.nucleation_boundary_conditions = "periodical"
@@ -94,6 +100,16 @@ class Ui_Dialog(QWidget):
         self.nucleation_previous_iteration_array_2d = self.NucleationObj.return_previous_array()
         self.nucleation_current_iteration_array_2d = self.NucleationObj.return_current_array()
         self.array_if_is_drawn = numpy.zeros([self.nucleation_height_2d,self.nucleation_width_2d])
+
+        self.mc_neighbours_type = self.MonteCarloObj.return_neighbour_pattern()
+        self.mc_neighbour_radius = self.MonteCarloObj.return_neighbour_radius()
+        self.mc_iterations = self.MonteCarloObj.return_iterations()
+        self.mc_periodical = self.MonteCarloObj.return_periodical()
+        self.mc_kt = self.MonteCarloObj.return_kt()
+        self.mc_side = 3
+
+        self.nucleation_to_mc_array = None
+        self.mc_colours_nucleation_local_dictionary = None
 
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
@@ -329,6 +345,7 @@ class Ui_Dialog(QWidget):
         self.horizontalLayout_16 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_16.setObjectName("horizontalLayout_16")
         self.nucleation_scene = QtWidgets.QGraphicsScene()
+        self.qgraphicscene = QtWidgets.QGraphicsScene()
         self.nucleation_graphic_ca_2d = QtWidgets.QGraphicsView(self.formLayoutWidget_3)
         self.nucleation_graphic_ca_2d.setMinimumSize(QtCore.QSize(700, 500))
         self.nucleation_graphic_ca_2d.setMaximumSize(QtCore.QSize(700, 450))
@@ -474,7 +491,7 @@ class Ui_Dialog(QWidget):
         self.mc.setMaximumSize(QtCore.QSize(16777215, 600))
         self.mc.setObjectName("mc")
         self.formLayoutWidget_4 = QtWidgets.QWidget(self.mc)
-        self.formLayoutWidget_4.setGeometry(QtCore.QRect(0, 0, 1231, 604))
+        self.formLayoutWidget_4.setGeometry(QtCore.QRect(0, 0, 1231, 661))
         self.formLayoutWidget_4.setObjectName("formLayoutWidget_4")
         self.formLayout_4 = QtWidgets.QFormLayout(self.formLayoutWidget_4)
         self.formLayout_4.setContentsMargins(0, 0, 0, 0)
@@ -525,6 +542,16 @@ class Ui_Dialog(QWidget):
         self.mc_neighbours_text.setMaximumSize(QtCore.QSize(80, 30))
         self.mc_neighbours_text.setObjectName("mc_neighbours_text")
         self.width_layout_horizontal_5.addWidget(self.mc_neighbours_text)
+        self.Mc_radius_label = QtWidgets.QLabel(self.formLayoutWidget_4)
+        self.Mc_radius_label.setMinimumSize(QtCore.QSize(100, 30))
+        self.Mc_radius_label.setMaximumSize(QtCore.QSize(100, 30))
+        self.Mc_radius_label.setObjectName("Mc_radius_label")
+        self.width_layout_horizontal_5.addWidget(self.Mc_radius_label)
+        self.Mc_Radius_text = QtWidgets.QPlainTextEdit(self.formLayoutWidget_4)
+        self.Mc_Radius_text.setMinimumSize(QtCore.QSize(100, 30))
+        self.Mc_Radius_text.setMaximumSize(QtCore.QSize(100, 30))
+        self.Mc_Radius_text.setObjectName("Mc_Radius_text")
+        self.width_layout_horizontal_5.addWidget(self.Mc_Radius_text)
         self.horizontalLayout_12.addLayout(self.width_layout_horizontal_5)
         self.horizontalLayout_11.addLayout(self.horizontalLayout_12)
         self.mc_initializeGameButton_2D = QtWidgets.QPushButton(self.formLayoutWidget_4)
@@ -532,35 +559,41 @@ class Ui_Dialog(QWidget):
         self.mc_initializeGameButton_2D.setMaximumSize(QtCore.QSize(55, 16777215))
         self.mc_initializeGameButton_2D.setObjectName("mc_initializeGameButton_2D")
         self.mc_initializeGameButton_2D.clicked.connect(self.mc_initialize_parameters)
-
-#       self.horizontalLayout_11.addWidget(self.mc_initializeGameButton_2D)
+        self.horizontalLayout_11.addWidget(self.mc_initializeGameButton_2D)
         self.mc_beginGameButton_2D_3 = QtWidgets.QPushButton(self.formLayoutWidget_4)
         self.mc_beginGameButton_2D_3.setMinimumSize(QtCore.QSize(45, 0))
         self.mc_beginGameButton_2D_3.setMaximumSize(QtCore.QSize(45, 16777215))
         self.mc_beginGameButton_2D_3.setObjectName("mc_beginGameButton_2D_3")
-#        self.mc_beginGameButton_2D_3.clicked.connect(self.mc_begin_process)
+        self.mc_beginGameButton_2D_3.clicked.connect(self.mc_begin_process)
 
         self.horizontalLayout_11.addWidget(self.mc_beginGameButton_2D_3)
         self.mc_restart_button_2d_2 = QtWidgets.QPushButton(self.formLayoutWidget_4)
         self.mc_restart_button_2d_2.setMinimumSize(QtCore.QSize(55, 0))
         self.mc_restart_button_2d_2.setMaximumSize(QtCore.QSize(55, 16777215))
         self.mc_restart_button_2d_2.setObjectName("mc_restart_button_2d_2")
- #       self.mc_restart_button_2d_2.clicked.connect(self.mc_restart_process)
+        self.mc_restart_button_2d_2.clicked.connect(self.mc_restart_process)
 
         self.horizontalLayout_11.addWidget(self.mc_restart_button_2d_2)
         self.formLayout_4.setLayout(1, QtWidgets.QFormLayout.SpanningRole, self.horizontalLayout_11)
         self.horizontalLayout_17 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_17.setObjectName("horizontalLayout_17")
+        self.mc_graphic_nucleation_scene = QtWidgets.QGraphicsScene()
+
         self.mc_graphic_nucleation = QtWidgets.QGraphicsView(self.formLayoutWidget_4)
         self.mc_graphic_nucleation.setMinimumSize(QtCore.QSize(600, 550))
         self.mc_graphic_nucleation.setMaximumSize(QtCore.QSize(600, 550))
         self.mc_graphic_nucleation.setObjectName("mc_graphic_nucleation")
         self.horizontalLayout_17.addWidget(self.mc_graphic_nucleation)
+        self.mc_graphic_nucleation.setScene(self.mc_graphic_nucleation_scene)
+        self.mc_graphic_energy_scene = QtWidgets.QGraphicsScene()
+
         self.mc_graphic_energy = QtWidgets.QGraphicsView(self.formLayoutWidget_4)
         self.mc_graphic_energy.setMinimumSize(QtCore.QSize(600, 550))
         self.mc_graphic_energy.setMaximumSize(QtCore.QSize(600, 550))
         self.mc_graphic_energy.setObjectName("mc_graphic_energy")
         self.horizontalLayout_17.addWidget(self.mc_graphic_energy)
+        self.mc_graphic_energy.setScene(self.mc_graphic_energy_scene)
+
         self.formLayout_4.setLayout(2, QtWidgets.QFormLayout.SpanningRole, self.horizontalLayout_17)
         self.tabWidget.addTab(self.mc, "")
         self.mode_menu.addWidget(self.tabWidget)
@@ -643,65 +676,244 @@ class Ui_Dialog(QWidget):
 
         self.mc_neighbours_label.setText(_translate("Dialog", "Neighbours"))
         self.mc_neighbours_text.setPlaceholderText(_translate("Dialog", str(self.MonteCarloObj.return_neighbour_pattern())))
+        self.Mc_radius_label.setText(_translate("Dialog", "Radius"))
+        self.Mc_Radius_text.setPlaceholderText(_translate("Dialog", str(self.MonteCarloObj.return_neighbour_radius())))
         self.mc_initializeGameButton_2D.setText(_translate("Dialog", "Initialize"))
         self.mc_beginGameButton_2D_3.setText(_translate("Dialog", "Start"))
         self.mc_restart_button_2d_2.setText(_translate("Dialog", "restart"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.mc), _translate("Dialog", "MC"))
 
+
+
     @pyqtSlot()
     def mc_initialize_parameters(self):
+
+
+        changed = False
+        if self.nucleation_width_2d != self.mc_width:
+            self.mc_width = self.nucleation_width_2d
+            changed = True
+        if self.nucleation_height_2d != self.mc_height:
+            self.mc_height = self.nucleation_width_2d
+            changed = True
+
+        if changed:
+            self.MonteCarloObj.set_generated_microstructure(self.nucleation_to_mc_array,self.mc_height, self.mc_width)
+
         _translate = QtCore.QCoreApplication.translate
         if str(self.mc_neighbours_text.toPlainText()) != "":
-            if str(self.mc_neighbours_text.toPlainText()) in self.NucleationObj.return_neighbour_array():
+            if str(self.mc_neighbours_text.toPlainText()) in self.MonteCarloObj.return_neighbour_array() and str(self.mc_neighbours_text.toPlainText()) !=  self.mc_neighbours_type:
                 pattern_changed = True
-                self.nucleation_neighbours_type = str(self.nucleation_neighbours_text.toPlainText())
-                self.nucleation_neighbours_text.setPlaceholderText(
-                    _translate("Dialog", str(self.nucleation_neighbours_type)))
-                if self.nucleation_neighbours_type == "Pentagonal":
+                self.mc_neighbours_type = str(self.mc_neighbours_text.toPlainText())
+                self.mc_neighbours_text.setPlaceholderText(
+                    _translate("Dialog", str(self.mc_neighbours_type)))
+                if self.mc_neighbours_type == "Pentagonal":
                     pentagonal_patterns = ["PentagonalLeft", "PentagonalRight", "PentagonalDown", "PentagonalUp"]
-                    self.nucleation_neighbours_type = random.choice(pentagonal_patterns)
-                    print(self.nucleation_neighbours_type)
-                if self.nucleation_neighbours_type == "Hexagonal":
+                    self.mc_neighbours_type = random.choice(pentagonal_patterns)
+                if self.mc_neighbours_type == "Hexagonal":
                     hexagonal_patterns = ["HexagonalR", "HexagonalL"]
-                    self.nucleation_neighbours_type = random.choice(hexagonal_patterns)
-                    print(self.nucleation_neighbours_type)
-                if str(self.nucleation_neighbours_text.toPlainText()) == "Radius" and str(
-                        self.nucleation_radius_text.toPlainText()) != "" and str(
-                        self.nucleation_radius_text.toPlainText()).isdigit():
-                    self.nucleation_neighbour_radius = int(self.nucleation_radius_text.toPlainText())
-                    self.nucleation_radius_text.clear()
+                    self.mc_neighbours_type = random.choice(hexagonal_patterns)
+                if str(self.mc_neighbours_text.toPlainText()) == "Radius" and str(self.Mc_Radius_text.toPlainText()) != "" \
+                        and str(self.Mc_Radius_text.toPlainText()).isdigit():
+                    self.mc_neighbours_type = self.mc_neighbours_text.toPlainText()
+                    self.mc_neighbour_radius = int(self.Mc_Radius_text.toPlainText())
+                    self.Mc_Radius_text.setPlaceholderText(_translate("Dialog", str(self.mc_neighbour_radius)))
+                    self.mc_neighbours_text.setPlaceholderText(_translate("Dialog", str(self.mc_neighbours_type)))
 
-                if str(self.nucleation_pattern_Text_2D.toPlainText()) == "radius" and str(
-                        self.nucleation_radius_text.toPlainText()) != "" and str(
-                    self.nucleation_radius_text.toPlainText()).isdigit():
-                    self.nucleation_radius = int(self.nucleation_radius_text.toPlainText())
-                    self.nucleation_radius_text.clear()
+                    self.Mc_Radius_text.clear()
+                if str(self.mc_neighbours_text.toPlainText()) == "Radius" and str(self.Mc_Radius_text.toPlainText() == ""):
+                    self.mc_neighbour_radius = self.MonteCarloObj.return_neighbour_radius()
+                    self.mc_neighbours_type = self.mc_neighbours_text.toPlainText()
 
-                if str(self.nucleation_neighbours_text.toPlainText()) == "Radius" and str(self.nucleation_radius_text.toPlainText() == ""):
-                    self.nucleation_neighbour_radius = self.NucleationObj.return_neighbour_radius()
-                    self.nucleation_radius_text.clear()
+                    self.Mc_Radius_text.setPlaceholderText(_translate("Dialog", str(self.mc_neighbour_radius)))
+                    self.mc_neighbours_text.setPlaceholderText(_translate("Dialog", str(self.mc_neighbours_type)))
+                    self.Mc_Radius_text.clear()
+                print("pattern"+str(self.mc_neighbours_type))
 
-                if str(self.nucleation_pattern_Text_2D.toPlainText()) == "radius" and str(
-                        self.nucleation_radius_text.toPlainText() == ""):
-                    self.nucleation_radius = self.NucleationObj.return_radius()
-                    self.nucleation_radius_text.clear()
+                self.mc_neighbours_text.setPlaceholderText(_translate("Dialog", str(self.mc_neighbours_type)))
+                self.mc_neighbours_text.clear()
+                self.mc_restart_process()
 
-                self.nucleation_neighbours_text.clear()
+        if str(self.mc_iteration_text.toPlainText()) != "" and str(self.mc_iteration_text.toPlainText()).isdigit()and int(self.mc_iteration_text.toPlainText()) >= 1:
+            self.mc_iterations = int(self.mc_iteration_text.toPlainText())
+            self.mc_iteration_text.setPlaceholderText(_translate("Dialog", str(self.mc_iterations)))
+            self.mc_iteration_text.clear()
+
+        if str(self.Mc_Radius_text.toPlainText()) != "" and str(self.Mc_Radius_text.toPlainText()).isdigit() and str(self.mc_neighbours_type) == "Radius":
+            self.mc_neighbour_radius = int(self.Mc_Radius_text.toPlainText())
+            self.Mc_Radius_text.setPlaceholderText(_translate("Dialog", str(self.mc_neighbour_radius)))
+            self.Mc_Radius_text.clear()
+
+
+        if str(self.mc_kt_text.toPlainText()) != "" and float(self.mc_kt_text.toPlainText()) >= 0.1 and float(self.mc_kt_text.toPlainText()) <= 6:
+            self.mc_kt = float(self.mc_kt_text.toPlainText())
+            print(self.mc_kt)
+            self.mc_kt_text.setPlaceholderText(_translate("Dialog", str(self.mc_kt)))
+            self.mc_kt_text.clear()
+
+        if str(self.mc_bound_periodical_text.toPlainText()) != "":
+            self.mc_periodical = str(self.mc_bound_periodical_text.toPlainText())
+            if self.mc_periodical.lower() == "periodical":
+                self.mc_periodical = "periodical"
             else:
-                self.nucleation_neighbours_text.clear()
-                self.nucleation_seeds_amount = int(self.nucleation_radius_text.toPlainText())
-                self.nucleation_radius_text.setPlaceholderText(
-                    _translate("Dialog", str(self.nucleation_seeds_amount)))
-                self.nucleation_radius_text.clear()
-
-        if str(self.nucleation_boundary_Text_2D_7.toPlainText()) != "": # boundary conditions = periodical
-            self.nucleation_boundary_conditions = str(self.nucleation_boundary_Text_2D_7.toPlainText())
-            if self.nucleation_boundary_conditions.lower() == "periodical":
-                self.nucleation_boundary_conditions = "periodical"
-            else:
-                self.nucleation_boundary_conditions = "absorbing"
+                self.mc_periodical = "absorbing"
+            self.nucleation_boundary_conditions = self.mc_periodical
+            self.NucleationObj.set_periodical(self.mc_periodical)
             self.nucleation_boundary_Text_2D_7.setPlaceholderText(_translate("Dialog", str(self.nucleation_boundary_conditions)))
-            self.nucleation_boundary_Text_2D_7.clear()
+            self.mc_bound_periodical_text.setPlaceholderText(_translate("Dialog", str(self.mc_periodical)))
+            self.mc_bound_periodical_text.clear()
+
+        self.MonteCarloObj.set_parameters(self.mc_neighbours_type,self.mc_kt,self.mc_iterations,self.mc_periodical,self.mc_neighbour_radius)
+
+        self.Mc_Radius_text.clear()
+        self.mc_bound_periodical_text.clear()
+        self.mc_kt_text.clear()
+        self.mc_neighbours_text.clear()
+        self.mc_iteration_text.clear()
+
+    @pyqtSlot()
+    def mc_begin_process(self):
+
+        counter = self.mc_iterations
+        print("\n\n")
+        #try:
+
+        self.mc_energy_dictionary = {0: [255,255,255], 1: [30,0,30], 2 : [60,0,60], 3 : [90,0,90], 4 : [120, 0, 120], 5 : [150,0,150], 6: [180,0,180], 7: [210,0,210], 8 : [230,0,230]}
+
+        self.mc_graphic_nucleation_scene.clear()
+        self.mc_graphic_energy_scene.clear()
+
+        if self.nucleation_to_mc_array == None or self.mc_height != self.MonteCarloObj.return_height() or self.mc_width != self.MonteCarloObj.return_width():
+            self.mc_height = self.nucleation_height_2d
+            self.mc_width = self.nucleation_width_2d
+            self.mc_colours_nucleation_local_dictionary = {}
+            self.NucleationObj.restart_grid()
+            self.nucleation_to_mc_array = self.NucleationObj.initialize_2d_array()
+            while not self.NucleationObj.check_if_last_iteration():
+                QtTest.QTest.qWait(150)
+                previous_nucleation_tom_mv_array = self.nucleation_to_mc_array
+                self.nucleation_to_mc_array = self.NucleationObj.next_iteration()
+                self.mc_draw_mc_only(self.nucleation_to_mc_array)
+                if self.compare_current_step_with_previous(previous_nucleation_tom_mv_array,self.nucleation_to_mc_array):
+                    print("They are equal!")
+                    self.nucleation_to_mc_array = self.NucleationObj.next_iteration()
+                    self.mc_draw_mc_only(self.nucleation_to_mc_array)
+                    break
+        else:
+            self.mc_draw_mc_only(self.nucleation_to_mc_array)
+        self.nucleation_to_mc_array = self.NucleationObj.next_iteration()
+        self.mc_draw_mc_only(self.nucleation_to_mc_array)
+
+        self.MonteCarloObj.set_generated_microstructure(self.nucleation_to_mc_array,self.mc_height,self.mc_width)
+        #del self.nucleation_to_mc_array
+        while counter > 0:
+            print("iteration number: "+str(self.mc_iterations-counter +1))
+            self.nucleation_to_mc_array = self.MonteCarloObj.iteration(self.nucleation_to_mc_array)
+            self.mc_draw_empty_energy()
+            self.mc_draw_mc_energy_board(self.nucleation_to_mc_array)
+            self.MonteCarloObj.set_generated_microstructure(self.nucleation_to_mc_array, self.mc_height, self.mc_width)#
+            #self.nucleation_to_mc_array = self.set_zero_energy(self.nucleation_to_mc_array)
+            QtTest.QTest.qWait(2000)
+            counter-=1
+            if counter == 0 or counter < 0:
+                print("end of iterations!")
+                self.nucleation_to_mc_array = self.MonteCarloObj.iteration(self.nucleation_to_mc_array)
+                self.mc_draw_mc_energy_board(self.nucleation_to_mc_array)
+                break
+        # except:
+        #     self.mc_restart_process()
+        #     self.mc_begin_process()
+        self.print_energy_array(self.nucleation_to_mc_array)
+
+        print("=================================================================================")
+        self.print_id_array(self.nucleation_to_mc_array)
+
+    def mc_draw_empty_board_2d(self):
+        self.mc_side = 3
+
+        for row in range(self.mc_height):
+            for column in range(self.mc_width):
+                rectangle_nucleation = QtCore.QRectF(QtCore.QPointF(column * self.mc_side, row * self.mc_side),
+                                                     QtCore.QSizeF(self.mc_side, self.mc_side))
+                rectangle_energy = QtCore.QRectF(QtCore.QPointF(column * self.mc_side, row * self.mc_side),
+                                                 QtCore.QSizeF(self.mc_side, self.mc_side))
+                self.mc_graphic_nucleation_scene.addRect(rectangle_nucleation, QtGui.QPen(QColor(255, 255, 255)))
+                self.mc_graphic_energy_scene.addRect(rectangle_energy, QtGui.QPen(QColor(255, 255, 255)))
+
+    def mc_draw_empty_energy(self):
+        self.mc_side = 3
+        for row in range(self.mc_height):
+            for column in range(self.mc_width):
+                rectangle_energy = QtCore.QRectF(QtCore.QPointF(column * self.mc_side, row * self.mc_side),
+                                                 QtCore.QSizeF(self.mc_side, self.mc_side))
+                self.mc_graphic_energy_scene.addRect(rectangle_energy, QtGui.QPen(QColor(255, 255, 255)))
+
+    def mc_draw_mc_energy_board(self, input_array_nucleation):
+        #print("DRAWING BOTH")
+        self.mc_side = 3
+        for row in range(self.mc_height):
+            for column in range(self.mc_width):
+                #print(input_array_nucleation[row][column].return_energy())
+                if input_array_nucleation[row][column].return_id() not in self.mc_colours_nucleation_local_dictionary:
+                    self.mc_colours_nucleation_local_dictionary[input_array_nucleation[row][column].return_id()] = input_array_nucleation[row][column].return_colours_array()
+
+                if input_array_nucleation[row][column].return_energy() <=0:
+                    continue
+                elif input_array_nucleation[row][column].return_energy() not in self.mc_energy_dictionary and input_array_nucleation[row][column].return_energy() >8:
+                    self.mc_energy_dictionary[input_array_nucleation[row][column].return_energy()] = [255,0,255]
+
+                colors_energy = self.mc_energy_dictionary[input_array_nucleation[row][column].return_energy()]
+                colors_array = self.mc_colours_nucleation_local_dictionary[input_array_nucleation[row][column].return_id()]
+
+                # line_up = QtCore.QLineF(column * self.mc_side, row * self.mc_side, column * self.mc_side + self.mc_side,row * self.mc_side)
+                # line_left = QtCore.QLineF(column * self.mc_side, row * self.mc_side, column * self.mc_side, row * self.mc_side + self.mc_side)
+                # line_down = QtCore.QLineF(column * self.mc_side, row * self.mc_side + self.mc_side,column * self.mc_side + self.mc_side, row * self.mc_side + self.mc_side)
+                # line_right = QtCore.QLineF(column * self.mc_side + self.mc_side, row * self.mc_side,column * self.mc_side + self.mc_side, row * self.mc_side + self.mc_side)
+
+                rectangle = QtCore.QRectF(QtCore.QPointF(column * self.mc_side, row * self.mc_side),
+                                          QtCore.QSizeF(self.mc_side, self.mc_side))
+
+                # self.mc_graphic_energy_scene.addLine(line_up, QtGui.QPen(QColor(colors_energy[0],colors_energy[1],colors_energy[2])))
+                # self.mc_graphic_energy_scene.addLine(line_left, QtGui.QPen(QColor(colors_energy[0],colors_energy[1],colors_energy[2])))
+                # self.mc_graphic_energy_scene.addLine(line_down, QtGui.QPen(QColor(colors_energy[0],colors_energy[1],colors_energy[2])))
+                # self.mc_graphic_energy_scene.addLine(line_right, QtGui.QPen(QColor(colors_energy[0],colors_energy[1],colors_energy[2])))
+                self.mc_graphic_energy_scene.addRect(rectangle,QtGui.QPen(QColor(colors_energy[0],colors_energy[1],colors_energy[2])))
+                self.mc_graphic_nucleation_scene.addRect(rectangle, QtGui.QPen(QColor(colors_array[0],colors_array[1],colors_array[2])))
+
+    def mc_draw_mc_only(self, input_array_nucleation):
+        self.mc_side = 3
+        for row in range(self.mc_height):
+            for column in range(self.mc_width):
+                if input_array_nucleation[row][column].id == 0 or input_array_nucleation[row][column].return_colours_array() == [255,255,255]:#or self.array_if_is_drawn[row][column]:
+                    continue
+                if input_array_nucleation[row][column].return_id() not in self.mc_colours_nucleation_local_dictionary:
+                    self.mc_colours_nucleation_local_dictionary[input_array_nucleation[row][column].return_id()] = \
+                        input_array_nucleation[row][column].return_colours_array()
+
+                colors_array = self.mc_colours_nucleation_local_dictionary[
+                    input_array_nucleation[row][column].return_id()]
+
+                rectangle = QtCore.QRectF(QtCore.QPointF(column * self.nucleation_side, row * self.nucleation_side),
+                                          QtCore.QSizeF(self.nucleation_side, self.nucleation_side))
+
+                self.mc_graphic_nucleation_scene.addRect(rectangle, QtGui.QPen(
+                    QColor(colors_array[0], colors_array[1], colors_array[2])))
+
+    @pyqtSlot()
+    def mc_restart_process(self):
+
+        self.mc_graphic_nucleation_scene.clear()
+        self.mc_graphic_energy_scene.clear()
+        if self.nucleation_to_mc_array == None:
+            pass
+        else:
+            del self.nucleation_to_mc_array
+        self.nucleation_to_mc_array = None
+        self.NucleationObj.restart_grid()
+
+        #self.MonteCarloObj.set_generated_microstructure(self.nucleation_to_mc_array,self.nucleation_height_2d,self.nucleation_width_2d)
+        #self.mc_array_with_energy = self.MonteCarloObj.iteration()
+        #self.mc_draw_mc_energy_board(self.mc_array_with_energy)
 
     @pyqtSlot()
     def restart_plot(self):
@@ -792,12 +1004,11 @@ class Ui_Dialog(QWidget):
                     self.scene_1d.addRect(rectangle, self.blue_pen)
 
                 else:
-                    line_left = QtCore.QLineF(index * self.side, previous_row * self.side, index * self.side,
-                                              previous_row * self.side + self.side)
-                    line_down = QtCore.QLineF(index * self.side, previous_row * self.side + self.side,
-                                              index * self.side + self.side, previous_row * self.side + self.side)
-                    line_right = QtCore.QLineF(index * self.side + self.side, previous_row * self.side,
-                                               index * self.side + self.side, previous_row * self.side + self.side)
+
+                    line_up = QtCore.QLineF(index * self.side, previous_row * self.side, index * self.side + self.side,previous_row * self.side)
+                    line_left = QtCore.QLineF(index * self.side, previous_row * self.side, index * self.side,previous_row * self.side + self.side)
+                    line_down = QtCore.QLineF(index * self.side, previous_row * self.side + self.side,index * self.side + self.side, previous_row * self.side + self.side)
+                    line_right = QtCore.QLineF(index * self.side + self.side, previous_row * self.side,index * self.side + self.side, previous_row * self.side + self.side)
                     if array[index - 1].is_alive:
                         self.scene_1d.addLine(line_left, self.blue_pen)
                     else:
@@ -882,11 +1093,11 @@ class Ui_Dialog(QWidget):
                 if input_array[row][column].is_alive==True:
                     self.scene_2d.addRect(rectangle, self.red_pen)
 
-    def compare_current_step_with_previous(self):
+    def compare_current_step_with_previous(self,nucleation_previous,nucleation_current):
         are_they_equal = True
         for row in range(self.nucleation_height_2d):
             for column in range(self.nucleation_width_2d):
-                if self.nucleation_previous_iteration_array_2d[row][column] != self.nucleation_current_iteration_array_2d[row][column]:
+                if nucleation_previous[row][column] != nucleation_current[row][column]:
                     are_they_equal = False
         return are_they_equal
 
@@ -970,6 +1181,7 @@ class Ui_Dialog(QWidget):
             self.nucleation_width_2d = int(self.nucleation_widthText_2D.toPlainText())
             self.nucleation_widthText_2D.setPlaceholderText(_translate("Dialog", str(self.nucleation_width_2d)))
             self.nucleation_widthText_2D.clear()
+            self.MonteCarloObj.set_width(self.nucleation_width_2d)
             width_or_height_changed = True
 
         if str(self.nucleation_radius_text.toPlainText()) != "" and str(self.nucleation_radius_text.toPlainText()).isdigit():
@@ -1020,7 +1232,7 @@ class Ui_Dialog(QWidget):
                     print(self.nucleation_neighbours_type)
                 if str(self.nucleation_neighbours_text.toPlainText()) == "Radius" and str(
                         self.nucleation_radius_text.toPlainText()) != "" and str(
-                        self.nucleation_radius_text.toPlainText()).isdigit():
+                    self.nucleation_radius_text.toPlainText()).isdigit():
                     self.nucleation_neighbour_radius = int(self.nucleation_radius_text.toPlainText())
                     self.nucleation_radius_text.clear()
 
@@ -1046,6 +1258,7 @@ class Ui_Dialog(QWidget):
             self.nucleation_height_2d = int(self.nucleation_heightText2D.toPlainText())
             self.nucleation_heightText2D.setPlaceholderText(_translate("Dialog", str(self.nucleation_height_2d)))
             self.nucleation_heightText2D.clear()
+            self.MonteCarloObj.set_height(self.nucleation_height_2d)
             width_or_height_changed = True
 
         if str(self.nucleation_iterationsText_2D.toPlainText()) != "" and str(self.nucleation_iterationsText_2D.toPlainText()).isdigit():
@@ -1068,6 +1281,8 @@ class Ui_Dialog(QWidget):
                 self.nucleation_boundary_conditions = "periodical"
             else:
                 self.nucleation_boundary_conditions = "absorbing"
+            self.MonteCarloObj.set_periodical(self.nucleation_boundary_conditions)
+            self.mc_bound_periodical_text.setPlaceholderText(_translate("Dialog", str(self.nucleation_boundary_conditions)))
             self.nucleation_boundary_Text_2D_7.setPlaceholderText(_translate("Dialog", str(self.nucleation_boundary_conditions)))
             self.nucleation_boundary_Text_2D_7.clear()
 
@@ -1089,7 +1304,6 @@ class Ui_Dialog(QWidget):
             self.nucleation_settings_has_changed = True
         self.array_if_is_drawn = numpy.zeros([self.nucleation_height_2d, self.nucleation_width_2d])
 
-
     def begin_nucleation(self):
         self.colours_nucleation_local_dictionary = {}
         _translate = QtCore.QCoreApplication.translate
@@ -1107,11 +1321,7 @@ class Ui_Dialog(QWidget):
             self.nucleation_current_iteration_array_2d = self.NucleationObj.return_current_array()
 
         self.nucleation_draw_empty_board_2d()
-
-        #self.nucleation_current_iteration_array_2d = self.NucleationObj.next_iteration()
         if self.nucleation_pattern_2d == "manual":
-            #self.nucleation_draw_board_2d(self.nucleation_current_iteration_array_2d)
-            #self.nucleation_draw_board_2d(self.NucleationObj.next_iteration())
             pass
         else:
             self.nucleation_draw_board_2d(self.NucleationObj.next_iteration())
@@ -1120,25 +1330,18 @@ class Ui_Dialog(QWidget):
         QtTest.QTest.qWait(2000)
         while not self.NucleationObj.check_if_last_iteration():
             QtTest.QTest.qWait(150)
-            #self.nucleation_draw_empty_board_2d()
             del self.nucleation_previous_iteration_array_2d
             self.nucleation_previous_iteration_array_2d = self.nucleation_current_iteration_array_2d
             self.nucleation_current_iteration_array_2d = self.NucleationObj.next_iteration()
             self.nucleation_draw_board_2d(self.nucleation_current_iteration_array_2d)
-            if self.compare_current_step_with_previous():
+            if self.compare_current_step_with_previous(self.nucleation_previous_iteration_array_2d, self.nucleation_current_iteration_array_2d):
                 print("They are equal!")
                 break
 
         QtTest.QTest.qWait(50)
-        #self.nucleation_draw_empty_board_2d()
         self.nucleation_previous_iteration_array_2d = self.nucleation_current_iteration_array_2d
-        #self.nucleation_draw_empty_board_2d()
-
-        #print("last printing before drawing")
-        #self.nucleation_last_draw_2d(self.nucleation_current_iteration_array_2d)
         self.nucleation_current_iteration_array_2d = self.NucleationObj.next_iteration()
         self.nucleation_draw_board_2d(self.nucleation_current_iteration_array_2d)
-        #self.nucleation_last_draw_2d(self.nucleation_current_iteration_array_2d)
 
         if self.nucleation_pattern_2d == "manual":
             self.nucleation_initial_manual_array_2d = self.nucleation_current_iteration_array_2d
@@ -1197,18 +1400,14 @@ class Ui_Dialog(QWidget):
             for column in range(self.nucleation_width_2d):
                 if input_array[row][column].id == 0 or input_array[row][column].return_colours_array() == [255,255,255] or self.array_if_is_drawn[row][column] >= 2:#or self.array_if_is_drawn[row][column]:
                     continue
-                #if self.nucleation_pattern_2d == "manual":
                 if input_array[row][column].return_id() not in self.colours_nucleation_local_dictionary:
                     self.colours_nucleation_local_dictionary[input_array[row][column].return_id()] = input_array[row][column].return_colours_array()
-                #print(str(self.colours_nucleation_local_dictionary[input_array[row][column].return_id()])+" id: "+str(input_array[row][column].return_id()))
 
                 self.array_if_is_drawn[row][column] += 1
                 rectangle = QtCore.QRectF(QtCore.QPointF(column * self.nucleation_side, row * self.nucleation_side),
                                           QtCore.QSizeF(self.nucleation_side, self.nucleation_side))
-                #if self.nucleation_pattern_2d == "manual":
                 colors_array = self.colours_nucleation_local_dictionary[input_array[row][column].return_id()]
-                #else:
-                #    colors_array = input_array[row][column].return_colours_array()
+
                 self.nucleation_scene.addRect(rectangle, QtGui.QPen(QColor(colors_array[0],colors_array[1],colors_array[2])))
 
     def nucleation_draw_manual_array_on_textarea(self):
@@ -1246,7 +1445,7 @@ class Ui_Dialog(QWidget):
         self.nucleation_manualInputTextArea_2D.clear()
         self.nucleation_initial_manual_array_2d = self.NucleationObj.return_initial_array()
         self.nucleation_manualInputTextArea_2D.appendPlainText(
-                    _translate("Dialog", str(self.nucleation_draw_manual_array_on_textarea())[1:-1]))
+            _translate("Dialog", str(self.nucleation_draw_manual_array_on_textarea())[1:-1]))
 
     sys._excepthook = sys.excepthook
 
@@ -1256,3 +1455,21 @@ class Ui_Dialog(QWidget):
         sys.exit(1)
 
     sys.excepthook = exception_hook
+
+    def print_energy_array(self,input):
+        for row in range(self.mc_height):
+            for column in range(self.mc_width):
+                print(input[row][column].return_energy(), end=' ')
+            print("\n")
+
+    def print_id_array(self,input):
+        for row in range(self.mc_height):
+            for column in range(self.mc_width):
+                print(input[row][column].return_id(), end=' ')
+            print("\n")
+
+    def set_zero_energy(self,input):
+        for row in range(self.mc_height):
+            for column in range(self.mc_width):
+                input[row][column].set_energy(0)
+        return input

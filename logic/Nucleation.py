@@ -7,7 +7,7 @@ import copy
 
 class Nucleation:
 
-    def __init__(self, width=100, height=100, iterations=10, pattern='random', periodical=False,
+    def __init__(self, width=40, height=40, iterations=10, pattern='random', periodical=False,
                  neighbours="PentagonalUp",
                  seeds_amount=3, width_amount=7, height_amount=8, radius=3, neighbour_radius=4):
         self.width = width
@@ -56,6 +56,9 @@ class Nucleation:
         self.zeros = self.height * self.width
         self.set_pattern_in_array(self.pattern)
         self.set_neighbour(neighbours)
+
+    def set_periodical(self,periodical):
+        self.periodical = periodical
 
     def return_periodical(self):
         return self.periodical
@@ -217,8 +220,8 @@ class Nucleation:
         return self.last_iteration
 
     def randomize_cell_weight_centre(self, index_row, index_column, next_index_row, next_index_column):
-        random_weight_row = random.randint(index_row, next_index_row)
-        random_weight_column = random.randint(index_column, next_index_column)
+        random_weight_row = random.uniform(index_row, next_index_row)
+        random_weight_column = random.uniform(index_column, next_index_column)
         return [random_weight_row, random_weight_column]
 
     def initialize_2d_array(self):

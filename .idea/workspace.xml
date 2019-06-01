@@ -5,8 +5,11 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logic/MonteCarlo.py" beforeDir="false" afterPath="$PROJECT_DIR$/logic/MonteCarlo.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logic/Nucleation.py" beforeDir="false" afterPath="$PROJECT_DIR$/logic/Nucleation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/view/Gui.ui" beforeDir="false" afterPath="$PROJECT_DIR$/view/Gui.ui" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/Cell.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/Cell.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/view/Gui_converted.py" beforeDir="false" afterPath="$PROJECT_DIR$/view/Gui_converted.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/Gui_converted_11_May.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/Gui_converted_12_May.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/Gui_converted_30_May.py" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -18,7 +21,7 @@
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/Lato_2019_Wieloskalowe$Gui.coverage" NAME="Gui Coverage Results" MODIFIED="1555789677949" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/view" />
     <SUITE FILE_PATH="coverage/Lato_2019_Wieloskalowe$test.coverage" NAME="test Coverage Results" MODIFIED="1555604899285" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Lato_2019_Wieloskalowe$MainApp.coverage" NAME="MainApp Coverage Results" MODIFIED="1559143821552" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Lato_2019_Wieloskalowe$MainApp.coverage" NAME="MainApp Coverage Results" MODIFIED="1559383934466" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Lato_2019_Wieloskalowe$test__1_.coverage" NAME="test (1) Coverage Results" MODIFIED="1555604912431" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/view" />
     <SUITE FILE_PATH="coverage/Lato_2019_Wieloskalowe$Gui_converted.coverage" NAME="Gui_converted Coverage Results" MODIFIED="1555968462817" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/view" />
   </component>
@@ -27,30 +30,48 @@
       <file leaf-file-name="Gui_converted.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/view/Gui_converted.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="202">
-              <caret line="636" column="46" selection-start-line="636" selection-start-column="46" selection-end-line="636" selection-end-column="46" />
+            <state relative-caret-position="-1180">
+              <caret line="688" column="39" selection-start-line="688" selection-start-column="39" selection-end-line="688" selection-end-column="39" />
               <folding>
                 <element signature="e#192#209#0" expanded="true" />
-                <element signature="e#43380#43499#0" />
-                <element signature="e#43557#45461#0" />
-                <element signature="e#45513#47516#0" />
-                <element signature="e#41105#42560#0" />
-                <element signature="e#42617#42751#0" />
-                <element signature="e#42812#45326#0" />
-                <element signature="e#45371#45793#0" />
-                <element signature="e#45844#46337#0" />
-                <element signature="e#46397#46739#0" />
-                <element signature="e#46794#48062#0" />
-                <element signature="e#48117#48620#0" />
-                <element signature="e#48677#49948#0" />
-                <element signature="e#57955#60921#0" />
-                <element signature="e#60982#61628#0" />
-                <element signature="e#61696#63665#0" />
-                <element signature="e#63727#65248#0" />
-                <element signature="e#65314#65785#0" />
-                <element signature="e#65841#66286#0" />
-                <element signature="e#66330#66935#0" />
+                <element signature="e#45878#50640#0" />
+                <element signature="e#46724#49022#0" />
+                <element signature="e#52600#53317#0" />
+                <element signature="e#54537#57311#0" />
+                <element signature="e#59360#59479#0" />
+                <element signature="e#59537#61441#0" />
+                <element signature="e#61493#63496#0" />
+                <element signature="e#63603#65062#0" />
+                <element signature="e#65119#65253#0" />
+                <element signature="e#65314#67828#0" />
+                <element signature="e#67873#68295#0" />
+                <element signature="e#68346#68839#0" />
+                <element signature="e#68938#69232#0" />
+                <element signature="e#69287#70555#0" />
+                <element signature="e#70610#71113#0" />
+                <element signature="e#71170#72441#0" />
+                <element signature="e#72499#81304#0" />
+                <element signature="e#81346#83784#0" />
+                <element signature="e#83845#84491#0" />
+                <element signature="e#84559#86528#0" />
+                <element signature="e#86590#87727#0" />
+                <element signature="e#87793#88264#0" />
+                <element signature="e#88320#88765#0" />
+                <element signature="e#88809#89414#0" />
+                <element signature="e#89984#90087#0" />
+                <element signature="e#89909#90077#0" />
+                <element signature="e#90408#90580#0" />
+                <element signature="e#90754#90905#0" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Gui_converted_30_May.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/view/Gui_converted_30_May.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="323">
+              <caret line="32" column="24" selection-start-line="32" selection-start-column="24" selection-end-line="32" selection-end-column="24" />
             </state>
           </provider>
         </entry>
@@ -58,8 +79,8 @@
       <file leaf-file-name="Nucleation.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/logic/Nucleation.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="10" column="30" lean-forward="true" selection-start-line="10" selection-start-column="30" selection-end-line="10" selection-end-column="30" />
+            <state relative-caret-position="138">
+              <caret line="426" column="8" selection-start-line="426" selection-start-column="8" selection-end-line="426" selection-end-column="8" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
               </folding>
@@ -67,27 +88,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Gui_converted_30_May_02.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/view/Gui_converted_30_May_02.py">
+      <file leaf-file-name="MonteCarlo.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/logic/MonteCarlo.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-340" />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MainApp.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/MainApp.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="51">
-              <caret line="7" selection-start-line="7" selection-end-line="7" />
+            <state relative-caret-position="68">
+              <caret line="4" column="35" selection-start-line="4" selection-start-column="35" selection-end-line="4" selection-end-column="35" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MonteCarlo.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/logic/MonteCarlo.py">
+      <file leaf-file-name="Cell.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/models/Cell.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="33" column="41" selection-start-line="33" selection-start-column="41" selection-end-line="33" selection-end-column="41" />
+            <state relative-caret-position="136">
+              <caret line="8" column="104" selection-start-line="8" selection-start-column="104" selection-end-line="8" selection-end-column="104" />
             </state>
           </provider>
         </entry>
@@ -103,36 +117,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>nucleation_neighbour</find>
-      <find>manual</find>
-      <find>if [</find>
-      <find>numpy</find>
-      <find>set</find>
-      <find>randint</find>
-      <find>Radius</find>
-      <find>&quot;Radius&quot;</find>
-      <find>Boundary</find>
-      <find>abso</find>
-      <find>nucleation_radius_text</find>
-      <find>== &quot;radius&quot;</find>
-      <find>nucleation_radius</find>
-      <find>.connect</find>
-      <find>mc_</find>
-      <find>set_paramet</find>
-      <find>connect</find>
-      <find>range</find>
-      <find>index_row</find>
-      <find>random_row</find>
-      <find>random_column</find>
-      <find>g</find>
-      <find>neighbour_radius</find>
-      <find>== &quot;Radius&quot;</find>
-      <find>MonteCarlo</find>
-      <find>self.local_index_dictionary_radius_neighbour</find>
-      <find>in_circle</find>
-      <find>if str(self.nucleation_neighbours_text.toPlainText()) != &quot;&quot;:</find>
-      <find>if self.nucleation_neighbours_type == &quot;Radius&quot; and str(self.nucleation_radius_text.toPlainText()) != &quot;&quot; and str(self.nucleation_radius_text.toPlainText()).isdigit():</find>
-      <find>nucleation_seeds_amount</find>
+      <find>initialize_para</find>
+      <find>height</find>
+      <find>mc_draw</find>
+      <find>draw</find>
+      <find>DRAWING</find>
+      <find>wait</find>
+      <find>0,0,0</find>
+      <find>energy</find>
+      <find>index</find>
+      <find>QLineF</find>
+      <find>iteration`</find>
+      <find>&gt;8</find>
+      <find>prepare_energy</find>
+      <find>self.nucleation_height_2d</find>
+      <find>restart</find>
+      <find>set_energy</find>
+      <find>print(en</find>
+      <find>iteration number</find>
+      <find>print</find>
+      <find>.iteration</find>
+      <find>-1</find>
+      <find>self.generated_microstructure</find>
+      <find>print(</find>
+      <find>39</find>
+      <find>MonteCarloObj.iteration</find>
+      <find>nucleation_initia</find>
+      <find>nucleation_heigh</find>
+      <find>periodical</find>
+      <find>MonteCarloObj</find>
+      <find>print(str</find>
     </findStrings>
     <replaceStrings>
       <replace>pattern_Text_2D</replace>
@@ -140,7 +154,9 @@
       <replace>index_row</replace>
       <replace>index_column</replace>
       <replace>height</replace>
+      <replace>self.nucleation_to_mc_array</replace>
       <replace>dictionary</replace>
+      <replace />
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -176,9 +192,9 @@
         <option value="$PROJECT_DIR$/logic/SecondDimension.py" />
         <option value="$PROJECT_DIR$/view/Gui_converted_11_May.py" />
         <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/models/Cell.py" />
         <option value="$PROJECT_DIR$/MainApp.py" />
         <option value="$PROJECT_DIR$/logic/Nucleation.py" />
+        <option value="$PROJECT_DIR$/models/Cell.py" />
         <option value="$PROJECT_DIR$/logic/MonteCarlo.py" />
         <option value="$PROJECT_DIR$/view/Gui_converted.py" />
       </list>
@@ -194,8 +210,8 @@
     <packageJsonPaths />
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="191" />
-    <option name="y" value="-9" />
+    <option name="x" value="230" />
+    <option name="y" value="-20" />
     <option name="width" value="1300" />
     <option name="height" value="930" />
   </component>
@@ -204,7 +220,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -236,12 +251,14 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://C:/AGH/Semestr 6/Wieloskalowe/Lato-2019-Wieloskalowe/logic/SecondDimension.py" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="add_unversioned_files" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../semestr_6/Lato-2019-Wieloskalowe" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
@@ -411,23 +428,23 @@
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.49932885" weight="0.32905984" />
       <window_info anchor="bottom" id="Python Console" order="11" sideWeight="0.49932885" weight="0.32905984" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.6583893" visible="true" weight="0.2977208" />
-      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.63557047" weight="0.16239317" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.12550336" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.6583893" weight="0.42022792" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="10" sideWeight="0.63557047" visible="true" weight="0.16239317" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.087919466" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.4986577" weight="0.53988606" />
       <window_info anchor="right" id="SciView" order="4" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Concurrent Activities Diagram" order="13" weight="0.32905984" />
       <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.4972299" weight="0.3974359" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.4972299" weight="0.6196581" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Concurrent Activities Diagram" order="13" weight="0.32905984" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -438,6 +455,18 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/logic/MonteCarlo.py</url>
+          <line>82</line>
+          <option name="timeStamp" value="64" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/view/Gui_converted.py</url>
+          <line>808</line>
+          <option name="timeStamp" value="66" />
+        </line-breakpoint>
+      </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
           <properties notifyOnTerminate="true" exception="BaseException">
@@ -445,7 +474,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="59" />
+      <option name="time" value="67" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
@@ -582,21 +611,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/view/Gui_converted_11_May.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="102" selection-start-line="102" selection-end-line="102" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/view/Gui_converted_11_May.py" />
     <entry file="file://$PROJECT_DIR$/view/Gui_converted_broken_copy.py" />
-    <entry file="file://$PROJECT_DIR$/view/Gui_converted_12_May.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-13632">
-          <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/view/Gui_converted_12_May.py" />
     <entry file="file://$USER_HOME$/.PyCharm2018.1/system/python_stubs/-1353995630/PyQt5/QtGui/QColor.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
@@ -608,13 +625,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
           <caret line="9" column="21" lean-forward="true" selection-start-line="9" selection-start-column="21" selection-end-line="9" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/logic/SecondDimension.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2136">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -653,13 +663,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://C:/Python36/Lib/random.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="746" column="16" lean-forward="true" selection-start-line="746" selection-start-column="16" selection-end-line="746" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://C:/Python36/Lib/copy.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
@@ -670,26 +673,11 @@
     <entry file="file://$USER_HOME$/.PyCharm2018.1/system/python_stubs/-1353995630/math.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/Cell.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="46" column="25" selection-start-line="46" selection-start-column="8" selection-end-line="46" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/numpy/core/numeric.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="178">
           <caret line="1902" column="4" selection-start-line="1902" selection-start-column="4" selection-end-line="1902" selection-end-column="4" />
         </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/view/Gui_converted_30_May.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/view/Gui_converted_30_May_02.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-340" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/MainApp.py">
@@ -699,48 +687,88 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/logic/MonteCarlo.py">
+    <entry file="file://$PROJECT_DIR$/view/Gui_converted_30_May_02.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/logic/SecondDimension.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="33" column="41" selection-start-line="33" selection-start-column="41" selection-end-line="33" selection-end-column="41" />
+        <state relative-caret-position="51">
+          <caret line="5" column="30" selection-start-line="5" selection-start-column="30" selection-end-line="5" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/view/Gui_converted_30_May.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="32" column="24" selection-start-line="32" selection-start-column="24" selection-end-line="32" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Python36/Lib/random.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="103">
+          <caret line="256" selection-start-line="256" selection-end-line="256" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/Cell.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="104" selection-start-line="8" selection-start-column="104" selection-end-line="8" selection-end-column="104" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/logic/Nucleation.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="10" column="30" lean-forward="true" selection-start-line="10" selection-start-column="30" selection-end-line="10" selection-end-column="30" />
+        <state relative-caret-position="138">
+          <caret line="426" column="8" selection-start-line="426" selection-start-column="8" selection-end-line="426" selection-end-column="8" />
           <folding>
             <element signature="e#0#28#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/logic/MonteCarlo.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="35" selection-start-line="4" selection-start-column="35" selection-end-line="4" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/view/Gui_converted.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="202">
-          <caret line="636" column="46" selection-start-line="636" selection-start-column="46" selection-end-line="636" selection-end-column="46" />
+        <state relative-caret-position="-1180">
+          <caret line="688" column="39" selection-start-line="688" selection-start-column="39" selection-end-line="688" selection-end-column="39" />
           <folding>
             <element signature="e#192#209#0" expanded="true" />
-            <element signature="e#43380#43499#0" />
-            <element signature="e#43557#45461#0" />
-            <element signature="e#45513#47516#0" />
-            <element signature="e#41105#42560#0" />
-            <element signature="e#42617#42751#0" />
-            <element signature="e#42812#45326#0" />
-            <element signature="e#45371#45793#0" />
-            <element signature="e#45844#46337#0" />
-            <element signature="e#46397#46739#0" />
-            <element signature="e#46794#48062#0" />
-            <element signature="e#48117#48620#0" />
-            <element signature="e#48677#49948#0" />
-            <element signature="e#57955#60921#0" />
-            <element signature="e#60982#61628#0" />
-            <element signature="e#61696#63665#0" />
-            <element signature="e#63727#65248#0" />
-            <element signature="e#65314#65785#0" />
-            <element signature="e#65841#66286#0" />
-            <element signature="e#66330#66935#0" />
+            <element signature="e#45878#50640#0" />
+            <element signature="e#46724#49022#0" />
+            <element signature="e#52600#53317#0" />
+            <element signature="e#54537#57311#0" />
+            <element signature="e#59360#59479#0" />
+            <element signature="e#59537#61441#0" />
+            <element signature="e#61493#63496#0" />
+            <element signature="e#63603#65062#0" />
+            <element signature="e#65119#65253#0" />
+            <element signature="e#65314#67828#0" />
+            <element signature="e#67873#68295#0" />
+            <element signature="e#68346#68839#0" />
+            <element signature="e#68938#69232#0" />
+            <element signature="e#69287#70555#0" />
+            <element signature="e#70610#71113#0" />
+            <element signature="e#71170#72441#0" />
+            <element signature="e#72499#81304#0" />
+            <element signature="e#81346#83784#0" />
+            <element signature="e#83845#84491#0" />
+            <element signature="e#84559#86528#0" />
+            <element signature="e#86590#87727#0" />
+            <element signature="e#87793#88264#0" />
+            <element signature="e#88320#88765#0" />
+            <element signature="e#88809#89414#0" />
+            <element signature="e#89984#90087#0" />
+            <element signature="e#89909#90077#0" />
+            <element signature="e#90408#90580#0" />
+            <element signature="e#90754#90905#0" />
           </folding>
         </state>
       </provider>

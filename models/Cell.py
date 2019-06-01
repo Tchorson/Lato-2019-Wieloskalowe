@@ -4,7 +4,7 @@ class Cell:
     is_alive = False
     id = 0
     colours = [255, 255, 255]
-    weight_center = [-1,-1]
+    weight_center = [0.0, 0.0]
 
     def __init__(self, input_alive = False, colours = [255,255,255], weight_center = [-1,-1],energy = -1):
         self.is_alive = input_alive

@@ -16,6 +16,8 @@ from PyQt5.QtGui import QColor, QPainter
 from logic.FistDimension import FirstDimension
 from logic.SecondDimension import SecondDimension
 from logic.Nucleation import Nucleation
+from logic.MonteCarlo import MonteCarlo
+
 from models.Cell import  Cell
 import numpy
 
@@ -27,6 +29,7 @@ class Ui_Dialog(QWidget):
         self.FirstDimensionObj = FirstDimension()
         self.SecondDimensionObj = SecondDimension()
         self.NucleationObj = Nucleation()
+        self.MonteCarloObj = MonteCarlo()
         self.width = 100
         self.iterations = 100
         self.rule = 90
@@ -77,7 +80,10 @@ class Ui_Dialog(QWidget):
         self.nucleation_height_2d = self.NucleationObj.return_height()
         self.nucleation_width_2d = self.NucleationObj.return_width()
         self.nucleation_iterations_2d = self.NucleationObj.return_iteration()
-        self.nucleation_boundary_conditions = "absorbing"
+        if self.NucleationObj.return_periodical():
+            self.nucleation_boundary_conditions = "periodical"
+        else:
+            self.nucleation_boundary_conditions = "absorbing"
         self.nucleation_neighbours_type = self.NucleationObj.return_nucleation_neighbour()
         self.nucleation_seeds_amount = self.NucleationObj.return_seeds_amount()
         self.nucleation_user_width = self.NucleationObj.return_width_amount()
@@ -91,29 +97,29 @@ class Ui_Dialog(QWidget):
 
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(1070, 500)
-        Dialog.setMinimumSize(QtCore.QSize(1070, 500))
-        Dialog.setMaximumSize(QtCore.QSize(1070, 500))
+        Dialog.resize(1250, 600)
+        Dialog.setMinimumSize(QtCore.QSize(1250, 600))
+        Dialog.setMaximumSize(QtCore.QSize(1250, 600))
         Dialog.setSizeIncrement(QtCore.QSize(10, 10))
         Dialog.setBaseSize(QtCore.QSize(100, 100))
         Dialog.setAutoFillBackground(True)
         self.horizontalWidget = QtWidgets.QWidget(Dialog)
-        self.horizontalWidget.setGeometry(QtCore.QRect(0, 10, 1061, 500))
-        self.horizontalWidget.setMinimumSize(QtCore.QSize(850, 500))
-        self.horizontalWidget.setMaximumSize(QtCore.QSize(1070, 500))
+        self.horizontalWidget.setGeometry(QtCore.QRect(0, 0, 1250, 600))
+        self.horizontalWidget.setMinimumSize(QtCore.QSize(1250, 600))
+        self.horizontalWidget.setMaximumSize(QtCore.QSize(1250, 600))
         self.horizontalWidget.setObjectName("horizontalWidget")
         self.mode_menu = QtWidgets.QHBoxLayout(self.horizontalWidget)
         self.mode_menu.setSizeConstraint(QtWidgets.QLayout.SetMaximumSize)
         self.mode_menu.setContentsMargins(0, 0, 0, 0)
         self.mode_menu.setObjectName("mode_menu")
         self.tabWidget = QtWidgets.QTabWidget(self.horizontalWidget)
-        self.tabWidget.setMinimumSize(QtCore.QSize(1070, 500))
-        self.tabWidget.setMaximumSize(QtCore.QSize(1070, 500))
+        self.tabWidget.setMinimumSize(QtCore.QSize(1350, 600))
+        self.tabWidget.setMaximumSize(QtCore.QSize(1350, 601))
         self.tabWidget.setObjectName("tabWidget")
         self.OneDimensionalTab = QtWidgets.QWidget()
         self.OneDimensionalTab.setObjectName("OneDimensionalTab")
         self.horizontalLayoutWidget_7 = QtWidgets.QWidget(self.OneDimensionalTab)
-        self.horizontalLayoutWidget_7.setGeometry(QtCore.QRect(0, 0, 1151, 466))
+        self.horizontalLayoutWidget_7.setGeometry(QtCore.QRect(0, 0, 1361, 606))
         self.horizontalLayoutWidget_7.setObjectName("horizontalLayoutWidget_7")
         self.horizontalLayout_4 = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget_7)
         self.horizontalLayout_4.setContentsMargins(0, 0, 0, 0)
@@ -199,19 +205,19 @@ class Ui_Dialog(QWidget):
         self.width_layout_horizontal.addWidget(self.restart_button_1d)
         self.formLayout.setLayout(1, QtWidgets.QFormLayout.LabelRole, self.width_layout_horizontal)
         self.graphic_ca_1d = QtWidgets.QGraphicsView(self.horizontalLayoutWidget_7)
-        self.graphic_ca_1d.setMinimumSize(QtCore.QSize(1050, 350))
-        self.graphic_ca_1d.setMaximumSize(QtCore.QSize(1050, 350))
+        self.graphic_ca_1d.setMinimumSize(QtCore.QSize(1350, 550))
+        self.graphic_ca_1d.setMaximumSize(QtCore.QSize(1050, 550))
         self.graphic_ca_1d.setObjectName("graphic_ca_1d")
         self.graphic_ca_1d.setScene(self.scene_1d)
         self.formLayout.setWidget(2, QtWidgets.QFormLayout.LabelRole, self.graphic_ca_1d)
         self.horizontalLayout_4.addLayout(self.formLayout)
         self.tabWidget.addTab(self.OneDimensionalTab, "")
         self.TwoDimensionalTab = QtWidgets.QWidget()
-        self.TwoDimensionalTab.setMinimumSize(QtCore.QSize(1070, 0))
-        self.TwoDimensionalTab.setMaximumSize(QtCore.QSize(1070, 16777215))
+        self.TwoDimensionalTab.setMinimumSize(QtCore.QSize(1350, 0))
+        self.TwoDimensionalTab.setMaximumSize(QtCore.QSize(1350, 16777215))
         self.TwoDimensionalTab.setObjectName("TwoDimensionalTab")
         self.formLayoutWidget_2 = QtWidgets.QWidget(self.TwoDimensionalTab)
-        self.formLayoutWidget_2.setGeometry(QtCore.QRect(-1, 9, 1418, 523))
+        self.formLayoutWidget_2.setGeometry(QtCore.QRect(0, -6, 1231, 1171))
         self.formLayoutWidget_2.setObjectName("formLayoutWidget_2")
         self.formLayout_2 = QtWidgets.QFormLayout(self.formLayoutWidget_2)
         self.formLayout_2.setContentsMargins(0, 0, 0, 0)
@@ -300,20 +306,22 @@ class Ui_Dialog(QWidget):
         self.verticalLayout_6 = QtWidgets.QVBoxLayout()
         self.verticalLayout_6.setObjectName("verticalLayout_6")
         self.graphic_ca_2d = QtWidgets.QGraphicsView(self.formLayoutWidget_2)
-        self.graphic_ca_2d.setMinimumSize(QtCore.QSize(700, 350))
-        self.graphic_ca_2d.setMaximumSize(QtCore.QSize(700, 350))
+        self.graphic_ca_2d.setMinimumSize(QtCore.QSize(700, 550))
+        self.graphic_ca_2d.setMaximumSize(QtCore.QSize(700, 550))
         self.graphic_ca_2d.setObjectName("graphic_ca_2d")
         self.verticalLayout_6.addWidget(self.graphic_ca_2d)
         self.graphic_ca_2d.setScene(self.scene_2d)
         self.formLayout_2.setLayout(2, QtWidgets.QFormLayout.LabelRole, self.verticalLayout_6)
         self.manualInputTextArea_2D = QtWidgets.QPlainTextEdit(self.formLayoutWidget_2)
+        self.manualInputTextArea_2D.setMinimumSize(QtCore.QSize(0, 550))
+        self.manualInputTextArea_2D.setMaximumSize(QtCore.QSize(16777215, 450))
         self.manualInputTextArea_2D.setObjectName("manualInputTextArea_2D")
         self.formLayout_2.setWidget(2, QtWidgets.QFormLayout.FieldRole, self.manualInputTextArea_2D)
         self.tabWidget.addTab(self.TwoDimensionalTab, "")
         self.nucleation_tab = QtWidgets.QWidget()
         self.nucleation_tab.setObjectName("nucleation_tab")
         self.formLayoutWidget_3 = QtWidgets.QWidget(self.nucleation_tab)
-        self.formLayoutWidget_3.setGeometry(QtCore.QRect(0, 0, 1051, 500))
+        self.formLayoutWidget_3.setGeometry(QtCore.QRect(0, 0, 1231, 593))
         self.formLayoutWidget_3.setObjectName("formLayoutWidget_3")
         self.formLayout_3 = QtWidgets.QFormLayout(self.formLayoutWidget_3)
         self.formLayout_3.setContentsMargins(0, 0, 0, 0)
@@ -322,12 +330,14 @@ class Ui_Dialog(QWidget):
         self.horizontalLayout_16.setObjectName("horizontalLayout_16")
         self.nucleation_scene = QtWidgets.QGraphicsScene()
         self.nucleation_graphic_ca_2d = QtWidgets.QGraphicsView(self.formLayoutWidget_3)
-        self.nucleation_graphic_ca_2d.setMinimumSize(QtCore.QSize(700, 350))
-        self.nucleation_graphic_ca_2d.setMaximumSize(QtCore.QSize(700, 16777215))
+        self.nucleation_graphic_ca_2d.setMinimumSize(QtCore.QSize(700, 500))
+        self.nucleation_graphic_ca_2d.setMaximumSize(QtCore.QSize(700, 450))
         self.nucleation_graphic_ca_2d.setObjectName("nucleation_graphic_ca_2d")
         self.horizontalLayout_16.addWidget(self.nucleation_graphic_ca_2d)
         self.nucleation_graphic_ca_2d.setScene(self.nucleation_scene)
         self.nucleation_manualInputTextArea_2D = QtWidgets.QPlainTextEdit(self.formLayoutWidget_3)
+        self.nucleation_manualInputTextArea_2D.setMinimumSize(QtCore.QSize(0, 500))
+        self.nucleation_manualInputTextArea_2D.setMaximumSize(QtCore.QSize(16777215, 450))
         self.nucleation_manualInputTextArea_2D.setObjectName("nucleation_manualInputTextArea_2D")
         self.horizontalLayout_16.addWidget(self.nucleation_manualInputTextArea_2D)
         self.formLayout_3.setLayout(3, QtWidgets.QFormLayout.SpanningRole, self.horizontalLayout_16)
@@ -453,15 +463,120 @@ class Ui_Dialog(QWidget):
         self.nucleation_neighbours_label.setObjectName("nucleation_neighbours_label")
         self.horizontalLayout.addWidget(self.nucleation_neighbours_label)
         self.nucleation_neighbours_text = QtWidgets.QTextEdit(self.formLayoutWidget_3)
-        self.nucleation_neighbours_text.setMinimumSize(QtCore.QSize(80, 22))
+        self.nucleation_neighbours_text.setMinimumSize(QtCore.QSize(100, 30))
         self.nucleation_neighbours_text.setMaximumSize(QtCore.QSize(80, 30))
         self.nucleation_neighbours_text.setObjectName("nucleation_neighbours_text")
         self.horizontalLayout.addWidget(self.nucleation_neighbours_text)
         self.formLayout_3.setLayout(2, QtWidgets.QFormLayout.LabelRole, self.horizontalLayout)
         self.tabWidget.addTab(self.nucleation_tab, "")
+        self.mc = QtWidgets.QWidget()
+        self.mc.setMinimumSize(QtCore.QSize(0, 600))
+        self.mc.setMaximumSize(QtCore.QSize(16777215, 600))
+        self.mc.setObjectName("mc")
+        self.formLayoutWidget_4 = QtWidgets.QWidget(self.mc)
+        self.formLayoutWidget_4.setGeometry(QtCore.QRect(0, 0, 1231, 661))
+        self.formLayoutWidget_4.setObjectName("formLayoutWidget_4")
+        self.formLayout_4 = QtWidgets.QFormLayout(self.formLayoutWidget_4)
+        self.formLayout_4.setContentsMargins(0, 0, 0, 0)
+        self.formLayout_4.setObjectName("formLayout_4")
+        self.horizontalLayout_11 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_11.setObjectName("horizontalLayout_11")
+        self.horizontalLayout_12 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_12.setObjectName("horizontalLayout_12")
+        self.width_layout_horizontal_5 = QtWidgets.QHBoxLayout()
+        self.width_layout_horizontal_5.setObjectName("width_layout_horizontal_5")
+        self.mc_kt_label = QtWidgets.QLabel(self.formLayoutWidget_4)
+        self.mc_kt_label.setMinimumSize(QtCore.QSize(40, 0))
+        self.mc_kt_label.setMaximumSize(QtCore.QSize(40, 16777215))
+        self.mc_kt_label.setObjectName("mc_kt_label")
+        self.width_layout_horizontal_5.addWidget(self.mc_kt_label)
+        self.mc_kt_text = QtWidgets.QTextEdit(self.formLayoutWidget_4)
+        self.mc_kt_text.setMinimumSize(QtCore.QSize(30, 30))
+        self.mc_kt_text.setMaximumSize(QtCore.QSize(30, 30))
+        self.mc_kt_text.setObjectName("mc_kt_text")
+        self.width_layout_horizontal_5.addWidget(self.mc_kt_text)
+        self.mc_iterations_label = QtWidgets.QLabel(self.formLayoutWidget_4)
+        self.mc_iterations_label.setMinimumSize(QtCore.QSize(60, 0))
+        self.mc_iterations_label.setMaximumSize(QtCore.QSize(60, 16777215))
+        self.mc_iterations_label.setObjectName("mc_iterations_label")
+        self.width_layout_horizontal_5.addWidget(self.mc_iterations_label)
+        self.mc_iteration_text = QtWidgets.QTextEdit(self.formLayoutWidget_4)
+        self.mc_iteration_text.setMinimumSize(QtCore.QSize(35, 30))
+        self.mc_iteration_text.setMaximumSize(QtCore.QSize(35, 30))
+        self.mc_iteration_text.setObjectName("mc_iteration_text")
+        self.width_layout_horizontal_5.addWidget(self.mc_iteration_text)
+        self.mc_bound_label = QtWidgets.QLabel(self.formLayoutWidget_4)
+        self.mc_bound_label.setMinimumSize(QtCore.QSize(40, 0))
+        self.mc_bound_label.setMaximumSize(QtCore.QSize(40, 16777215))
+        self.mc_bound_label.setObjectName("mc_bound_label")
+        self.width_layout_horizontal_5.addWidget(self.mc_bound_label)
+        self.mc_bound_periodical_text = QtWidgets.QTextEdit(self.formLayoutWidget_4)
+        self.mc_bound_periodical_text.setMinimumSize(QtCore.QSize(65, 30))
+        self.mc_bound_periodical_text.setMaximumSize(QtCore.QSize(65, 30))
+        self.mc_bound_periodical_text.setObjectName("mc_bound_periodical_text")
+        self.width_layout_horizontal_5.addWidget(self.mc_bound_periodical_text)
+        self.mc_neighbours_label = QtWidgets.QLabel(self.formLayoutWidget_4)
+        self.mc_neighbours_label.setMinimumSize(QtCore.QSize(80, 30))
+        self.mc_neighbours_label.setMaximumSize(QtCore.QSize(80, 30))
+        self.mc_neighbours_label.setObjectName("mc_neighbours_label")
+        self.width_layout_horizontal_5.addWidget(self.mc_neighbours_label)
+        self.mc_neighbours_text = QtWidgets.QTextEdit(self.formLayoutWidget_4)
+        self.mc_neighbours_text.setMinimumSize(QtCore.QSize(80, 22))
+        self.mc_neighbours_text.setMaximumSize(QtCore.QSize(80, 30))
+        self.mc_neighbours_text.setObjectName("mc_neighbours_text")
+        self.width_layout_horizontal_5.addWidget(self.mc_neighbours_text)
+        self.Mc_radius_label = QtWidgets.QLabel(self.formLayoutWidget_4)
+        self.Mc_radius_label.setMinimumSize(QtCore.QSize(100, 30))
+        self.Mc_radius_label.setMaximumSize(QtCore.QSize(100, 30))
+        self.Mc_radius_label.setObjectName("Mc_radius_label")
+        self.width_layout_horizontal_5.addWidget(self.Mc_radius_label)
+        self.Mc_Radius_text = QtWidgets.QPlainTextEdit(self.formLayoutWidget_4)
+        self.Mc_Radius_text.setMinimumSize(QtCore.QSize(100, 30))
+        self.Mc_Radius_text.setMaximumSize(QtCore.QSize(100, 30))
+        self.Mc_Radius_text.setObjectName("Mc_Radius_text")
+        self.width_layout_horizontal_5.addWidget(self.Mc_Radius_text)
+        self.horizontalLayout_12.addLayout(self.width_layout_horizontal_5)
+        self.horizontalLayout_11.addLayout(self.horizontalLayout_12)
+        self.mc_initializeGameButton_2D = QtWidgets.QPushButton(self.formLayoutWidget_4)
+        self.mc_initializeGameButton_2D.setMinimumSize(QtCore.QSize(55, 0))
+        self.mc_initializeGameButton_2D.setMaximumSize(QtCore.QSize(55, 16777215))
+        self.mc_initializeGameButton_2D.setObjectName("mc_initializeGameButton_2D")
+#        self.mc_initializeGameButton_2D.clicked.connect(self.mc_initialize_parameters)
+
+        self.horizontalLayout_11.addWidget(self.mc_initializeGameButton_2D)
+        self.mc_beginGameButton_2D_3 = QtWidgets.QPushButton(self.formLayoutWidget_4)
+        self.mc_beginGameButton_2D_3.setMinimumSize(QtCore.QSize(45, 0))
+        self.mc_beginGameButton_2D_3.setMaximumSize(QtCore.QSize(45, 16777215))
+        self.mc_beginGameButton_2D_3.setObjectName("mc_beginGameButton_2D_3")
+#        self.mc_beginGameButton_2D_3.clicked.connect(self.mc_begin_process)
+
+        self.horizontalLayout_11.addWidget(self.mc_beginGameButton_2D_3)
+        self.mc_restart_button_2d_2 = QtWidgets.QPushButton(self.formLayoutWidget_4)
+        self.mc_restart_button_2d_2.setMinimumSize(QtCore.QSize(55, 0))
+        self.mc_restart_button_2d_2.setMaximumSize(QtCore.QSize(55, 16777215))
+        self.mc_restart_button_2d_2.setObjectName("mc_restart_button_2d_2")
+ #       self.mc_restart_button_2d_2.clicked.connect(self.mc_restart_process)
+
+        self.horizontalLayout_11.addWidget(self.mc_restart_button_2d_2)
+        self.formLayout_4.setLayout(1, QtWidgets.QFormLayout.SpanningRole, self.horizontalLayout_11)
+        self.horizontalLayout_17 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_17.setObjectName("horizontalLayout_17")
+        self.mc_graphic_nucleation = QtWidgets.QGraphicsView(self.formLayoutWidget_4)
+        self.mc_graphic_nucleation.setMinimumSize(QtCore.QSize(600, 550))
+        self.mc_graphic_nucleation.setMaximumSize(QtCore.QSize(600, 550))
+        self.mc_graphic_nucleation.setObjectName("mc_graphic_nucleation")
+        self.horizontalLayout_17.addWidget(self.mc_graphic_nucleation)
+        self.mc_graphic_energy = QtWidgets.QGraphicsView(self.formLayoutWidget_4)
+        self.mc_graphic_energy.setMinimumSize(QtCore.QSize(600, 550))
+        self.mc_graphic_energy.setMaximumSize(QtCore.QSize(600, 550))
+        self.mc_graphic_energy.setObjectName("mc_graphic_energy")
+        self.horizontalLayout_17.addWidget(self.mc_graphic_energy)
+        self.formLayout_4.setLayout(2, QtWidgets.QFormLayout.SpanningRole, self.horizontalLayout_17)
+        self.tabWidget.addTab(self.mc, "")
         self.mode_menu.addWidget(self.tabWidget)
+
         self.retranslateUi(Dialog)
-        self.tabWidget.setCurrentIndex(2)
+        self.tabWidget.setCurrentIndex(3)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
     def retranslateUi(self, Dialog):
@@ -526,6 +641,79 @@ class Ui_Dialog(QWidget):
         self.nucleation_neighbours_label.setText(_translate("Dialog", "Neighbours"))
         self.nucleation_neighbours_text.setPlaceholderText(_translate("Dialog", str(self.nucleation_neighbours_type)))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.nucleation_tab), _translate("Dialog", "Nucleation"))
+        self.mc_kt_label.setText(_translate("Dialog", "kt"))
+        self.mc_kt_text.setPlaceholderText(_translate("Dialog", str(self.MonteCarloObj.return_kt())))
+        self.mc_iterations_label.setText(_translate("Dialog", "Iterations"))
+        self.mc_iteration_text.setPlaceholderText(_translate("Dialog", str(self.MonteCarloObj.return_iterations())))
+        self.mc_bound_label.setText(_translate("Dialog", "Bound"))
+        if self.MonteCarloObj.return_periodical():
+            self.mc_bound_periodical_text.setPlaceholderText(_translate("Diaglog","periodical"))
+        else:
+            self.mc_bound_periodical_text.setPlaceholderText(_translate("Dialog", "absorbing"))
+
+        self.mc_neighbours_label.setText(_translate("Dialog", "Neighbours"))
+        self.mc_neighbours_text.setPlaceholderText(_translate("Dialog", str(self.MonteCarloObj.return_neighbour_pattern())))
+        self.Mc_radius_label.setText(_translate("Dialog", "Radius"))
+        self.Mc_Radius_text.setPlaceholderText(_translate("Dialog", "5"))
+        self.mc_initializeGameButton_2D.setText(_translate("Dialog", "Initialize"))
+        self.mc_beginGameButton_2D_3.setText(_translate("Dialog", "Start"))
+        self.mc_restart_button_2d_2.setText(_translate("Dialog", "restart"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.mc), _translate("Dialog", "MC"))
+
+    @pyqtSlot()
+    def mc_initialize_parameters(self):
+        _translate = QtCore.QCoreApplication.translate
+        if str(self.mc_neighbours_text.toPlainText()) != "":
+            if str(self.mc_neighbours_text.toPlainText()) in self.NucleationObj.return_neighbour_array():
+                pattern_changed = True
+                self.nucleation_neighbours_type = str(self.nucleation_neighbours_text.toPlainText())
+                self.nucleation_neighbours_text.setPlaceholderText(
+                    _translate("Dialog", str(self.nucleation_neighbours_type)))
+                if self.nucleation_neighbours_type == "Pentagonal":
+                    pentagonal_patterns = ["PentagonalLeft", "PentagonalRight", "PentagonalDown", "PentagonalUp"]
+                    self.nucleation_neighbours_type = random.choice(pentagonal_patterns)
+                    print(self.nucleation_neighbours_type)
+                if self.nucleation_neighbours_type == "Hexagonal":
+                    hexagonal_patterns = ["HexagonalR", "HexagonalL"]
+                    self.nucleation_neighbours_type = random.choice(hexagonal_patterns)
+                    print(self.nucleation_neighbours_type)
+                if str(self.nucleation_neighbours_text.toPlainText()) == "Radius" and str(
+                        self.nucleation_radius_text.toPlainText()) != "" and str(
+                        self.nucleation_radius_text.toPlainText()).isdigit():
+                    self.nucleation_neighbour_radius = int(self.nucleation_radius_text.toPlainText())
+                    self.nucleation_radius_text.clear()
+
+                if str(self.nucleation_pattern_Text_2D.toPlainText()) == "radius" and str(
+                        self.nucleation_radius_text.toPlainText()) != "" and str(
+                    self.nucleation_radius_text.toPlainText()).isdigit():
+                    self.nucleation_radius = int(self.nucleation_radius_text.toPlainText())
+                    self.nucleation_radius_text.clear()
+
+                if str(self.nucleation_neighbours_text.toPlainText()) == "Radius" and str(self.nucleation_radius_text.toPlainText() == ""):
+                    self.nucleation_neighbour_radius = self.NucleationObj.return_neighbour_radius()
+                    self.nucleation_radius_text.clear()
+
+                if str(self.nucleation_pattern_Text_2D.toPlainText()) == "radius" and str(
+                        self.nucleation_radius_text.toPlainText() == ""):
+                    self.nucleation_radius = self.NucleationObj.return_radius()
+                    self.nucleation_radius_text.clear()
+
+                self.nucleation_neighbours_text.clear()
+            else:
+                self.nucleation_neighbours_text.clear()
+                self.nucleation_seeds_amount = int(self.nucleation_radius_text.toPlainText())
+                self.nucleation_radius_text.setPlaceholderText(
+                    _translate("Dialog", str(self.nucleation_seeds_amount)))
+                self.nucleation_radius_text.clear()
+
+        if str(self.nucleation_boundary_Text_2D_7.toPlainText()) != "": # boundary conditions = periodical
+            self.nucleation_boundary_conditions = str(self.nucleation_boundary_Text_2D_7.toPlainText())
+            if self.nucleation_boundary_conditions.lower() == "periodical":
+                self.nucleation_boundary_conditions = "periodical"
+            else:
+                self.nucleation_boundary_conditions = "absorbing"
+            self.nucleation_boundary_Text_2D_7.setPlaceholderText(_translate("Dialog", str(self.nucleation_boundary_conditions)))
+            self.nucleation_boundary_Text_2D_7.clear()
 
     @pyqtSlot()
     def restart_plot(self):
@@ -842,10 +1030,26 @@ class Ui_Dialog(QWidget):
                     hexagonal_patterns = ["HexagonalR","HexagonalL"]
                     self.nucleation_neighbours_type = random.choice(hexagonal_patterns)
                     print(self.nucleation_neighbours_type)
-                if self.nucleation_neighbours_type == "Radius" and str(self.nucleation_radius_text.toPlainText()) != "" and str(self.nucleation_radius_text.toPlainText()).isdigit():
+                if str(self.nucleation_neighbours_text.toPlainText()) == "Radius" and str(
+                        self.nucleation_radius_text.toPlainText()) != "" and str(
+                        self.nucleation_radius_text.toPlainText()).isdigit():
                     self.nucleation_neighbour_radius = int(self.nucleation_radius_text.toPlainText())
-                if self.nucleation_neighbours_type == "Radius" and str(self.nucleation_radius_text.toPlainText() == ""):
+                    self.nucleation_radius_text.clear()
+
+                if str(self.nucleation_pattern_Text_2D.toPlainText()) == "radius" and str(
+                        self.nucleation_radius_text.toPlainText()) != "" and str(
+                    self.nucleation_radius_text.toPlainText()).isdigit():
+                    self.nucleation_radius = int(self.nucleation_radius_text.toPlainText())
+                    self.nucleation_radius_text.clear()
+
+                if str(self.nucleation_neighbours_text.toPlainText()) == "Radius" and str(self.nucleation_radius_text.toPlainText() == ""):
                     self.nucleation_neighbour_radius = self.NucleationObj.return_neighbour_radius()
+                    self.nucleation_radius_text.clear()
+
+                if str(self.nucleation_pattern_Text_2D.toPlainText()) == "radius" and str(
+                        self.nucleation_radius_text.toPlainText() == ""):
+                    self.nucleation_radius = self.NucleationObj.return_radius()
+                    self.nucleation_radius_text.clear()
                 self.nucleation_neighbours_text.clear()
             else:
                 self.nucleation_neighbours_text.clear()
