@@ -7,7 +7,7 @@ import copy
 
 class Nucleation:
 
-    def __init__(self, width=40, height=40, iterations=10, pattern='random', periodical=False,
+    def __init__(self, width=30, height=30, iterations=10, pattern='random', periodical=False,
                  neighbours="PentagonalUp",
                  seeds_amount=3, width_amount=7, height_amount=8, radius=3, neighbour_radius=4):
         self.width = width

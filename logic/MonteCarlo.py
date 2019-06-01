@@ -18,6 +18,8 @@ class MonteCarlo:
             'HexagonalR': [[-1, 0], [-1, -1], [0, -1], [0, 1], [1, 1], [1, 0]],
             'Moore': [[-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [-1, -1], [1, 1]],
         }
+        self.pentagonal_array_states = ["PentagonalLeft", "PentagonalRight", "PentagonalDown", "PentagonalUp"]
+        self.hexagonal_array_states = ["HexagonalR", "HexagonalL"]
         self.border_seed_energy = 1
         self.shuffled_coordinates_array = None
 
@@ -34,6 +36,7 @@ class MonteCarlo:
         self.generated_microstructure = generated_microstructure
         self.shuffled_coordinates_array = numpy.array(
             [[row, column] for row in range(self.height) for column in range(self.width)])
+        #print(self.shuffled_coordinates_array)
 
 
 
@@ -62,8 +65,15 @@ class MonteCarlo:
             self.neighbour_radius = radius
 
     def iteration(self, input_array): #Todo, GUI, connect gui in main file
-        random.shuffle(self.shuffled_coordinates_array)
-        
+        numpy.random.shuffle(self.shuffled_coordinates_array)
+
+        if self.neighbour_pattern in self.pentagonal_array_states:
+            self.neighbour_pattern = random.choice(self.pentagonal_array_states)
+            # print(self.nucleation_neighbour)
+
+        if self.neighbour_pattern in self.hexagonal_array_states:
+            self.neighbour_pattern = random.choice(self.hexagonal_array_states)
+
         for random_coordinates in self.shuffled_coordinates_array:
             if self.neighbour_pattern == "Radius":
                 index_row = input_array[random_coordinates[0]][random_coordinates[1]].return_weight_center()[0]
@@ -72,11 +82,8 @@ class MonteCarlo:
                 index_row = random_coordinates[0]
                 index_column = random_coordinates[1]
 
-
             dictionary = {}
-
             energy_before = 0
-
 
             if self.neighbour_pattern == "Radius":  # range od punktu wspolrzednych do length of radius, lookup table
                 radius_counter = 0
@@ -168,8 +175,6 @@ class MonteCarlo:
                 for item in array_of_stuff:
                     current_row = index_row + item[0]
                     current_column = index_column + item[1]
-
-
                     if self.periodical:
                         if input_array[current_row % self.height][current_column % self.width].return_id() in dictionary:
                             dictionary[input_array[current_row % self.height][current_column % self.width].return_id()][0] += 1
@@ -182,16 +187,17 @@ class MonteCarlo:
                                 energy_before += 1
 
                     else:
-                        if self.height <= current_row or current_row < 0 or  self.width <= current_column or current_column < 0:
+                        if not self.height > current_row >= 0 or not self.width > current_column >= 0:
                             continue
 
                         if input_array[current_row][current_column].return_id() in dictionary:
                             dictionary[input_array[current_row][current_column].return_id()][0] += 1
                         else:
                             dictionary[input_array[current_row][current_column].return_id()] = [1, [input_array[current_row][current_column].return_colours_array()]]
-                        print(str(current_row)+" "+str(current_column)+" "+str(input_array[current_row][current_column].return_id())+" "+str(str(index_row)+" "+str(index_column))+" "+str(input_array[index_row][index_column].return_id()))
                         if input_array[current_row][current_column].return_id() != input_array[index_row][index_column].return_id():
                             energy_before += 1
+
+
                 random_index, amount_and_colors = random.choice(list(dictionary.items()))
                 energy_after = 8 - amount_and_colors[0]
 

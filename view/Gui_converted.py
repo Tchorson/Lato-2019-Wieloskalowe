@@ -53,6 +53,7 @@ class Ui_Dialog(QWidget):
         self.pattern_width_counter = 0
         self.pattern_height_counter = 0
         self.first_time_2d = True
+        self.first_drawing_mc = True
         self.counter_2d = 0
 
         self.height_2d = self.SecondDimensionObj.return_height()
@@ -110,6 +111,8 @@ class Ui_Dialog(QWidget):
 
         self.nucleation_to_mc_array = None
         self.mc_colours_nucleation_local_dictionary = None
+        self.first_drawing = True
+        self.is_energy_at_top = False
 
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
@@ -732,7 +735,7 @@ class Ui_Dialog(QWidget):
 
                 self.mc_neighbours_text.setPlaceholderText(_translate("Dialog", str(self.mc_neighbours_type)))
                 self.mc_neighbours_text.clear()
-                self.mc_restart_process()
+                self.mc_restart_energy_scene()
 
         if str(self.mc_iteration_text.toPlainText()) != "" and str(self.mc_iteration_text.toPlainText()).isdigit()and int(self.mc_iteration_text.toPlainText()) >= 1:
             self.mc_iterations = int(self.mc_iteration_text.toPlainText())
@@ -762,6 +765,7 @@ class Ui_Dialog(QWidget):
             self.nucleation_boundary_Text_2D_7.setPlaceholderText(_translate("Dialog", str(self.nucleation_boundary_conditions)))
             self.mc_bound_periodical_text.setPlaceholderText(_translate("Dialog", str(self.mc_periodical)))
             self.mc_bound_periodical_text.clear()
+            self.mc_restart_process()
 
         self.MonteCarloObj.set_parameters(self.mc_neighbours_type,self.mc_kt,self.mc_iterations,self.mc_periodical,self.mc_neighbour_radius)
 
@@ -773,12 +777,13 @@ class Ui_Dialog(QWidget):
 
     @pyqtSlot()
     def mc_begin_process(self):
+        self.array_if_is_drawn_mc = numpy.zeros([self.nucleation_height_2d,self.nucleation_width_2d])
 
         counter = self.mc_iterations
         print("\n\n")
         #try:
 
-        self.mc_energy_dictionary = {0: [255,255,255], 1: [30,0,30], 2 : [60,0,60], 3 : [90,0,90], 4 : [120, 0, 120], 5 : [150,0,150], 6: [180,0,180], 7: [210,0,210], 8 : [230,0,230]}
+        self.mc_energy_dictionary = {0: [255,255,255], 1: [30,30,30], 2 : [60,60,60], 3 : [90,90,90], 4 : [120, 120, 120], 5 : [150,150,150], 6: [180,180,180], 7: [210,210,210], 8 : [230,230,230]}
 
         self.mc_graphic_nucleation_scene.clear()
         self.mc_graphic_energy_scene.clear()
@@ -801,6 +806,7 @@ class Ui_Dialog(QWidget):
                     break
         else:
             self.mc_draw_mc_only(self.nucleation_to_mc_array)
+        self.first_drawing = False
         self.nucleation_to_mc_array = self.NucleationObj.next_iteration()
         self.mc_draw_mc_only(self.nucleation_to_mc_array)
 
@@ -823,10 +829,10 @@ class Ui_Dialog(QWidget):
         # except:
         #     self.mc_restart_process()
         #     self.mc_begin_process()
-        self.print_energy_array(self.nucleation_to_mc_array)
+        #self.print_energy_array(self.nucleation_to_mc_array)
 
-        print("=================================================================================")
-        self.print_id_array(self.nucleation_to_mc_array)
+        #print("=================================================================================")
+        #self.print_id_array(self.nucleation_to_mc_array)
 
     def mc_draw_empty_board_2d(self):
         self.mc_side = 3
@@ -865,30 +871,27 @@ class Ui_Dialog(QWidget):
                 colors_energy = self.mc_energy_dictionary[input_array_nucleation[row][column].return_energy()]
                 colors_array = self.mc_colours_nucleation_local_dictionary[input_array_nucleation[row][column].return_id()]
 
-                # line_up = QtCore.QLineF(column * self.mc_side, row * self.mc_side, column * self.mc_side + self.mc_side,row * self.mc_side)
-                # line_left = QtCore.QLineF(column * self.mc_side, row * self.mc_side, column * self.mc_side, row * self.mc_side + self.mc_side)
-                # line_down = QtCore.QLineF(column * self.mc_side, row * self.mc_side + self.mc_side,column * self.mc_side + self.mc_side, row * self.mc_side + self.mc_side)
-                # line_right = QtCore.QLineF(column * self.mc_side + self.mc_side, row * self.mc_side,column * self.mc_side + self.mc_side, row * self.mc_side + self.mc_side)
-
                 rectangle = QtCore.QRectF(QtCore.QPointF(column * self.mc_side, row * self.mc_side),
                                           QtCore.QSizeF(self.mc_side, self.mc_side))
 
-                # self.mc_graphic_energy_scene.addLine(line_up, QtGui.QPen(QColor(colors_energy[0],colors_energy[1],colors_energy[2])))
-                # self.mc_graphic_energy_scene.addLine(line_left, QtGui.QPen(QColor(colors_energy[0],colors_energy[1],colors_energy[2])))
-                # self.mc_graphic_energy_scene.addLine(line_down, QtGui.QPen(QColor(colors_energy[0],colors_energy[1],colors_energy[2])))
-                # self.mc_graphic_energy_scene.addLine(line_right, QtGui.QPen(QColor(colors_energy[0],colors_energy[1],colors_energy[2])))
                 self.mc_graphic_energy_scene.addRect(rectangle,QtGui.QPen(QColor(colors_energy[0],colors_energy[1],colors_energy[2])))
                 self.mc_graphic_nucleation_scene.addRect(rectangle, QtGui.QPen(QColor(colors_array[0],colors_array[1],colors_array[2])))
 
     def mc_draw_mc_only(self, input_array_nucleation):
+
         self.mc_side = 3
         for row in range(self.mc_height):
             for column in range(self.mc_width):
-                if input_array_nucleation[row][column].id == 0 or input_array_nucleation[row][column].return_colours_array() == [255,255,255]:#or self.array_if_is_drawn[row][column]:
-                    continue
+                if self.first_drawing_mc:
+                    if input_array_nucleation[row][column].id == 0 or input_array_nucleation[row][column].return_colours_array() == [255,255,255] or self.array_if_is_drawn_mc[row][column] == 2:
+                        continue
+                else:
+                    if input_array_nucleation[row][column].id == 0 or input_array_nucleation[row][column].return_colours_array() == [255,255,255]:
+                        continue
                 if input_array_nucleation[row][column].return_id() not in self.mc_colours_nucleation_local_dictionary:
                     self.mc_colours_nucleation_local_dictionary[input_array_nucleation[row][column].return_id()] = \
                         input_array_nucleation[row][column].return_colours_array()
+                self.array_if_is_drawn_mc[row][column]+=1
 
                 colors_array = self.mc_colours_nucleation_local_dictionary[
                     input_array_nucleation[row][column].return_id()]
@@ -899,8 +902,14 @@ class Ui_Dialog(QWidget):
                 self.mc_graphic_nucleation_scene.addRect(rectangle, QtGui.QPen(
                     QColor(colors_array[0], colors_array[1], colors_array[2])))
 
+    def mc_restart_energy_scene(self):
+        self.mc_graphic_energy_scene.clear()
+
+
     @pyqtSlot()
     def mc_restart_process(self):
+        self.first_drawing = True
+        self.array_if_is_drawn_mc = numpy.zeros([self.nucleation_height_2d,self.nucleation_width_2d])
 
         self.mc_graphic_nucleation_scene.clear()
         self.mc_graphic_energy_scene.clear()

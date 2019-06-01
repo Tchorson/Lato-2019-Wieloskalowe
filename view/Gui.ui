@@ -1425,6 +1425,13 @@
              </property>
             </widget>
            </item>
+           <item>
+            <widget class="QPushButton" name="mc_change_structure">
+             <property name="text">
+              <string>Show structure</string>
+             </property>
+            </widget>
+           </item>
           </layout>
          </item>
          <item row="2" column="0" colspan="2">
