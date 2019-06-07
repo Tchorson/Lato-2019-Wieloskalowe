@@ -17,6 +17,7 @@ from logic.FistDimension import FirstDimension
 from logic.SecondDimension import SecondDimension
 from logic.Nucleation import Nucleation
 from logic.MonteCarlo import MonteCarlo
+from logic.Recrystallization import Recrystallization
 
 from models.Cell import  Cell
 import numpy
@@ -113,6 +114,9 @@ class Ui_Dialog(QWidget):
         self.mc_colours_nucleation_local_dictionary = None
         self.first_drawing = True
         self.is_energy_at_top = False
+        self.RecrystallizationObj = Recrystallization(self.mc_height,self.mc_width)
+        self.recrystallization_ro_critical = 1686336057
+        self.dictionary_seeds_colour = {}
 
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
@@ -776,7 +780,8 @@ class Ui_Dialog(QWidget):
         self.mc_iteration_text.clear()
 
     @pyqtSlot()
-    def mc_begin_process(self):
+    def mc_begin_process(self): #Todo
+        self.dictionary_seeds_colour = {}
         self.array_if_is_drawn_mc = numpy.zeros([self.nucleation_height_2d,self.nucleation_width_2d])
 
         counter = self.mc_iterations
@@ -833,6 +838,104 @@ class Ui_Dialog(QWidget):
 
         #print("=================================================================================")
         #self.print_id_array(self.nucleation_to_mc_array)
+
+        QtTest.QTest.qWait(4000)
+        self.mc_graphic_nucleation_scene.clear()
+
+        file = open("results.txt","w+")
+        file.truncate(0)
+        #dislocation_sum = 0
+        inside_cells = []
+        border_cells = []
+        self.sort_cells_by_energy(self.nucleation_to_mc_array,inside_cells,border_cells)
+
+        for recrystallization_iteration_index in range(65):
+            dislocation_sum = 0
+            #print(recrystallization_iteration_index)
+
+            self.delta_ro = self.RecrystallizationObj.return_delta_ro()
+            #self.ro = self.RecrystallizationObj.return_ro()
+            self.average_cell_ro = self.delta_ro/(self.mc_width * self.mc_height)
+
+            self.part_from_average_ro = self.average_cell_ro * 0.3
+            #print(str(recrystallization_iteration_index) + " average ro " + str(self.average_ro) + " " + str(self.part_from_average_ro))
+            for index_row in range(self.mc_height):
+                for index_column in range(self.mc_width):
+                    self.nucleation_to_mc_array[index_row][index_column].set_dislocation_density(self.nucleation_to_mc_array[index_row][index_column].return_dislocation_density() + self.part_from_average_ro)
+                    self.delta_ro = self.delta_ro - self.part_from_average_ro
+
+            self.small_portion = 0.001 * self.delta_ro
+
+            while self.delta_ro > 0:
+                self.delta_ro = self.delta_ro - self.small_portion
+
+                if self.propability_of_density_incremention():
+                    coordinates = random.choice(border_cells)
+                else:
+                    coordinates = random.choice(inside_cells)
+
+                self.nucleation_to_mc_array[coordinates[0]][coordinates[1]].set_dislocation_density(
+                    self.nucleation_to_mc_array[coordinates[0]][coordinates[1]].return_dislocation_density() + self.small_portion)
+            self.nucleation_to_mc_array = self.draw_recrystallization(self.nucleation_to_mc_array,recrystallization_iteration_index)
+            #dislocation_sum += self.RecrystallizationObj.return_average_ro()
+
+            for row in range(self.mc_height):
+                for column in range(self.mc_width):
+                    dislocation_sum+= self.nucleation_to_mc_array[row][column].return_dislocation_density()
+
+            file.write(str(dislocation_sum) + "\n")
+
+
+            QtTest.QTest.qWait(1000)
+            self.RecrystallizationObj.iteration()
+
+        self.print_density_array(self.nucleation_to_mc_array)
+        file.close()
+
+    def print_density_array(self,input):
+        for row in range(self.mc_height):
+            for column in range(self.mc_width):
+                print(input[row][column].return_dislocation_density(), end=' ')
+            print("\n")
+
+    def draw_recrystallization(self,array,recrystallization_iteration_index):
+        self.mc_side = 3
+        for row in range(self.mc_height):
+            for column in range(self.mc_width):
+                if array[row][column].return_dislocation_density() > self.recrystallization_ro_critical and array[row][column].return_energy() >0:
+                    print(" RECRYSTALIZATION REACHED "+str(row)+" "+str(column))
+
+                    if recrystallization_iteration_index not in self.dictionary_seeds_colour:
+                        self.dictionary_seeds_colour[recrystallization_iteration_index] = [random.randint(0,255),random.randint(0,255),random.randint(0,255)]
+
+                    array[row][column].set_id(recrystallization_iteration_index)
+                    array[row][column].set_colours_array(self.dictionary_seeds_colour[recrystallization_iteration_index])
+
+                    test_array = array[row][column].return_colours_array()
+
+                    while len(test_array) == 1:
+                        test_array = test_array[0]
+                        #self.dictionary_seeds_colour[array[row][column].return_id()] = array[row][column].return_colours_array()
+
+                    rectangle_energy = QtCore.QRectF(QtCore.QPointF(column * self.mc_side, row * self.mc_side),
+                                                     QtCore.QSizeF(self.mc_side, self.mc_side))
+                    self.mc_graphic_nucleation_scene.addRect(rectangle_energy, QtGui.QPen(QColor(test_array[0],test_array[1],test_array[2])))
+                    array[row][column].set_energy(0)
+        return array
+    def sort_cells_by_energy(self,array,inside,borders):
+        for row in range(self.mc_height):
+            for column in range(self.mc_width):
+                if array[row][column].return_energy() > 0:
+                    borders.append([row,column])
+                else:
+                    inside.append([row,column])
+
+
+    def propability_of_density_incremention(self):
+        propability = random.randint(0,100)
+        if  propability > 20:
+            return True
+        return False
 
     def mc_draw_empty_board_2d(self):
         self.mc_side = 3
@@ -1482,3 +1585,29 @@ class Ui_Dialog(QWidget):
             for column in range(self.mc_width):
                 input[row][column].set_energy(0)
         return input
+
+
+    # przepatrzyc wyklad, zwrocic uwage na kilka aspektow np.  ze sa metody siatkowe i sa rozne, mes, brzegowe, bezsiatkowe, czym sie roznia nazwy metod
+    # ktore sa z siatka i bez siatki, co to sa modele materialow rownanie konstytutywne model geologiczne, modele opiisujacen aprezenia odplystacniajace
+    # umocnienie zdrowienie rekrystalizacja, modele konwencjonalne, naprezenie funkcja oksztalcenia wady modeli, wady modele wewnetrzne rownania rozniczkowe jakie sa wady jakei sa zalety i ze mozemy automaty tam dac
+    # znali klasyfikacje metod iweloskalowych bierzemy konwencjonalne marko podpinamy rownania rozniczkoewe albo zastapiamy automatami
+    #
+    # upscalle i concarrent podzial istony  concurrent
+    #
+    # metoda uatomatow 3 podstawowe definicje fundamenty fundamentow
+    # rozne otoczenia poza von neumanem itp sa losowe sasiedztwa pseudoloswe i margullusa
+    # poza klasycznymi sa niestandardowe
+    # co to reguly przejscia kluczowe ze wszystko bazuje na poprzednim kroku zasowym
+    # klasyfikacja automatow komorkowych
+    # roznica automatow propabilistycznych totalitarystyczne itp
+    # reguly , rozpisac 90 albo zobaczyc zebu imiec okreslic jaka to jest regula z rysunkku
+    # warunki brzegowe periodyczne itp
+    # gra w zycie, co to gra fredkina, pozostale raczej nie, gra fredkina raczej tak
+    # co to jest metoda kafe, problem zwiazany z przebudowa siatki i dlaczego to jest problem, tym sprawdza wszystko na 3 terminie
+    # automaty komorkowe mes wieloskalowosc krok czasowy
+    # tworzenie cafe
+    # monte carlo, tworzenie monte carlo algorytm monte carlo, z czego wynika energia jak sie wylicza, hamiltonian
+    # identyfikacja, analiza odwrotna, jaka jest koncepcja (dzisiejszy wyklad) low balancing problem implementacja, zastosowania
+    # mikrostruktury to podsumowanie, metody siatkowe bezsiatkowe, roznice, automaty mc i wieloskalowac */
+    #zerowka opisowka, 1,2 pyania mc automaty modele siatkowe,
+    # automaty monte carlo, cos z metodami siatkowymi, rzadkosc, najbardziej standardowe, waruni brzegowe , 3 definicje w automacie, rodzaje sasiedztw, czasem algorytm mc

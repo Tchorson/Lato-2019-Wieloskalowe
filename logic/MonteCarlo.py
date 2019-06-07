@@ -2,7 +2,7 @@ import random,math,numpy,copy
 
 class MonteCarlo:
 
-    def __init__(self, iterations=2, kt=0.5, periodical=True, neighbour_pattern="Moore", neighbour_radius = 4): #Todo create gui functions & logic, fix montecarlo logic so it can be compatible with gui
+    def __init__(self, iterations=1, kt=0.5, periodical=True, neighbour_pattern="Moore", neighbour_radius = 4): #Todo create gui functions & logic, fix montecarlo logic so it can be compatible with gui
         self.iterations = iterations
         self.kt = kt
         self.periodical = periodical

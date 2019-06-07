@@ -5,6 +5,8 @@ class Cell:
     id = 0
     colours = [255, 255, 255]
     weight_center = [0.0, 0.0]
+    dislocation_density = 0.0
+    is_recrystallised = False
 
     def __init__(self, input_alive = False, colours = [255,255,255], weight_center = [-1,-1],energy = -1):
         self.is_alive = input_alive
@@ -25,6 +27,18 @@ class Cell:
 
     def return_state(self):
         return self.is_alive
+
+    def set_recrystallised(self,recrystallised):
+        self.is_recrystallised = recrystallised
+
+    def return_recrystallised(self):
+        return self.is_recrystallised
+
+    def set_dislocation_density(self,dislocation):
+        self.dislocation_density = dislocation
+
+    def return_dislocation_density(self):
+        return self.dislocation_density
 
     def set_id(self,input_id):
         self.id = input_id
